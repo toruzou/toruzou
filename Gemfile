@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+rubyVersion = "2.0"
+if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new(rubyVersion)
+  puts "You have to use Ruby #{rubyVersion}+ (Your version is #{RUBY_VERSION})"
+  exit 1
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -43,7 +49,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'pry-colline'
+  gem 'pry-coolline'
   gem 'pry-rails'
 end
 
