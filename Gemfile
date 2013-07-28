@@ -42,7 +42,7 @@ end
 
 group :development do
   gem 'spring'
-  gem "compass"
+  gem "compass-rails"
   gem "zurb-foundation"
 end
 
