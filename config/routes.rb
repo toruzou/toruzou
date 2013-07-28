@@ -53,4 +53,8 @@ Toruzou::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  regex = /\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$/
+  get "*path", :to => "welcome#index", :constraints => lambda { |req| !req.path.match regex }
+
 end

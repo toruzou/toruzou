@@ -6,6 +6,12 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+require 'sprockets'
+env = Sprockets::Environment.new
+
+require 'handlebars_assets'
+env.append_path HandlebarsAssets.path
+
 module Toruzou
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -19,5 +25,6 @@ module Toruzou
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.assets.paths << Rails.root.join("vendor", "assets", "components")
   end
 end

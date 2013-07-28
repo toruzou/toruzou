@@ -26,10 +26,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+# gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 1.2'
@@ -42,8 +42,9 @@ end
 
 group :development do
   gem 'spring'
-  gem "compass-rails"
-  gem "zurb-foundation"
+  gem "compass-rails", '>= 1.0.3'
+  gem "zurb-foundation", '>= 4.3.1'
+  gem "handlebars_assets", '>= 0.14.1'
 end
 
 group :development, :test do
