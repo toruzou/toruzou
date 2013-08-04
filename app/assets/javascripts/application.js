@@ -12,6 +12,7 @@
 //
 //= require vendor/zepto
 //= require foundation
+//= require handlebars/handlebars.runtime
 //= require underscore/underscore
 //= require backbone/backbone
 //= require_tree .
