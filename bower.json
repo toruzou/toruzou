@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "dependencies": {
     "underscore": "latest",
+    "underscore.string": "latest",
     "backbone": "latest",
+    "backbone.marionette": "latest",
     "handlebars": "latest"
   }
 }

@@ -14,7 +14,11 @@
 //= require foundation
 //= require handlebars/handlebars.runtime
 //= require underscore/underscore
+//= require underscore.string/lib/underscore.string
 //= require backbone/backbone
+//= require backbone.babysitter/lib/backbone.babysitter
+//= require backbone.wreqr/lib/backbone.wreqr
+//= require backbone.marionette/lib/backbone.marionette
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
