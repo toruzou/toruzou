@@ -1,9 +1,10 @@
 Toruzou::Application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -55,6 +56,6 @@ Toruzou::Application.routes.draw do
   #   end
 
   regex = /\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$/
-  get "*path", :to => "welcome#index", :constraints => lambda { |req| !req.path.match regex }
+  get "*path", :to => "home#index", :constraints => lambda { |req| !req.path.match regex }
 
 end
