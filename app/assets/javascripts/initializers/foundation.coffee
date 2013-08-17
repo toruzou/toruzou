@@ -1,0 +1,1 @@
+Toruzou.addInitializer -> $(document).foundation()

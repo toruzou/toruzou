@@ -4,7 +4,7 @@ Toruzou::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'index#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -56,6 +56,6 @@ Toruzou::Application.routes.draw do
   #   end
 
   regex = /\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$/
-  get "*path", :to => "home#index", :constraints => lambda { |req| !req.path.match regex }
+  # get "*path", :to => "index#index", :constraints => lambda { |req| !req.path.match regex }
 
 end

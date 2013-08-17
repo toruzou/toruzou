@@ -44,7 +44,7 @@ end
 
 group :development do
   gem 'spring'
-  gem "compass-rails", '>= 1.0.3'
+  gem "compass-rails", '>= 2.0.alpha.0'
   gem "zurb-foundation", '>= 4.3.1'
   gem "handlebars_assets", '>= 0.14.1'
 end

@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require vendor/zepto
+//= require jquery/jquery
 //= require foundation
 //= require handlebars/handlebars.runtime
 //= require underscore/underscore
@@ -19,6 +19,6 @@
 //= require backbone.babysitter/lib/backbone.babysitter
 //= require backbone.wreqr/lib/backbone.wreqr
 //= require backbone.marionette/lib/backbone.marionette
+//= require backbone-forms/distribution/backbone-forms
+//= require bootstrap
 //= require_tree .
-
-$(function(){ $(document).foundation(); });
