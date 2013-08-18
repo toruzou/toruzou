@@ -49,6 +49,7 @@ group :development do
   gem "handlebars_assets", '>= 0.14.1'
 end
 
+# Console Tools 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
@@ -56,6 +57,20 @@ group :development, :test do
   gem 'pry-coolline'
   gem 'pry-rails'
 end
+
+# Local Testing Tools
+group :development, :test do
+  gem 'growl'
+  gem 'guard'
+  gem 'rspec-rails', '~>2.14.0'
+  gem 'json_spec', '1.1.1'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'spork', '1.0.0rc3'
+end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
