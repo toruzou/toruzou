@@ -40,6 +40,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -47,6 +48,12 @@ GEM
     compass-rails (2.0.alpha.0)
       compass (>= 0.12.2, < 0.14)
     coolline (0.4.2)
+    debugger (1.6.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     devise (3.0.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -81,6 +88,9 @@ GEM
     pry-coolline (0.2.2)
       coolline (~> 0.3)
       io-console (~> 0.3.0)
+    pry-debugger (0.2.2)
+      debugger (~> 1.3)
+      pry (~> 0.9.10)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
     pry-rails (0.3.2)
@@ -151,6 +161,7 @@ DEPENDENCIES
   pg
   pry
   pry-coolline
+  pry-debugger
   pry-nav
   pry-rails
   rails (= 4.0.0)
