@@ -7,3 +7,8 @@
     from { opacity: 0; }
       to { opacity: 1; }
 }
+
+@mixin fadeIn($duration) {
+    -webkit-animation: fadeIn $duration;
+    animation: fadeIn $duration;
+}

@@ -14,6 +14,7 @@
 @mixin notification($color) {
   @incldue alert-base;
   @include alert-style(rgba($color, 0.1));
+  @include fadeIn(1s);
   color: $color;
   border: none;
   padding: 1em;
