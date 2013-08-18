@@ -1,0 +1,15 @@
+<div class="notification-{{type}}">
+  {{#if title}}
+  <h6>{{title}}</h6>
+  {{/if}}
+  {{#if message}}
+  <span class="message">{{message}}</span>
+  {{/if}}
+  {{#if messages}}
+  <ul>
+    {{#each messages}}
+    <li class="message">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>

@@ -11,18 +11,23 @@
   }
 }
 
-.alert {
+@mixin notification($color) {
   @incldue alert-base;
+  @include alert-style(rgba($color, 0.1));
+  color: $color;
   border: none;
   padding: 1em;
+  h1, h2, h3, h4, h5, h6 {
+    color: $color;
+  }
+  ul {
+    margin-bottom: 0;
+    margin-left: 1.25em;
+  }
 }
-.alert-error {
-  @extend .alert;
-  @include alert-style(rgba($alert-color, 0.1));
-  color: $alert-color;
+.notification-error {
+  @include notification($alert-color);
 }
-.alert-success {
-  @extend .alert;
-  @include alert-style(rgba($success-color, 0.1));
-  color: $success-color;
+.notification-success {
+  @include notification($success-color);
 }
