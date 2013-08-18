@@ -5,7 +5,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Models.UserSession = class UserSession extends Backbone.Model
 
-    url: "users/sign_in"
+    url: Models.endpoint "users/sign_in"
     modelName: "user"
 
     defaults:
@@ -23,7 +23,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Models.UserRegistration = class UserRegistration extends Backbone.Model
 
-    url: "users"
+    url: Models.endpoint "users"
     modelName: "user"
 
     defaults:
@@ -48,7 +48,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Models.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
 
-    url: "users/password"
+    url: Models.endpoint "users/password"
     modelName: "user"
 
     defaults:

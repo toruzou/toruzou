@@ -1,5 +1,18 @@
 Toruzou::Application.routes.draw do
-  devise_for :users
+
+  scope :api do
+    scope :v1 do
+      devise_for :users
+    end
+  end
+
+  # Other API Controllers should be placed here.
+  # namespace :api do
+  #   namespace :v1 do
+  #     devise_for :users
+  #   end
+  # end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,7 +68,8 @@ Toruzou::Application.routes.draw do
   #     resources :products
   #   end
 
-  regex = /\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$/
+  # Workaround for development
+  regex = /(^\/rails\/info\/.*)|(\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$)/
   get "*path", :to => "index#index", :constraints => lambda { |req| !req.path.match regex }
 
 end

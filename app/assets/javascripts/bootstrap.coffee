@@ -3,6 +3,11 @@
 root = exports ? this
 Toruzou = root.Toruzou = new Marionette.Application()
 
+Toruzou.Configuration =
+  root: "/"
+  api:
+    version: "v1"
+
 Toruzou.Launcher =
   launch: (root) ->
     @handleAnchors root
@@ -26,6 +31,6 @@ Toruzou.addRegions
   mainRegion: "#application"
   
 Toruzou.on "initialize:after", ->
-  Toruzou.Launcher.launch "/"
+  Toruzou.Launcher.launch Toruzou.Configuration.root
   if Backbone.history.fragment is ""
     Toruzou.trigger "users:signIn"
