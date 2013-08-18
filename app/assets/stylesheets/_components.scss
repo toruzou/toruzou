@@ -111,8 +111,7 @@ form {
 .section-container {
     &.accordion {
         > section.active {
-            -webkit-animation: fadeIn .7s;
-            animation: fadeIn .7s;
+            @include fadeIn(.7s);
             .title {
                 background: $body-bg;
                 border-bottom: 0;
