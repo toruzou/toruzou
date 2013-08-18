@@ -1,0 +1,13 @@
+@mixin gradient-top-lighten($base-color: $body-bg, $lighten: 10%) {
+    background-color: $base-color;
+    @include filter-gradient(lighten($base-color, $lighten), $base-color, vertical);
+    @include background-image(linear-gradient(lighten($base-color, $lighten) 0%, $base-color 100%));
+}
+@mixin gradient-bg($base-color: $body-bg, $lighten: 10%) {
+    @include gradient-top-lighten($base-color: $base-color, $lighten: $lighten);
+    $active-color: darken($base-color, 5%);
+    &:hover, &:focus {
+        @include gradient-top-lighten($base-color: $active-color, $lighten: 20%);
+    }
+    
+}

@@ -11,5 +11,5 @@
  *= require_self
  *= require font-awesome/scss/font-awesome
  *= require foundation_and_overrides
- *= require_tree .
+ *= require main
  */

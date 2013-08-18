@@ -1,0 +1,28 @@
+.error {
+  div[data-error] {
+    color: #ea4c37;
+    padding: 0.5em 0 1.5em 0;
+    font-size: emCalc(12);
+    font-weight: normal;
+  }
+  label,
+  label a {
+    color: $alert-color;
+  }
+}
+
+.alert {
+  @incldue alert-base;
+  border: none;
+  padding: 1em;
+}
+.alert-error {
+  @extend .alert;
+  @include alert-style(rgba($alert-color, 0.1));
+  color: $alert-color;
+}
+.alert-success {
+  @extend .alert;
+  @include alert-style(rgba($success-color, 0.1));
+  color: $success-color;
+}

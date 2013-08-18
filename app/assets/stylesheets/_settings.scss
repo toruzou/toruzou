@@ -1,0 +1,55 @@
+//----------------------------------------------------------------------------
+// Additional Settings
+//----------------------------------------------------------------------------
+
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+$focus-accent-color: #81dcc2;
+$well-bg-color: #f6f6f6;
+$well-border-color: #dddddd;
+$well-color: #f1f1f1;
+
+
+//----------------------------------------------------------------------------
+// Settings Override
+//----------------------------------------------------------------------------
+
+$body-font-color: #666;
+$body-font-family: "Lato", Calibri, Arial, sans-serif;
+
+$primary-color: #47b179;
+$secondary-color: #ebca55;
+$alert-color: #e65d31;
+$success-color: #5d90b0;
+
+$header-font-family: inherit;
+$header-font-color: #333;
+
+$form-label-font-color: $body-font-color;
+$form-label-bottom-margin: emCalc(8px);
+$input-focus-bg-color: lighten($focus-accent-color, 35%);
+$input-focus-border-color: $focus-accent-color;
+$input-border-color: $well-border-color;
+
+$input-prefix-bg: $well-color;
+$input-prefix-border-color: $well-border-color;
+
+$button-font-color-alt: $body-font-color;
+$button-font-weight: normal;
+$button-radius: 4px;
+
+$panel-bg: $well-bg-color;
+$panel-border-style: none;
+$panel-border-color: $panel-bg;
+$panel-font-color: inherit;
+
+$topbar-bg: #374953;
+$topbar-dropdown-bg: $topbar-bg;
+$topbar-link-weight: normal;
+$topbar-link-font-size: emCalc(15px);
+$topbar-dropdown-label-color: #333;
+$topbar-dropdown-label-font-weight: normal;
+$topbar-dropdown-label-font-size: emCalc(13px);
+$topbar-menu-link-font-size: emCalc(15px);
+$topbar-menu-link-weight: normal;
+$topbar-menu-icon-color-toggled: #fff;
