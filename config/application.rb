@@ -26,5 +26,9 @@ module Toruzou
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.paths << Rails.root.join("vendor", "assets", "components")
+    config.to_prepare do
+      Devise::SessionsController.skip_before_action :authenticate_user!
+      DeviseController.respond_to :html, :json
+    end
   end
 end
