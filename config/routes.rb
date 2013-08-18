@@ -56,6 +56,6 @@ Toruzou::Application.routes.draw do
   #   end
 
   regex = /\.(html|js|css|swf|jp(e?)g|png|gif|eot|svg|ttf|woff|otf)$/
-  # get "*path", :to => "index#index", :constraints => lambda { |req| !req.path.match regex }
+  get "*path", :to => "index#index", :constraints => lambda { |req| !req.path.match regex }
 
 end
