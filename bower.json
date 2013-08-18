@@ -9,6 +9,8 @@
     "backbone.marionette": "latest",
     "backbone-forms": "latest",
     "handlebars": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "backbone.babysitter": "latest",
+    "backbone.wreqr": "latest"
   }
 }
