@@ -2,8 +2,5 @@ Toruzou.module "Users.RetrievePassword", (RetrievePassword, Toruzou, Backbone, M
 
   RetrievePassword.Controller =
     show: ->
-      layout = new Toruzou.Common.UnauthenticatedLayout()
-      view = new RetrievePassword.View()
-      layout.on "show", -> layout.mainRegion.show view
-      Toruzou.mainRegion.show layout
-      
+      layout = Toruzou.Common.UnauthenticatedLayout.show()
+      layout.mainRegion.show new RetrievePassword.View()
