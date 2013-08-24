@@ -14,4 +14,4 @@ Toruzou.addInitializer ->
 
   setError = Backbone.Form.Field::setError
   Backbone.Form.Field::setError = (message) ->
-    setError.call @, "<i class=\"icon-warning-sign\"></i> #{message}"
+    setError.call @, "<i class=\"icon-warning-sign icon-inline-prefix\"></i>#{message}"
