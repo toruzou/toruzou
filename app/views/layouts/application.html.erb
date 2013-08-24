@@ -12,8 +12,7 @@
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="antialiased off-canvas hide-extras">
-    <div id="application"></div>
+  <body id="application" class="antialiased">
     <%= javascript_include_tag "application" %>
     <script type="text/javascript">
       Toruzou.start();
