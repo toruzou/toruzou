@@ -1,0 +1,17 @@
+$checkboxWidth: 20px !default;
+
+.backgrid {
+    thead th {
+        font-weight: normal;
+    }
+    td {
+        white-space: pre;
+        word-wrap: break-word;
+    }
+    .select-all-header-cell {
+        width: $checkboxWidth;
+    }
+    .select-row-cell {
+        width: $checkboxWidth;
+    }
+}

@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery/jquery
+//= require momentjs/moment
 //= require foundation
 //= require handlebars/handlebars.runtime
 //= require underscore/underscore
@@ -20,5 +21,10 @@
 //= require backbone.wreqr/lib/backbone.wreqr
 //= require backbone.marionette/lib/backbone.marionette
 //= require backbone-forms/distribution/backbone-forms
+//= require backbone-pageable/lib/backbone-pageable
+//= require backgrid/lib/backgrid
+//= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
+//= require backgrid/lib/extensions/paginator/backgrid-paginator
+//= require backgrid/lib/extensions/select-all/backgrid-select-all
 //= require bootstrap
 //= require_tree .

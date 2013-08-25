@@ -11,5 +11,9 @@
  *= require_self
  *= require font-awesome/scss/font-awesome
  *= require foundation_and_overrides
+ *= require backgrid/lib/backgrid
+ *= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
+ *= require backgrid/lib/extensions/paginator/backgrid-paginator
+ *= require backgrid/lib/extensions/select-all/backgrid-select-all
  *= require main
  */
