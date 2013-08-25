@@ -8,6 +8,8 @@
     "backbone": "latest",
     "backbone.marionette": "latest",
     "backbone-forms": "latest",
+    "backbone-pageable": "latest",
+    "backgrid": "latest",
     "handlebars": "latest",
     "font-awesome": "latest"
   }
