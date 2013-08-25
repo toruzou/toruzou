@@ -33,6 +33,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
     onShow: ->
       @headerRegion.show @topbarView or= new TopbarView()
+      # FIXME : should be more efficient
       $(document).foundation "off"
       $(document).foundation()
 
