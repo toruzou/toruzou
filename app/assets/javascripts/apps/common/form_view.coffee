@@ -1,6 +1,6 @@
 Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
-  class Common.FormView extends Marionette.View
+  class Common.FormView extends Marionette.ItemView
 
     constructor: (options) ->
       super options
