@@ -12,7 +12,12 @@
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-  <body id="application" class="antialiased">
+  <body class="antialiased">
+    <div id="application"></div>
+    <div id="modal-dialog" class="reveal-modal">
+      <div id="dialog-region"></div>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
     <%= javascript_include_tag "application" %>
     <script type="text/javascript">
       Toruzou.start();

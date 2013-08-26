@@ -1,5 +1,13 @@
 # FIXME: This is ugly. Should separete.
 
+Backbone.Marionette.Region.Dialog = class DialogRegion extends Backbone.Marionette.Region
+
+  onShow: (view) ->
+    $modal = @$el.closest("#modal-dialog")
+    view.on "close", -> $modal.foundation("reveal", "close")
+    $modal.foundation("reveal", "open").on "closed", => @close()
+
+
 root = exports ? this
 Toruzou = root.Toruzou = new Marionette.Application()
 
@@ -29,8 +37,10 @@ Toruzou.navigate = (route, options) ->
 
 Toruzou.addRegions
   mainRegion: "#application"
+  dialogRegion: Marionette.Region.Dialog.extend el: "#dialog-region"
   
 Toruzou.on "initialize:after", ->
   Toruzou.Launcher.launch Toruzou.Configuration.root
   if Backbone.history.fragment is ""
     Toruzou.trigger "users:signIn"
+    
