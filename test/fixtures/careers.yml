@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  from: 2013-08-25
+  to: 2013-08-25
+  department: MyString
+  title: MyString
+  remarks: MyString
+
+two:
+  from: 2013-08-25
+  to: 2013-08-25
+  department: MyString
+  title: MyString
+  remarks: MyString
