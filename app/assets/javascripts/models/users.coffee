@@ -2,6 +2,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Models.User = class User extends Backbone.Model
 
+  # TODO Refine validators (character length etc.)
 
   Models.UserSession = class UserSession extends Backbone.Model
 

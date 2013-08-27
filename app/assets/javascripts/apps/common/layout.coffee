@@ -40,3 +40,22 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
   Common.UnauthenticatedLayout = new UnauthenticatedLayout()
   Common.ApplicationLayout = new ApplicationLayout()  
+
+
+  class Common.FilteringLayout extends Marionette.Layout
+
+    constructor: (options) ->
+      super options
+      events = 
+        "click .accordion [data-section-title]": "toggleSection"
+        "click .filter-item": "toggleFilter"
+      events = $.extend true, events, @events if @events
+      @delegateEvents events
+
+    toggleSection: (e) ->
+      $(e.target).closest("section").toggleClass("active")
+      false
+
+    toggleFilter: (e) ->
+      $(e.target).closest("li").toggleClass("active")
+      false

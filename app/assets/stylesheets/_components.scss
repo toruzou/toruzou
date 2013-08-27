@@ -112,6 +112,17 @@ form {
   padding: 0;
 }
 
+.description-container {
+    margin-top: 0.5em;
+    h1, h2, h3, h4, h5, h6 {
+        float: left;
+    }
+    .button {
+        float: right;
+        margin-top: 0.5em;
+    }
+}
+
 .section-container {
     &.accordion {
         > section.active {
@@ -123,6 +134,10 @@ form {
             }
         }
     }
+}
+
+.filter-container {
+    margin-top: 1em;
 }
 
 li.filter-item {
