@@ -18,7 +18,10 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       new constructor options
 
     commit: (options) ->
-      for handler in [ "success", "error", "complete" ] then options[handler] = _.bind options[handler], @ if options[handler]
+      Toruzou.Common.Helpers.Notification.clear @$el
+      unless options.error
+        options.error = (model, response, options) =>
+          @onRequestError response if (response.status + "").match /^4\d{2}$/
       inputs = @$el.find("[type=\"submit\"]:enabled")
       try
         inputs.attr "disabled", "disabled"
@@ -30,6 +33,23 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
           @model.save attributes, options
       finally
         inputs.removeAttr "disabled"
+
+    onRequestError: (response) ->
+      result = Toruzou.Common.Helpers.parseJSON response
+      if response.status is 422
+        @onValidationError result 
+      else
+        @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error { message: result.error }
+
+    onValidationError: (result) ->
+      options = {}
+      options.title = "Unable to process the request"
+      options.messages = []
+      for property, errors of result.errors
+        title = @$el.find("#label-#{property}")?.text() or _.str.capitalize property
+        for error in errors
+          options.messages.push "#{title} #{error}"
+      @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error options
 
     render: ->
       @isClosed = false

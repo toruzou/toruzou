@@ -15,11 +15,10 @@ Toruzou.module "Users.RetrievePassword", (RetrievePassword, Toruzou, Backbone, M
 
     retrievePassword: (e) ->
       e.preventDefault()
-      Toruzou.Common.Helpers.Notification.clear @$el
       @commit
-        success: (model, response) ->
+        success: (model, response) =>
           @$el.find("form").prepend Toruzou.Common.Helpers.Notification.success
             message: "Instructions for resetting your password have been sent. Please check your email for further instructions."
-        error: (model, response) ->
+        error: (model, response) =>
           @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error
             message: "The email you entered did not match an email in our database."
