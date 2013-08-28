@@ -45,10 +45,11 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       options = {}
       options.title = "Unable to process the request"
       options.messages = []
-      for property, errors of result.errors
-        title = @$el.find("#label-#{property}")?.text() or _.str.capitalize property
-        for error in errors
-          options.messages.push "#{title} #{error}"
+      if result.errors
+        for property, errors of result.errors
+          title = @$el.find("#label-#{property}")?.text() or _.str.capitalize property
+          for error in errors
+            options.messages.push "#{title} #{error}"
       @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error options
 
     render: ->
