@@ -29,8 +29,14 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         # FIXME Should validate if the text is url
         type: "Text"
       owner:
-        # FIXME Should be a select box
-        type: "Text"
+        type: "Selectize"
+        # TODO Should configure for searching remote data source.
+        options: [
+          { val: "1", label: "User 1" },
+          { val: "2", label: "User 2" }
+        ]
+        selectize:
+          create: true
 
 
   Models.Organizations = class Organizations extends Backbone.PageableCollection

@@ -15,3 +15,15 @@ Toruzou.addInitializer ->
   setError = Backbone.Form.Field::setError
   Backbone.Form.Field::setError = (message) ->
     setError.call @, "<i class=\"icon-warning-sign icon-inline-prefix\"></i>#{message}"
+
+  delayed = (fn) -> setTimeout fn, 0
+  Backbone.Form.editors.Selectize = class SelectizeEditor extends Backbone.Form.editors.Select
+
+    initialize: (options) ->
+      options?.schema.options or= []
+      super options
+
+    render: ->
+      super
+      delayed => @$el.selectize @options.schema.selectize
+      @
