@@ -24,5 +24,6 @@
 //= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
 //= require backgrid/lib/extensions/paginator/backgrid-paginator
 //= require backgrid/lib/extensions/select-all/backgrid-select-all
+//= require selectize/dist/js/standalone/selectize
 //= require bootstrap
 //= require_tree .

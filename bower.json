@@ -12,6 +12,7 @@
     "backgrid": "latest",
     "handlebars": "latest",
     "font-awesome": "latest",
-    "momentjs": "latest"
+    "momentjs": "latest",
+    "selectize": "latest"
   }
 }
