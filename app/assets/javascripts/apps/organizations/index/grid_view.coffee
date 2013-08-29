@@ -7,7 +7,8 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         name: "name"
         label: "Name"
         editable: false
-        cell: "string"
+        cell: Toruzou.Common.GridView.LinkCell.extend
+          href: -> "organizations/" + @model.get "id"
       }
       {
         name: "abbreviation"
@@ -23,10 +24,10 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         cell: "string"
       }
       {
-        # TODO
         name: "url"
         label: "Website"
         editable: false
-        cell: "string"
+        cell: Toruzou.Common.GridView.LinkCell.extend
+          href: -> @model.get "url"
       }
     ]
