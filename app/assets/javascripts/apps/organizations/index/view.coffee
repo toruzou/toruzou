@@ -13,5 +13,6 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
 
     addOrganization: (e) ->
       e.preventDefault()
+      e.stopPropagation()
       Toruzou.dialogRegion.show new Toruzou.Organizations.New.View()
       # TODO
