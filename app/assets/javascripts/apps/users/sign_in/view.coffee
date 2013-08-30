@@ -6,16 +6,16 @@ Toruzou.module "Users.SignIn", (SignIn, Toruzou, Backbone, Marionette, $, _) ->
     events:
       "submit form": "signIn"
     schema:
-      email:
+      login:
         editorAttrs:
-          placeholder: "Your email"
+          placeholder: "Your username or email"
       password:
         help: "<a href=\"retrieve_password\" class=\"help\">(Forgot password ?)</a>"
         editorAttrs:
           placeholder: "Your password"
 
     constructor: ->
-      super model: new Toruzou.Models.UserSession()
+      super model: new Toruzou.Models.UserCredential()
 
     signIn: (e) ->
       e.preventDefault()

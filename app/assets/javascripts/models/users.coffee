@@ -4,19 +4,20 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   # TODO Refine validators (character length etc.)
 
-  Models.UserSession = class UserSession extends Backbone.Model
+  Models.UserCredential = class UserCredential extends Backbone.Model
 
     url: Models.endpoint "users/sign_in"
     modelName: "user"
 
     defaults:
-      "email": ""
+      "login": ""
       "password": ""
 
     schema:
-      email:
-        type: "Text" # FIXME BBF should support HTML5 email attribute
-        validators: [ "required", "email" ]
+      login:
+        type: "Text"
+        title: "Username or Email"
+        validators: [ "required" ]
       password:
         type: "Password"
         validators: [ "required" ]
@@ -28,11 +29,15 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     modelName: "user"
 
     defaults:
+      "username": ""
       "email": ""
       "password": ""
       "passwordConfirmation": ""
 
     schema:
+      username:
+        type: "Text"
+        validators: [ "required" ]
       email:
         type: "Text" # FIXME BBF should support HTML5 email attribute
         validators: [ "required", "email" ]

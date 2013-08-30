@@ -45,7 +45,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       options = {}
       options.title = "Unable to process the request"
       options.messages = []
-      if result.errors
+      if result and result.errors
         for property, errors of result.errors
           title = @$el.find("#label-#{property}")?.text() or _.str.capitalize property
           for error in errors
