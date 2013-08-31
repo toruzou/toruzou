@@ -18,7 +18,7 @@ module Pageable
   end
 
   def to_pageable_collection(collection)
-    [ { :total_entries => collection.count }, collection ]
+    [ { :total_entries => collection.total_count }, collection ]
   end
 
 end
