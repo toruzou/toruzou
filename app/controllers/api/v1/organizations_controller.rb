@@ -2,12 +2,16 @@ module Api
   module V1
 
     class OrganizationsController < ApplicationController
+
+      include Pageable
+
       before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
       # GET /organizations
       def index
-        @organizations = Organization.all # TODO paging, filtering
-        render json: to_pageable_collection(@organizations)
+        # TODO filtering
+        @organizations = Organization.all
+        render json: to_pageable(@organizations)
       end
 
       # GET /organizations/1
