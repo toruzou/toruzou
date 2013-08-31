@@ -9,8 +9,10 @@ module Api
 
       # GET /organizations
       def index
-        # TODO filtering
         @organizations = Organization.all
+        @organizations = @organizations.where("lower(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
+        @organizations = @organizations.where("lower(abbreviation) LIKE ?", "%#{params[:abbreviation].downcase}%") if params[:abbreviation].present?
+        @organizations = @organizations.joins(:owner).where("lower(users.username) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?
         render json: to_pageable(@organizations)
       end
 

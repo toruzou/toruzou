@@ -5,12 +5,12 @@ module Pageable
   end
 
   def to_pageable_relation(relation)
-    if params[:page]
+    if params[:page].present?
       relation = relation.page(params[:page])
-      relation = relation.per(params[:per_page]) if params[:per_page]
-      if params[:sort_by]
+      relation = relation.per(params[:per_page]) if params[:per_page].present?
+      if params[:sort_by].present?
         order = params[:sort_by]
-        order = "#{order} #{params[:order]}" if params[:order]
+        order = "#{order} #{params[:order]}" if params[:order].present?
         relation = relation.order order
       end
     end

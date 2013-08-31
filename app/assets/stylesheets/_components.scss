@@ -56,53 +56,51 @@ a.help {
 }
 
 
-form {
-    fieldset {
-        padding-bottom: 0.5em;
-        margin-bottom: 0;
-        border-bottom: none;
-        legend {
-            background: transparent;
-        }
-        label {
-            margin-bottom: 0.5em;
-        }
+fieldset {
+    padding-bottom: 1em;
+    margin-bottom: 0;
+    border-bottom: none;
+    legend {
+        background: transparent;
     }
-    .row {
-        &.form-actions {
-            background-color: $well-bg-color;
-            margin-left: 0;
-            margin-right: 0;
-            padding: 1em;
-            border-left: 1px solid $fieldset-border-color;
-            border-right: 1px solid $fieldset-border-color;
-            border-bottom: 1px solid $fieldset-border-color;
-            .button {
-                margin-bottom: 0;
-                padding-top: emCalc(8px);
-                padding-bottom: emCalc(8px);
-                &+.button {
-                    margin-left: 0.25em;
-                }
+    label {
+        margin-bottom: 0.5em;
+    }
+}
+.row {
+    &.form-actions {
+        background-color: $well-bg-color;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1em;
+        border-left: 1px solid $fieldset-border-color;
+        border-right: 1px solid $fieldset-border-color;
+        border-bottom: 1px solid $fieldset-border-color;
+        .button {
+            margin-bottom: 0;
+            padding-top: emCalc(8px);
+            padding-bottom: emCalc(8px);
+            &+.button {
+                margin-left: 0.25em;
             }
         }
     }
-    input[type="text"],
-    input[type="password"],
-    input[type="date"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="month"],
-    input[type="week"],
-    input[type="email"],
-    input[type="number"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="url"],
-    textarea {
-        box-shadow: none;
-    }
+}
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+    box-shadow: none;
 }
 
 .selectize-control {
@@ -166,6 +164,20 @@ form {
 
 .filter-container {
     margin-top: 1em;
+    .filter-item {
+        label {
+            margin-bottom: 0.5em;
+            i {
+                margin-right: 0.5em;
+            }
+        }
+    }
+    .prefix {
+        text-align: right;
+        padding-right: 1em;
+        background: $body-bg;
+        border: none;
+    }
 }
 
 li.filter-item {
