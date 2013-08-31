@@ -108,6 +108,9 @@ form {
 .selectize-control {
     width: 100%;
     .selectize-input {
+        font-family: $input-font-family;
+        font-size: $input-font-size;
+        color: $input-font-color;
         border-radius: 0;
         border-color: #ddd;
         box-shadow: none;
