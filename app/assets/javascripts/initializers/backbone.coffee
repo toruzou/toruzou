@@ -3,11 +3,14 @@ Toruzou.addInitializer ->
   # for Rails JSON Format
   toJSON = Backbone.Model::toJSON
   Backbone.Model::toJSON = ->
-    attributes = toJSON.call @
+    attributes = {}
+    (attributes[_.str.underscored(key)] = value) for key, value of (toJSON.call @)
     return attributes unless @modelName
     data = {}
     data[@modelName] = attributes
     data
+
+  # TODO Should implement parse method for adapting naming convention.
 
   # for Rails CSRF Token
   sync = Backbone.sync
