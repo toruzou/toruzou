@@ -5,6 +5,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
   Models.Organization = class Organization extends Backbone.Model
 
     urlRoot: Models.endpoint "organizations"
+    modelName: "organization"
 
     defaults:
       name: ""
@@ -12,6 +13,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       address: ""
       remarks: ""
       url: ""
+      owner: null
 
     schema:
       name:
@@ -30,13 +32,20 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Text"
       owner:
         type: "Selectize"
-        # TODO Should configure for searching remote data source.
-        options: [
-          { val: "1", label: "User 1" },
-          { val: "2", label: "User 2" }
-        ]
         selectize:
-          create: true
+          valueField: "id"
+          labelField: "username"
+          searchField: "username"
+          create: false
+          load: (query, callback) ->
+            return callback() unless query.length
+            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.toJSON())
+
+    toJSON: ->
+      # FIXME Ugly, but this is needed for adapting server API
+      attributes = super
+      Models.renameProperty attributes, "#{@modelName}.owner", "#{@modelName}.owner_id"
+      attributes
 
 
   Models.Organizations = class Organizations extends Backbone.PageableCollection

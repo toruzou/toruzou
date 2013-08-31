@@ -22,6 +22,9 @@ Toruzou.module "Organizations.New", (New, Toruzou, Backbone, Marionette, $, _) -
       url:
         editorAttrs:
           placeholder: "Website URL"
+      owner:
+        editorAttrs:
+          placeholder: "Owner"
 
     constructor: ->
       super model: new Toruzou.Models.Organization()
