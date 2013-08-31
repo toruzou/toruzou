@@ -39,7 +39,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           create: false
           load: (query, callback) ->
             return callback() unless query.length
-            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.toJSON())
+            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.attributes)
 
     toJSON: ->
       # FIXME Ugly, but this is needed for adapting server API
