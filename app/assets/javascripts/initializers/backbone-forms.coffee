@@ -20,10 +20,27 @@ Toruzou.addInitializer ->
   Backbone.Form.editors.Selectize = class SelectizeEditor extends Backbone.Form.editors.Select
 
     initialize: (options) ->
-      options?.schema.options or= []
+      options.schema.options or= []
       super options
 
     render: ->
       super
-      delayed => @$el.selectize @options.schema.selectize
+      delayed => @$el.selectize @buildOptions()
       @
+
+    buildOptions: ->
+      selectizeOptions = @options.schema.selectize
+      onChange = selectizeOptions.onChange
+      selectizeOptions.onChange = (value) =>
+        onChange value if onChange
+        @onValueChanged value
+      selectizeOptions
+
+    onValueChanged: (value) ->
+      @setValue value
+
+    setValue: (value) ->
+      @value = value
+
+    getValue: ->
+      @value
