@@ -1,0 +1,42 @@
+                  Prefix Verb   URI Pattern                              Controller#Action
+        new_user_session GET    /api/v1/users/sign_in(.:format)          devise/sessions#new
+            user_session POST   /api/v1/users/sign_in(.:format)          devise/sessions#create
+    destroy_user_session DELETE /api/v1/users/sign_out(.:format)         devise/sessions#destroy
+           user_password POST   /api/v1/users/password(.:format)         devise/passwords#create
+       new_user_password GET    /api/v1/users/password/new(.:format)     devise/passwords#new
+      edit_user_password GET    /api/v1/users/password/edit(.:format)    devise/passwords#edit
+                         PATCH  /api/v1/users/password(.:format)         devise/passwords#update
+                         PUT    /api/v1/users/password(.:format)         devise/passwords#update
+cancel_user_registration GET    /api/v1/users/cancel(.:format)           devise/registrations#cancel
+       user_registration POST   /api/v1/users(.:format)                  devise/registrations#create
+   new_user_registration GET    /api/v1/users/sign_up(.:format)          devise/registrations#new
+  edit_user_registration GET    /api/v1/users/edit(.:format)             devise/registrations#edit
+                         PATCH  /api/v1/users(.:format)                  devise/registrations#update
+                         PUT    /api/v1/users(.:format)                  devise/registrations#update
+                         DELETE /api/v1/users(.:format)                  devise/registrations#destroy
+         api_v1_contacts GET    /api/v1/contacts(.:format)               api/v1/contacts#index {:format=>"json"}
+                         POST   /api/v1/contacts(.:format)               api/v1/contacts#create {:format=>"json"}
+      new_api_v1_contact GET    /api/v1/contacts/new(.:format)           api/v1/contacts#new {:format=>"json"}
+     edit_api_v1_contact GET    /api/v1/contacts/:id/edit(.:format)      api/v1/contacts#edit {:format=>"json"}
+          api_v1_contact GET    /api/v1/contacts/:id(.:format)           api/v1/contacts#show {:format=>"json"}
+                         PATCH  /api/v1/contacts/:id(.:format)           api/v1/contacts#update {:format=>"json"}
+                         PUT    /api/v1/contacts/:id(.:format)           api/v1/contacts#update {:format=>"json"}
+                         DELETE /api/v1/contacts/:id(.:format)           api/v1/contacts#destroy {:format=>"json"}
+    api_v1_organizations GET    /api/v1/organizations(.:format)          api/v1/organizations#index {:format=>"json"}
+                         POST   /api/v1/organizations(.:format)          api/v1/organizations#create {:format=>"json"}
+ new_api_v1_organization GET    /api/v1/organizations/new(.:format)      api/v1/organizations#new {:format=>"json"}
+edit_api_v1_organization GET    /api/v1/organizations/:id/edit(.:format) api/v1/organizations#edit {:format=>"json"}
+     api_v1_organization GET    /api/v1/organizations/:id(.:format)      api/v1/organizations#show {:format=>"json"}
+                         PATCH  /api/v1/organizations/:id(.:format)      api/v1/organizations#update {:format=>"json"}
+                         PUT    /api/v1/organizations/:id(.:format)      api/v1/organizations#update {:format=>"json"}
+                         DELETE /api/v1/organizations/:id(.:format)      api/v1/organizations#destroy {:format=>"json"}
+           api_v1_people GET    /api/v1/people(.:format)                 api/v1/people#index {:format=>"json"}
+                         POST   /api/v1/people(.:format)                 api/v1/people#create {:format=>"json"}
+       new_api_v1_person GET    /api/v1/people/new(.:format)             api/v1/people#new {:format=>"json"}
+      edit_api_v1_person GET    /api/v1/people/:id/edit(.:format)        api/v1/people#edit {:format=>"json"}
+           api_v1_person GET    /api/v1/people/:id(.:format)             api/v1/people#show {:format=>"json"}
+                         PATCH  /api/v1/people/:id(.:format)             api/v1/people#update {:format=>"json"}
+                         PUT    /api/v1/people/:id(.:format)             api/v1/people#update {:format=>"json"}
+                         DELETE /api/v1/people/:id(.:format)             api/v1/people#destroy {:format=>"json"}
+                    root GET    /                                        index#index
+                         GET    /*path(.:format)                         index#index
