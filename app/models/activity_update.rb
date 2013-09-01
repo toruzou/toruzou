@@ -1,0 +1,2 @@
+class ActivityUpdate < Update
+end

@@ -12,6 +12,8 @@ Toruzou::Application.routes.draw do
       resources :contacts
       resources :organizations
       resources :people
+      resources :activities
+      resources :deals
     end
   end
 
