@@ -25,22 +25,27 @@ Toruzou.addInitializer ->
 
     render: ->
       super
-      delayed => @$el.selectize @buildOptions()
+      delayed =>
+        @$el.selectize @buildOptions();
+        @$selectize = @$el[0].selectize
+        @restoreSelection()
       @
 
+    restoreSelection: ->
+      return unless @schema.restore
+      selection = @schema.restore @model
+      @$selectize.addOption selection.data if selection and selection.data
+      @setValue selection.value if selection and selection.value
+        
     buildOptions: ->
-      selectizeOptions = @options.schema.selectize
-      onChange = selectizeOptions.onChange
-      selectizeOptions.onChange = (value) =>
-        onChange value if onChange
-        @onValueChanged value
-      selectizeOptions
-
-    onValueChanged: (value) ->
-      @setValue value
+      @options.schema.selectize
 
     setValue: (value) ->
-      @value = value
+      @$selectize?.setValue value
 
     getValue: ->
-      @value
+      @$selectize?.getValue()
+
+    remove: ->
+      super
+      @$selectize?.off()
