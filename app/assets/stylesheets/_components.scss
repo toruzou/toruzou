@@ -161,6 +161,49 @@ textarea {
             }
         }
     }
+    &.tabs {
+        p.title {
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+    }
+}
+
+.properties-container {
+    padding: 0 1em;
+    .property {
+        .label {
+            margin-bottom: 0.5em;
+            padding: 0.5em 1em;
+            color: $body-font-color;
+            font-weight: normal;
+            background-color: $well-bg-color;
+            &.disabled {
+                background-color: #666;
+            }
+        }
+        .value {
+            display: block;
+            margin-bottom: 1em;
+        }
+    }
+}
+
+.activity-panel {
+    @include panel;
+    border: 1px solid $well-border-color;
+    .subject {
+        display: block;
+        color: $success-color;
+    }
+    .calendar {
+        display: block;
+        margin: 0.5em 0;
+        font-size: emCalc(23);
+    }
+    .owner {
+        display: block;
+    }
 }
 
 .filter-container {

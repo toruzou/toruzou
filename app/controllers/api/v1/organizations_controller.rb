@@ -18,6 +18,8 @@ module Api
 
       # GET /organizations/1
       def show
+        @organization = Organization.find(params[:id])
+        render json: @organization
       end
 
       # GET /organizations/new
@@ -43,9 +45,9 @@ module Api
       # PATCH/PUT /organizations/1
       def update
         if @organization.update(organization_params)
-          redirect_to @organization, notice: 'Organization was successfully updated.'
+          render json: @organization
         else
-          render action: 'edit'
+          render json: @organization, status: :unprocessable_entity
         end
       end
 

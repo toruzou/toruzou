@@ -1,47 +1,9 @@
 Toruzou.module "Organizations.New", (New, Toruzou, Backbone, Marionette, $, _) ->
 
-  class New.View extends Toruzou.Common.FormView
+  class New.View extends Toruzou.Organizations.Common.FormView
 
-    template: "organizations/form"
-    events:
-      "submit form": "save"
-      "click .cancel": "cancel"
-    schema:
-      name:
-        editorAttrs:
-          placeholder: "Name"
-      abbreviation:
-        editorAttrs:
-          placeholder: "Abbreviation"
-      address:
-        editorAttrs:
-          placeholder: "Address"
-      remarks:
-        editorAttrs:
-          placeholder: "Remarks"
-      url:
-        editorAttrs:
-          placeholder: "Website URL"
-      owner:
-        editorAttrs:
-          placeholder: "Owner"
-
-    constructor: ->
-      super model: new Toruzou.Models.Organization()
-
-    serializeData: ->
-      data = super
-      data["title"] = "New Organization"
-      data
-
-    save: (e) ->
-      # TODO Remove code duplication
-      e.preventDefault()
-      @commit
-        success: (model, response) =>
-          @close()
-          @trigger "organizations:saved"
-
-    cancel: (e) ->
-      e.preventDefault()
-      @close()
+    constructor: (options) ->
+      options = _.extend options or= {},
+        title: "New Organization"
+        model: new Toruzou.Models.Organization()
+      super options

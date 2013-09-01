@@ -30,8 +30,17 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         # FIXME Should be a url type and its field should have a prefix like `http://`
         # FIXME Should validate if the text is url
         type: "Text"
-      owner:
+      ownerId:
+        title: "Owner"
         type: "Selectize"
+        restore: (model) ->
+          attributes = model.get "owner"
+          if attributes
+            model = new Models.User attributes
+            {
+              value: model.get "id"
+              data: model.serialize()
+            }
         selectize:
           valueField: "id"
           labelField: "username"
