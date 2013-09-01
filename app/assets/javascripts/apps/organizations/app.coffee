@@ -16,4 +16,8 @@ Toruzou.module "Organizations", (Organizations, Toruzou, Backbone, Marionette, $
     Toruzou.navigate "organizations"
     API.listOrganizations()
 
+  Toruzou.on "organizations:list", ->
+    Toruzou.navigate "organizations"
+    API.listOrganizations()
+
   Toruzou.addInitializer -> new Organizations.Router controller: API

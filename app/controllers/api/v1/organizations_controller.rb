@@ -18,7 +18,6 @@ module Api
 
       # GET /organizations/1
       def show
-        @organization = Organization.find(params[:id])
         render json: @organization
       end
 
@@ -54,7 +53,7 @@ module Api
       # DELETE /organizations/1
       def destroy
         @organization.destroy
-        redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
+        render json: @organization
       end
 
       private
