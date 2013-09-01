@@ -146,6 +146,7 @@ textarea {
     .button {
         float: right;
         margin-top: 0.5em;
+        margin-left: 0.5em;
     }
 }
 
@@ -167,9 +168,6 @@ textarea {
     .filter-item {
         label {
             margin-bottom: 0.5em;
-            i {
-                margin-right: 0.5em;
-            }
         }
     }
     .prefix {
