@@ -11,18 +11,15 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
     regions:
       gridRegion: "#grid-container"
 
-    initialize: (options) ->
-      super options
-      Toruzou.on "organizations:saved", => @refresh()
-
     onShow: ->
       @gridRegion.show new Index.GridView collection: @collection
 
     addOrganization: (e) ->
       e.preventDefault()
       e.stopPropagation()
-      Toruzou.dialogRegion.show new Toruzou.Organizations.New.View()
-      # TODO
+      newView = new Toruzou.Organizations.New.View()
+      newView.on "organizations:saved", => @refresh()
+      Toruzou.dialogRegion.show newView
 
     filterChanged: (e) ->
       @collection.queryParams["name"] = @$el.find("#filter-name").val()
@@ -32,8 +29,3 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
 
     refresh: ->
       @collection.fetch()
-
-    close: ->
-      return if @isClosed
-      Toruzou.off "organizations:saved"
-      super
