@@ -18,7 +18,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       delete @o[@propertyName]
 
 
-  Models.endpoint = (url) -> "api/#{Toruzou.Configuration.api.version}/#{url}"
+  Models.endpoint = (path) -> "/api/#{Toruzou.Configuration.api.version}/#{path}"
 
   Models.renameProperty = (o, propertyName, newPropertyName) ->
     property = new Property o, propertyName
