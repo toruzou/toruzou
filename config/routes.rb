@@ -1,5 +1,6 @@
 Toruzou::Application.routes.draw do
 
+
   scope :api do
     scope :v1 do
       devise_for :users
@@ -14,6 +15,7 @@ Toruzou::Application.routes.draw do
       resources :people
       resources :activities
       resources :deals
+      resources :updates
     end
   end
 
