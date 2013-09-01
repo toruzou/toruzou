@@ -23,7 +23,7 @@ Toruzou.addInitializer ->
   # for Rails CSRF Token
   sync = Backbone.sync
   Backbone.sync = (method, model, options) ->
-    if method is "create" or method is "update" or method is "patch"
+    if _.include [ "create", "update", "patch", "delete" ], method
       options.beforeSend = _.wrap options.beforeSend, (beforeSend, xhr) ->
         unless options.noCSRF
           token = $("meta[name=\"csrf-token\"]").attr("content")
