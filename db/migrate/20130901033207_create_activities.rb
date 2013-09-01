@@ -5,6 +5,7 @@ class CreateActivities < ActiveRecord::Migration
       t.date :date
       t.text :note
       t.boolean :done
+      t.integer :deal_id
 
       t.timestamps
     end
