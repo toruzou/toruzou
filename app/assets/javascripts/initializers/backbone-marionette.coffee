@@ -4,5 +4,8 @@ Toruzou.addInitializer ->
 
   Backbone.Marionette.View::serializeData = ->
     context = @model or= {}
-    context = if context.toJSON then context.toJSON() else context
+    context = if context.serialize then context.serialize() else context
     context
+
+  Backbone.Marionette.ItemView::serializeData = Backbone.Marionette.View::serializeData
+  

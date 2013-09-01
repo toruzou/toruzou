@@ -1,14 +1,22 @@
 Toruzou.addInitializer ->
 
   # for Rails JSON Format
+  # You should use ```serialize``` for client side implementation.
+  # ```toJSON``` is used to communicate with server side API.
   toJSON = Backbone.Model::toJSON
+  Backbone.Model::serialize = toJSON
   Backbone.Model::toJSON = ->
     attributes = {}
-    (attributes[_.str.underscored(key)] = value) for key, value of (toJSON.call @)
+    (attributes[_.str.underscored(key)] = value) for key, value of @serialize()
     return attributes unless @modelName
     data = {}
     data[@modelName] = attributes
     data
+  Backbone.Model::parse = (resp, options) ->
+    return resp unless resp
+    attributes = {}
+    (attributes[_.str.camelize(key)] = value) for key, value of resp
+    attributes
 
   # TODO Should implement parse method for adapting naming convention.
 

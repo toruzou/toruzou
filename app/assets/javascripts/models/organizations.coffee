@@ -39,13 +39,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           create: false
           load: (query, callback) ->
             return callback() unless query.length
-            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.attributes)
-
-    toJSON: ->
-      # FIXME Ugly, but this is needed for adapting server API
-      attributes = super
-      Models.renameProperty attributes, "#{@modelName}.owner", "#{@modelName}.owner_id"
-      attributes
+            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
 
   Models.Organizations = class Organizations extends Backbone.PageableCollection
