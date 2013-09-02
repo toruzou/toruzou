@@ -24,7 +24,7 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
     filterChanged: _.debounce ->
       @collection.queryParams["name"] = @$el.find("#filter-name").val()
       @collection.queryParams["abbreviation"] = @$el.find("#filter-abbreviation").val()
-      @collection.queryParams["owner_name"] = @$el.find("#filter-owner-name").val()
+      @collection.queryParams["owner_name"] = @$el.find("#filter-owner").val()
       @refresh()
     , 200
 

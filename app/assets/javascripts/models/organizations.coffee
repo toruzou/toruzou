@@ -14,6 +14,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       remarks: ""
       url: ""
       owner: null
+      ownerId: null
 
     schema:
       name:
@@ -30,25 +31,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         # FIXME Should be a url type and its field should have a prefix like `http://`
         # FIXME Should validate if the text is url
         type: "Text"
-      ownerId:
-        title: "Owner"
-        type: "Selectize"
-        restore: (model) ->
-          attributes = model.get "owner"
-          if attributes
-            model = new Models.User attributes
-            {
-              value: model.get "id"
-              data: model.serialize()
-            }
-        selectize:
-          valueField: "id"
-          labelField: "username"
-          searchField: "username"
-          create: false
-          load: (query, callback) ->
-            return callback() unless query.length
-            $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
+      ownerId: $.extend true, Models.Schema.user, title: "Owner"
 
 
   Models.Organizations = class Organizations extends Backbone.PageableCollection
@@ -58,10 +41,12 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
 
   API =
-    getOrganizations: ->
+    getOrganizations: (q) ->
       organizations = new Models.Organizations()
       dfd = $.Deferred()
-      organizations.fetch success: (collection) -> dfd.resolve collection
+      organizations.fetch
+        data: $.param q: q
+        success: (collection) -> dfd.resolve collection
       dfd.promise()
     getOrganization: (id) ->
       organization = new Models.Organization id: id
@@ -71,5 +56,5 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         error: (model) -> dfd.resolve undefined
       dfd.promise()
 
-  Toruzou.reqres.setHandler "organizations:fetch", -> API.getOrganizations()
+  Toruzou.reqres.setHandler "organizations:fetch", (q) -> API.getOrganizations q
   Toruzou.reqres.setHandler "organization:fetch", (id) -> API.getOrganization id

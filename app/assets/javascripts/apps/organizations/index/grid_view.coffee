@@ -16,16 +16,16 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         cell: "string"
       }
       {
+        name: "url"
+        label: "Website"
+        editable: false
+        cell: Toruzou.Common.GridView.LinkCell.extend href: -> @model.get "url"
+      }
+      {
         name: "owner"
         label: "Owner"
         editable: false
         cell: Toruzou.Common.GridView.LinkCell.extend href: -> "users/" + @model.get("owner")?["id"]
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["username"] else ""
-      }
-      {
-        name: "url"
-        label: "Website"
-        editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> @model.get "url"
       }
     ]

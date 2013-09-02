@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="large-12 columns">
+    <!-- FIXME Should be a responsive layout -->
+    <div class="description-container">
+      <h4><i class="icon-building icon-inline-prefix"></i>{{name}}</h4>
+      <a href="#" id="delete-button" class="small button">Delete</a>
+      <a href="#" id="edit-button" class="small button">Edit</a>
+    </div>
+  </div>
+</div>
+<div class="row collapse properties-container">
+  <div class="large-12 columns">
+    {{#if organization}}
+    <div class="property">
+      <span class="label">Organization</span>
+      <span class="value"><a href="organizations/{{organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
+    </div>
+    {{/if}}
+    {{#if phone}}
+    <div class="property">
+      <span class="label">Phone</span>
+      <span class="value">{{phone}}</span>
+    </div>
+    {{/if}}
+    {{#if email}}
+    <div class="property">
+      <span class="label">Email</span>
+      <span class="value"><a href="mailto:{{email}}">{{email}}</a></span>
+    </div>
+    {{/if}}
+    {{#if address}}
+    <div class="property">
+      <span class="label">Address</span>
+      <span class="value">{{address}}</span>
+    </div>
+    {{/if}}
+    {{#if owner}}
+    <div class="property">
+      <span class="label">Owner</span>
+      <span class="value"><a href="users/{{owner.id}}">{{owner.username}}</a></span>
+    </div>
+    {{/if}}
+    {{#if remarks}}
+    <div class="property">
+      <span class="label">Remarks</span>
+      <span class="value">{{remarks}}</span>
+    </div>
+    {{/if}}
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <div class="activity-panel">
+      <span class="subject"><i class="icon-bolt icon-inline-prefix"></i>Last Activity (Lunch Metting)</span>
+      <span class="calendar">14 days ago</span>
+      <span class="owner"><a href="users/1">monzou</a></span>
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="activity-panel">
+      <span class="subject"><i class="icon-bolt icon-inline-prefix"></i>Next Activity (Lunch Meeting)</span>
+      <span class="calendar">in 2 months, 6 days</span>
+      <span class="owner"><a href="users/1">monzou</a></span>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="section-container tabs" data-section="tabs">
+      <section id="updates" class="active">
+        <p class="title" data-section-title>
+          <a href="#"><i class="icon-circle-blank icon-inline-prefix"></i>Updates</a>
+        </p>
+        <div class="content" data-section-content>
+          Update
+        </div>
+      </section>
+      <section id="activities">
+        <p class="title" data-section-title>
+          <a href="#"><i class="icon-bolt icon-inline-prefix"></i>Activities</a>
+        </p>
+        <div class="content" data-section-content>
+          Activities
+        </div>
+      </section>
+      <section id="deals">
+        <p class="title" data-section-title>
+          <a href="#"><i class="icon-tasks icon-inline-prefix"></i>Deals</a>
+        </p>
+        <div class="content" data-section-content>
+          Deals
+        </div>
+      </section>
+      <section id="files">
+        <p class="title" data-section-title>
+          <a href="#"><i class="icon-file icon-inline-prefix"></i>Files</a>
+        </p>
+        <div class="content" data-section-content>
+          Files
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
