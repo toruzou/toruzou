@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.date     "date"
     t.text     "note"
     t.boolean  "done"
-    t.integer  "deal_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "deal_id"
   end
 
   create_table "careers", force: true do |t|
@@ -55,10 +55,6 @@ ActiveRecord::Schema.define(version: 20130901095513) do
   add_index "contacts", ["owner_id"], name: "index_contacts_on_owner_id", using: :btree
 
   create_table "deals", force: true do |t|
-    t.integer  "organization_id"
-    t.integer  "counter_person"
-    t.integer  "pm"
-    t.integer  "sales"
     t.date     "start_date"
     t.date     "order_date"
     t.date     "accept_date"
@@ -67,19 +63,23 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
+    t.integer  "counter_person"
+    t.integer  "pm"
+    t.integer  "sales"
   end
 
   create_table "updates", force: true do |t|
     t.string   "type"
     t.date     "timestamp"
-    t.integer  "user_id"
     t.string   "message"
     t.string   "subject_type"
     t.integer  "subject_id"
-    t.integer  "activity_id"
     t.string   "action"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "activity_id"
   end
 
   create_table "users", force: true do |t|
