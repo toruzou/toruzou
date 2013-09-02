@@ -1,0 +1,2 @@
+class NoteUpdate < Update
+end
