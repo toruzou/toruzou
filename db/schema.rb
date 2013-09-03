@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901095513) do
+ActiveRecord::Schema.define(version: 20130902151829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.date     "date"
     t.text     "note"
     t.boolean  "done"
-    t.integer  "deal_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "deal_id"
   end
+
+  add_index "activities", ["deal_id"], name: "index_activities_on_deal_id", using: :btree
 
   create_table "careers", force: true do |t|
     t.date     "from"
@@ -55,10 +57,6 @@ ActiveRecord::Schema.define(version: 20130901095513) do
   add_index "contacts", ["owner_id"], name: "index_contacts_on_owner_id", using: :btree
 
   create_table "deals", force: true do |t|
-    t.integer  "organization_id"
-    t.integer  "counter_person"
-    t.integer  "pm"
-    t.integer  "sales"
     t.date     "start_date"
     t.date     "order_date"
     t.date     "accept_date"
@@ -67,20 +65,32 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
+    t.integer  "person_id"
+    t.integer  "pm_id"
+    t.integer  "sales_id"
   end
+
+  add_index "deals", ["organization_id"], name: "index_deals_on_organization_id", using: :btree
+  add_index "deals", ["person_id"], name: "index_deals_on_person_id", using: :btree
+  add_index "deals", ["pm_id"], name: "index_deals_on_pm_id", using: :btree
+  add_index "deals", ["sales_id"], name: "index_deals_on_sales_id", using: :btree
 
   create_table "updates", force: true do |t|
     t.string   "type"
     t.date     "timestamp"
-    t.integer  "user_id"
     t.string   "message"
     t.string   "subject_type"
     t.integer  "subject_id"
-    t.integer  "activity_id"
     t.string   "action"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "activity_id"
   end
+
+  add_index "updates", ["activity_id"], name: "index_updates_on_activity_id", using: :btree
+  add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
