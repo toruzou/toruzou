@@ -1,17 +1,18 @@
 Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
 
-  class Index.View extends Toruzou.Common.FilteringLayout
+  class Index.View extends Marionette.Layout
 
     template: "organizations/index"
     events:
       "click #add-organization-button": "addOrganization"
-      "keyup #filter-name": "filterChanged"
-      "keyup #filter-abbreviation": "filterChanged"
-      "keyup #filter-owner-name": "filterChanged"
     regions:
+      filterRegion: ".filter-container"
       gridRegion: "#grid-container"
 
     onShow: ->
+      filterView = new Index.FilterView collection: @collection
+      filterView.on "organizations:filterChanged", => @refresh()
+      @filterRegion.show filterView
       @gridRegion.show new Index.GridView collection: @collection
 
     addOrganization: (e) ->
@@ -20,13 +21,6 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
       newView = new Toruzou.Organizations.New.View()
       newView.on "organizations:saved", => @refresh()
       Toruzou.dialogRegion.show newView
-
-    filterChanged: _.debounce ->
-      @collection.queryParams["name"] = @$el.find("#filter-name").val()
-      @collection.queryParams["abbreviation"] = @$el.find("#filter-abbreviation").val()
-      @collection.queryParams["owner_name"] = @$el.find("#filter-owner").val()
-      @refresh()
-    , 200
 
     refresh: ->
       @collection.fetch()
