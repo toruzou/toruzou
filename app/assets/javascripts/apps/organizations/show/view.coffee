@@ -6,6 +6,8 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
+    onRender: ->
+      @$el.foundation("section", "reflow");
 
     edit: (e) ->
       e.preventDefault()
