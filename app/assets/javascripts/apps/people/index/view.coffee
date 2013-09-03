@@ -8,7 +8,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       filterRegion: ".filter-container"
 
     onShow: ->
-      listView = new Index.ListView organization: @organization, collection: @collection
+      listView = new Index.ListView collection: @collection
       filterView = new Index.FilterView collection: @collection
       filterView.on "people:filterChanged", => listView.refresh()
       @listRegion.show listView

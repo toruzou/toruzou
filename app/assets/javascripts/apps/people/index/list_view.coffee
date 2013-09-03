@@ -8,10 +8,6 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
     regions:
       gridRegion: "#grid-container"
 
-    constructor: (options) ->
-      @organization = options?.organization
-      super options
-
     onShow: ->
       @gridRegion.show new Index.GridView collection: @collection
 

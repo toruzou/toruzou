@@ -13,7 +13,6 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       "keyup #filter-owner": "filterChanged"
 
     filterChanged: _.debounce ->
-      @collection.queryParams["organization_id"] = @organization.id if @organization
       @collection.queryParams["name"] = @$el.find("#filter-name").val()
       @collection.queryParams["organization_name"] = @$el.find("#filter-organization").val()
       @collection.queryParams["phone"] = @$el.find("#filter-phone").val()

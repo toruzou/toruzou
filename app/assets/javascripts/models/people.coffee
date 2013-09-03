@@ -43,8 +43,9 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
 
   API =
-    getPeople: ->
+    getPeople: (options) ->
       organizations = new Models.People()
+      _.extend organizations.queryParams, options
       dfd = $.Deferred()
       organizations.fetch success: (collection) -> dfd.resolve collection
       dfd.promise()
@@ -56,5 +57,5 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         error: (model) -> dfd.resolve undefined
       dfd.promise()
 
-  Toruzou.reqres.setHandler "people:fetch", -> API.getPeople()
+  Toruzou.reqres.setHandler "people:fetch", (options) -> API.getPeople options
   Toruzou.reqres.setHandler "person:fetch", (id) -> API.getPerson id
