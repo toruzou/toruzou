@@ -3,24 +3,13 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
   class Index.View extends Marionette.Layout
 
     template: "organizations/index"
-    events:
-      "click #add-organization-button": "addOrganization"
     regions:
+      listRegion: ".list-container"
       filterRegion: ".filter-container"
-      gridRegion: "#grid-container"
 
     onShow: ->
+      listView = new Index.ListView collection: @collection
       filterView = new Index.FilterView collection: @collection
-      filterView.on "organizations:filterChanged", => @refresh()
+      filterView.on "organizations:filterChanged", => listView.refresh()
+      @listRegion.show listView
       @filterRegion.show filterView
-      @gridRegion.show new Index.GridView collection: @collection
-
-    addOrganization: (e) ->
-      e.preventDefault()
-      e.stopPropagation()
-      newView = new Toruzou.Organizations.New.View()
-      newView.on "organizations:saved", => @refresh()
-      Toruzou.dialogRegion.show newView
-
-    refresh: ->
-      @collection.fetch()
