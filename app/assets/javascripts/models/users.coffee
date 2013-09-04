@@ -47,7 +47,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Text"
         validators: [ "required" ]
       email:
-        type: "Text" # FIXME BBF should support HTML5 email attribute
+        type: "Text"
         validators: [ "required", "email" ]
       password:
         type: "Password"
@@ -70,7 +70,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     schema:
       email:
-        type: "Text" # FIXME BBF should support HTML5 email attribute
+        type: "Text"
         validators: [ "required", "email" ]
 
 

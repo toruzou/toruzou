@@ -28,9 +28,8 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "TextArea"
       url:
         title: "URL"
-        # FIXME Should be a url type and its field should have a prefix like `http://`
-        # FIXME Should validate if the text is url
         type: "Text"
+        validators: [ "url" ]
       ownerId: $.extend true, Models.Schema.user, title: "Owner"
 
 

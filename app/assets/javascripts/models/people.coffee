@@ -26,6 +26,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       organizationId: Models.Schema.organization
       phone:
         type: "Text"
+        validators: [ /\d{2,4}-?\d{2,4}-?\d{4}/ ]
       email:
         type: "Text"
         validators: [ "email" ]
