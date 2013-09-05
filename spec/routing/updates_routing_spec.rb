@@ -1,34 +1,34 @@
 require "spec_helper"
 
-describe UpdatesController do
+describe Api::V1::UpdatesController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/updates").should route_to("updates#index")
+      get("/api/v1/updates").should route_to("api/v1/updates#index", format: 'json')
     end
 
     it "routes to #new" do
-      get("/updates/new").should route_to("updates#new")
+      get("/api/v1/updates/new").should route_to("api/v1/updates#new", format: 'json')
     end
 
     it "routes to #show" do
-      get("/updates/1").should route_to("updates#show", :id => "1")
+      get("/api/v1/updates/1").should route_to("api/v1/updates#show", :id => "1", format: 'json')
     end
 
     it "routes to #edit" do
-      get("/updates/1/edit").should route_to("updates#edit", :id => "1")
+      get("/api/v1/updates/1/edit").should route_to("api/v1/updates#edit", :id => "1", format: 'json')
     end
 
     it "routes to #create" do
-      post("/updates").should route_to("updates#create")
+      post("/api/v1/updates").should route_to("api/v1/updates#create", format: 'json')
     end
 
     it "routes to #update" do
-      put("/updates/1").should route_to("updates#update", :id => "1")
+      put("/api/v1/updates/1").should route_to("api/v1/updates#update", :id => "1", format: 'json')
     end
 
     it "routes to #destroy" do
-      delete("/updates/1").should route_to("updates#destroy", :id => "1")
+      delete("/api/v1/updates/1").should route_to("api/v1/updates#destroy", :id => "1", format: 'json')
     end
 
   end
