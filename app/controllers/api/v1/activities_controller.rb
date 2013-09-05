@@ -6,6 +6,7 @@ module Api
       # GET /activities
       def index
         @activities = Activity.all
+        render json: @activities
       end
 
       # GET /activities/1
