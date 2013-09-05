@@ -7,6 +7,9 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       "click #edit-button": "edit"
       "click #delete-button": "delete"
 
+    onRender: ->
+      @$el.foundation("section", "reflow");
+      
     edit: (e) ->
       e.preventDefault()
       e.stopPropagation()

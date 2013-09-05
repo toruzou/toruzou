@@ -11,19 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901095513) do
+ActiveRecord::Schema.define(version: 20130904153054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
-    t.string   "title"
+    t.string   "subject"
     t.date     "date"
     t.text     "note"
     t.boolean  "done"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "deal_id"
+    t.string   "type"
+    t.integer  "organization_id"
+  end
+
+  add_index "activities", ["deal_id"], name: "index_activities_on_deal_id", using: :btree
+  add_index "activities", ["organization_id"], name: "index_activities_on_organization_id", using: :btree
+
+  create_table "activities_people", id: false, force: true do |t|
+    t.integer "activity_id"
+    t.integer "person_id"
   end
 
   create_table "careers", force: true do |t|
@@ -64,9 +74,18 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
-    t.integer  "counter_person"
-    t.integer  "pm"
-    t.integer  "sales"
+  end
+
+  add_index "deals", ["organization_id"], name: "index_deals_on_organization_id", using: :btree
+
+  create_table "deals_people", id: false, force: true do |t|
+    t.integer "deal_id"
+    t.integer "person_id"
+  end
+
+  create_table "deals_users", id: false, force: true do |t|
+    t.integer "deal_id"
+    t.integer "user_id"
   end
 
   create_table "updates", force: true do |t|
@@ -81,6 +100,9 @@ ActiveRecord::Schema.define(version: 20130901095513) do
     t.integer  "user_id"
     t.integer  "activity_id"
   end
+
+  add_index "updates", ["activity_id"], name: "index_updates_on_activity_id", using: :btree
+  add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

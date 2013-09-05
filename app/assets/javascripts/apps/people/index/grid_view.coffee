@@ -13,7 +13,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         name: "organization"
         label: "Organization"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "organization/" + @model.get("organization")?["id"]
+        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "organizations/" + @model.get("organization")?["id"]
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       }
       {

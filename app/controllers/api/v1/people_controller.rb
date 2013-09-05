@@ -10,6 +10,7 @@ module Api
       # GET /people
       def index
         @people = Person.all
+        @people = @people.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
         @people = @people.where("lower(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
         @people = @people.where("lower(phone) LIKE ?", "%#{params[:phone].downcase}%") if params[:phone].present?
         @people = @people.where("lower(email) LIKE ?", "%#{params[:email].downcase}%") if params[:email].present?

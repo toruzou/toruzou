@@ -6,7 +6,7 @@ class ChangeColumnToUseReference < ActiveRecord::Migration
     remove_column :deals, :organization_id, :integer
     add_reference :deals, :organization, index: true
     
-    remove_column :deals, :person, :integer
+    remove_column :deals, :counter_person, :integer
     add_reference :deals, :person, index: true
     
     remove_column :deals, :pm, :integer
@@ -31,7 +31,7 @@ class ChangeColumnToUseReference < ActiveRecord::Migration
     add_column :deals, :organization_id, :integer
     
     remove_reference :deals, :person, index: true
-    add_column :deals, :person, :integer
+    add_column :deals, :counter_person, :integer
 
     remove_reference :deals, :pm, index: true
     add_column :deals, :pm, :integer
