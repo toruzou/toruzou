@@ -1,34 +1,34 @@
 require "spec_helper"
 
-describe DealsController do
+describe Api::V1::DealsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/deals").should route_to("deals#index")
+      get("/api/v1/deals").should route_to("api/v1/deals#index", format: 'json')
     end
 
     it "routes to #new" do
-      get("/deals/new").should route_to("deals#new")
+      get("/api/v1/deals/new").should route_to("api/v1/deals#new", format: 'json')
     end
 
     it "routes to #show" do
-      get("/deals/1").should route_to("deals#show", :id => "1")
+      get("/api/v1/deals/1").should route_to("api/v1/deals#show", :id => "1", format: 'json')
     end
 
     it "routes to #edit" do
-      get("/deals/1/edit").should route_to("deals#edit", :id => "1")
+      get("/api/v1/deals/1/edit").should route_to("api/v1/deals#edit", :id => "1", format: 'json')
     end
 
     it "routes to #create" do
-      post("/deals").should route_to("deals#create")
+      post("/api/v1/deals").should route_to("api/v1/deals#create", format: 'json')
     end
 
     it "routes to #update" do
-      put("/deals/1").should route_to("deals#update", :id => "1")
+      put("/api/v1/deals/1").should route_to("api/v1/deals#update", :id => "1", format: 'json')
     end
 
     it "routes to #destroy" do
-      delete("/deals/1").should route_to("deals#destroy", :id => "1")
+      delete("/api/v1/deals/1").should route_to("api/v1/deals#destroy", :id => "1", format: 'json')
     end
 
   end
