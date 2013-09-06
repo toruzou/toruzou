@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Api::V1::UpdatesController do
+describe Api::V1::OrganizationsController do
   describe "routing" do
 
     it "routes to #index" do
