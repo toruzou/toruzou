@@ -11,8 +11,9 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
       "click #people-region-header": "showPeople"
 
     showPeople: ->
-      $.when(Toruzou.request "people:fetch", organization_id: @model.id).done (people) =>
-        @peopleRegion.show new Toruzou.People.Index.ListView collection: people
+      # TODO should fetch from organization resource (/organizations/people)
+      $.when(Toruzou.request "people:fetch", organization_id: @model.get "id").done (people) =>
+        @peopleRegion.show new Toruzou.People.Index.ListView collection: people, organization: @model
 
     onRender: ->
       @$el.foundation("section", "reflow");

@@ -8,7 +8,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       restore: (model) ->
         attributes = model.get "owner"
         if attributes
-          model = new Models.User attributes
+          model = if attributes instanceof Backbone.Model then attributes else new Models.User attributes
           {
             value: model.get "id"
             data: model.serialize()
@@ -28,7 +28,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       restore: (model) ->
         attributes = model.get "organization"
         if attributes
-          model = new Models.Organization attributes
+          model = if attributes instanceof Backbone.Model then attributes else new Models.Organization attributes
           {
             value: model.get "id"
             data: model.serialize()
