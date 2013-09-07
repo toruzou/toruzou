@@ -49,3 +49,18 @@ Toruzou.addInitializer ->
     remove: ->
       super
       @$selectize?.off()
+
+  Backbone.Form.editors.Datepicker = class SelectizeEditor extends Backbone.Form.editors.Text
+
+    className: "datepicker"
+    pickadate:
+      format: "yyyy/mm/dd"
+      formatSubmit: "yyyy/mm/dd"
+
+    render: ->
+      super
+      delayed =>
+        pickadateOptions = _.extend {}, @pickadate
+        _.extend pickadateOptions, @options.pickadate if @options.pickadate
+        @$el.pickadate pickadateOptions
+      @
