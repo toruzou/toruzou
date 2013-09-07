@@ -17,6 +17,11 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     toggleFilter: (e) ->
       $element = $(e.target)
       $ul = $element.closest "ul"
-      _.each $ul.find("li.filter-item"), (item) -> $(item).removeClass "active" unless _.isUndefined($ul.data "selection-single")
-      $(e.target).closest("li").toggleClass("active")
+      $target = $(e.target).closest("li")
+      multipleSelection = _.isUndefined($ul.data "selection-single")
+      _.each $ul.find("li.filter-item"), (item) -> $(item).removeClass "active" unless multipleSelection or item is $target[0]
+      oldState = $target.hasClass "active"
+      $target.toggleClass("active")
+      newState = $target.hasClass "active"
+      @filterToggled? $target, oldState, newState
       false
