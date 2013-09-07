@@ -13,10 +13,12 @@ $checkboxWidth: 20px !default;
         white-space: pre;
         word-wrap: break-word;
     }
+    .select-row-cell,
     .select-all-header-cell {
         width: $checkboxWidth;
-    }
-    .select-row-cell {
-        width: $checkboxWidth;
+        input[type="checkbox"] {
+            margin: 0;
+            padding: 0;
+        }
     }
 }
