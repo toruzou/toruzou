@@ -2,8 +2,10 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
   Show.Controller =
     
-    showPeople: (id) ->
-      $.when(Toruzou.request "person:fetch", id).done (people) ->
+    showPerson: (id, slug) ->
+      $.when(Toruzou.request "person:fetch", id).done (person) ->
         layout = Toruzou.Common.ApplicationLayout.show()
-        layout.mainRegion.show(new Show.View model: people)
+        view = new Show.View model: person
+        layout.mainRegion.show view
+        view.show slug or "updates"
       
