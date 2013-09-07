@@ -29,6 +29,13 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       delete @paginator
       super
 
+  # workaround for restoring selected or not.
+  Backgrid.Extension.SelectRowCell::render = ->
+    selected = @model.get(@column.get "name")
+    @$el.empty().append "<input tabindex='-1' type='checkbox' #{if selected then 'checked' else ''}/>"
+    @delegateEvents()
+    @
+
   class Backgrid.Extension.LocalDateCell extends Backgrid.Extension.MomentCell
 
     className: "local-date-cell"
