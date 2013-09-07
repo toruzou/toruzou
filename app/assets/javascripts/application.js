@@ -26,5 +26,6 @@
 //= require backgrid/lib/extensions/select-all/backgrid-select-all
 //= require selectize/dist/js/standalone/selectize
 //= require toruzou
-//= require_tree ./models/base
+//= require_tree ./models/common
+//= require_tree ./apps/common
 //= require_tree .
