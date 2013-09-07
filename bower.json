@@ -13,6 +13,7 @@
     "handlebars": "latest",
     "font-awesome": "latest",
     "momentjs": "latest",
-    "selectize": "latest"
+    "selectize": "latest",
+    "pickadate": "~3.2.1"
   }
 }

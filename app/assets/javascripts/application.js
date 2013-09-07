@@ -25,6 +25,8 @@
 //= require backgrid/lib/extensions/paginator/backgrid-paginator
 //= require backgrid/lib/extensions/select-all/backgrid-select-all
 //= require selectize/dist/js/standalone/selectize
+//= require pickadate/lib/picker
+//= require pickadate/lib/picker.date
 //= require toruzou
 //= require_tree ./models/common
 //= require_tree ./apps/common

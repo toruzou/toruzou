@@ -16,5 +16,7 @@
  *= require backgrid/lib/extensions/paginator/backgrid-paginator
  *= require backgrid/lib/extensions/select-all/backgrid-select-all
  *= require selectize/dist/css/selectize
+ *= require pickadate/lib/themes/classic
+ *= require pickadate/lib/themes/classic.date
  *= require main
  */
