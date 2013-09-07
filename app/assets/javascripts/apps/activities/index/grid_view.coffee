@@ -49,6 +49,11 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
     initialize: (options) ->
       super options
       @listenTo @collection, "activity:selected", (model) => @showActivity model
+      @listenTo @collection, "backgrid:selected", (model, checked) => @toggleDone model, checked
 
     showActivity: (activity) ->
       Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity if activity
+
+    toggleDone: (activity, done) ->
+      activity.set "done", done
+      activity.save success: (activity) => @trigger "activity:toggleDone", activity, done
