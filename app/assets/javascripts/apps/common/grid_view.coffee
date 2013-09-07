@@ -31,10 +31,15 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
   class Backgrid.Extension.LocalDateCell extends Backgrid.Extension.MomentCell
 
-    modelInUtc: false
-    modelFormat: "YYYY-MM-DD"
-    displayInUtc: false
-    displayFormat: "YYYY/MM/DD"
+    className: "local-date-cell"
+
+    formatter: class extends Backgrid.Extension.MomentFormatter
+      modelInUtc: false
+      modelFormat: "YYYY-MM-DD"
+      displayInUtc: false
+      displayFormat: "YYYY/MM/DD"
+      fromRaw: (rawData) ->
+        super if _.str.isBlank(rawData) then null else rawData # workaround
 
   class Backgrid.Extension.LinkCell extends Backgrid.Cell
 
