@@ -2,8 +2,9 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
 
   Show.Controller =
     
-    showOrganization: (id) ->
+    showOrganization: (id, slug) ->
       $.when(Toruzou.request "organization:fetch", id).done (organization) ->
         layout = Toruzou.Common.ApplicationLayout.show()
-        layout.mainRegion.show(new Show.View model: organization)
-      
+        view = new Show.View model: organization
+        layout.mainRegion.show view
+        view.show slug or "updates"
