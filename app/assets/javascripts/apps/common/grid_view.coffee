@@ -36,7 +36,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     displayInUtc: false
     displayFormat: "YYYY/MM/DD"
 
-  class Common.GridView.LinkCell extends Backgrid.Cell
+  class Backgrid.Extension.LinkCell extends Backgrid.Cell
 
     className: "link-cell"
     target: undefined
@@ -47,7 +47,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       formattedValue = @formatter.fromRaw rawValue
       $link = $("<a></a>")
         .attr("tabIndex", -1)
-        .attr("href", _.result @, "href")
+        .attr("href", _.result(@, "href") or "/#")
         .attr("title", if @title then (_.result @, "title") else formattedValue)
       $link.attr "target", @target if @target
       $link.text formattedValue

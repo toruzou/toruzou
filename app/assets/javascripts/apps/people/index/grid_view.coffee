@@ -7,14 +7,16 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         name: "name"
         label: "Name"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "people/" + @model.get "id"
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "people/" + @model.get "id"
       }
       {
         name: "organization"
         label: "Organization"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "organizations/" + @model.get("organization")?["id"]
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "organizations/" + @model.get("organization")?["id"]
       }
       {
         name: "phone"
@@ -26,7 +28,8 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         name: "email"
         label: "Email"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "mailto:#{@model.get('email')}"
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "mailto:#{@model.get('email')}"
       }
       {
         name: "department"
@@ -46,7 +49,8 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         name: "owner"
         label: "Owner"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "users/" + @model.get("owner")?["id"]
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["username"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "users/" + @model.get("owner")?["id"]
       }
     ]

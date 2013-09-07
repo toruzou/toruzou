@@ -7,7 +7,8 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         name: "name"
         label: "Name"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "organizations/" + @model.get "id"
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "organizations/" + @model.get "id"
       }
       {
         name: "abbreviation"
@@ -19,13 +20,15 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         name: "url"
         label: "Website"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> @model.get "url"
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> @model.get "url"
       }
       {
         name: "owner"
         label: "Owner"
         editable: false
-        cell: Toruzou.Common.GridView.LinkCell.extend href: -> "users/" + @model.get("owner")?["id"]
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["username"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "users/" + @model.get("owner")?["id"]
       }
     ]
