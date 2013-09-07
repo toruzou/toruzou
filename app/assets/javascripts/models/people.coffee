@@ -45,10 +45,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   API =
     getPeople: (options) ->
-      organizations = new Models.People()
-      _.extend organizations.queryParams, options
+      people = new Models.People()
+      _.extend people.queryParams, options
       dfd = $.Deferred()
-      organizations.fetch success: (collection) -> dfd.resolve collection
+      people.fetch success: (collection) -> dfd.resolve collection
       dfd.promise()
     getPerson: (id) ->
       person = new Models.Person id: id
