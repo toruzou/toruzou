@@ -29,6 +29,13 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       delete @paginator
       super
 
+  class Backgrid.Extension.LocalDateCell extends Backgrid.Extension.MomentCell
+
+    modelInUtc: false
+    modelFormat: "YYYY-MM-DD"
+    displayInUtc: false
+    displayFormat: "YYYY/MM/DD"
+
   class Common.GridView.LinkCell extends Backgrid.Cell
 
     className: "link-cell"
