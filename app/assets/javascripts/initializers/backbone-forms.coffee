@@ -50,7 +50,7 @@ Toruzou.addInitializer ->
       @setValue selection.value if selection and selection.value
         
     buildOptions: ->
-      @options.schema.selectize
+      @schema.selectize
 
     setValue: (value) ->
       @$selectize?.setValue value
@@ -73,6 +73,6 @@ Toruzou.addInitializer ->
       super
       delayed =>
         pickadateOptions = _.extend {}, @pickadate
-        _.extend pickadateOptions, @options.pickadate if @options.pickadate
+        _.extend pickadateOptions, @schema.pickadate if @schema.pickadate
         @$el.pickadate pickadateOptions
       @

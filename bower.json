@@ -5,7 +5,7 @@
     "jquery": "latest",
     "underscore": "latest",
     "underscore.string": "latest",
-    "backbone": "latest",
+    "backbone": "https://github.com/jashkenas/backbone.git#eca5a968036fdb79ea7918b909d7efb6be4825e0",
     "backbone.marionette": "latest",
     "backbone-forms": "latest",
     "backbone-pageable": "latest",
