@@ -1,16 +1,21 @@
 module Api
   module V1
     class ActivitiesController < ApplicationController
+
+      include Pageable
+
       before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
       # GET /activities
       def index
+        # TODO apply filtering conditions
         @activities = Activity.all
-        render json: @activities
+        render json: to_pageable(@activities)
       end
 
       # GET /activities/1
       def show
+        render json: @activity
       end
 
       # GET /activities/new
@@ -25,27 +30,26 @@ module Api
       # POST /activities
       def create
         @activity = Activity.new(activity_params)
-
         if @activity.save
-          redirect_to @activity, notice: 'Activity was successfully created.'
+          render json: @activity
         else
-          render action: 'new'
+          render json: @activity, status: :unprocessable_entity
         end
       end
 
       # PATCH/PUT /activities/1
       def update
         if @activity.update(activity_params)
-          redirect_to @activity, notice: 'Activity was successfully updated.'
+          render json: @activity
         else
-          render action: 'edit'
+          render json: @activity, status: :unprocessable_entity
         end
       end
 
       # DELETE /activities/1
       def destroy
         @activity.destroy
-        redirect_to activities_url, notice: 'Activity was successfully destroyed.'
+        render json: @activity
       end
 
       private
@@ -56,7 +60,7 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def activity_params
-          params.require(:activity).permit(:title, :date, :note, :done)
+          params.require(:activity).permit(:subject, :action, :date, :note, :done)
         end
     end
   end

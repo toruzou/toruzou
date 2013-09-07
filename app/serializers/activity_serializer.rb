@@ -1,3 +1,3 @@
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :id, :subject, :date, :note, :done
+  attributes :id, :subject, :action, :date, :note, :done
 end
