@@ -4,11 +4,11 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "deals/filter"
     events:
-      "keyup #filter-name": "filterChanged"
-      "keyup #filter-organization": "filterChanged"
+      "keyup input[data-filter]": "filterChanged"
 
     filterChanged: _.debounce ->
-      @collection.queryParams["name"] = @$el.find("#filter-name").val()
-      @collection.queryParams["organization_name"] = @$el.find("#filter-organization").val()
+      _.each @$el.find("input[data-filter]"), (item) =>
+        $item = $(item)
+        @collection.queryParams[$item.data("filter")] = $item.val()
       @triggerMethod "deals:filterChanged", @collection
     , 200
