@@ -12,7 +12,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
         schema = $.extend true, {}, options.model.schema # Clone schema
         schema = $.extend true, schema, @schema # Overwrite schema with view definition
         options.model.schema = schema
-      serializeData = @serializeData
+      serializeData = _.bind @serializeData, @
       constructor = class extends Backbone.Form
         templateData: serializeData
       new constructor options
