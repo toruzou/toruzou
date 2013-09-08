@@ -52,7 +52,9 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       @listenTo @collection, "backgrid:selected", (model, checked) => @toggleDone model, checked
 
     showActivity: (activity) ->
-      Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity if activity
+      return unless activity
+      $.when(Toruzou.request "activity:fetch", activity.get "id").done (activity) ->
+        Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity if activity
 
     toggleDone: (activity, done) ->
       activity.set "done", done
