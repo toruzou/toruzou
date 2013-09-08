@@ -16,6 +16,9 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
       date:
         editorAttrs:
           placeholder: "Date"
+      dealId:
+        editorAttrs:
+          placeholder: "Deal"
       organizationId:
         editorAttrs:
           placeholder: "Organization"

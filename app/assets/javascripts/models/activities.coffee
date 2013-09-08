@@ -49,7 +49,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       date:
         type: "Datepicker"
       organizationId: Models.Schema.organization
-      # dealId: Models.Schema.organization
+      dealId: Models.Schema.deal
       # TODO people, multiple, create
       # TODO users, multiple, create
       note:

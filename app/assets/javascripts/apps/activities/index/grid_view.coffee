@@ -37,12 +37,28 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
               @model.trigger "activity:selected", @model
             @
       }
-      # TODO organizations, deals, people, users
       {
         name: "date"
         label: "Date"
         editable: false
         cell: "localDate"
+      }
+      # TODO organizations, deals, people, users
+      {
+        name: "deal"
+        label: "Deal"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "deals/" + @model.get("deal")?["id"]
+      }
+      {
+        name: "organization"
+        label: "Organization"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "organizations/" + @model.get("organization")?["id"]
       }
     ]
 
@@ -53,9 +69,15 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
 
     showActivity: (activity) ->
       return unless activity
-      $.when(Toruzou.request "activity:fetch", activity.get "id").done (activity) ->
-        Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity if activity
+      $.when(Toruzou.request "activity:fetch", activity.get "id").done (activity) =>
+        if activity
+          view = new Toruzou.Activities.Edit.View model: activity
+          view.on "activities:saved", => @refresh()
+          Toruzou.dialogRegion.show view
 
     toggleDone: (activity, done) ->
       activity.set "done", done
       activity.save success: (activity) => @trigger "activity:toggleDone", activity, done
+
+    refresh: ->
+      @collection.fetch()
