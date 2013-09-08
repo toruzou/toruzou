@@ -8,6 +8,10 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
     regions:
       gridRegion: "#grid-container"
 
+    constructor: (options) ->
+      super options
+      @organization = options?.organization
+
     onShow: ->
       @gridRegion.show new Index.GridView collection: @collection
 
@@ -15,7 +19,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       e.preventDefault()
       e.stopPropagation()
       person = new Toruzou.Models.Person()
-      person.set "organization", @options.organization if @options.organization
+      person.set "organization", @organization if @organization
       newView = new Toruzou.People.New.View model: person
       newView.on "people:saved", => @refresh()
       Toruzou.dialogRegion.show newView
