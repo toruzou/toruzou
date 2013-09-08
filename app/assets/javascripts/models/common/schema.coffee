@@ -38,8 +38,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         labelField: "name"
         searchField: "name"
         create: (input, callback) ->
-          organization = new Toruzou.Models.Organization name: input
-          organization.save success: (organization) => callback { value: organization.get "id", data: organization.serialize() }
+          return callback() unless input.length
+          organization = new Toruzou.Models.Organization()
+          organization.save "name", input, success: (organization) => callback organization.serialize()
+          undefined
         load: (query, callback) ->
           return callback() unless query.length
           $.when(Toruzou.request "organizations:fetch", name: query).done (organizations) -> callback _.map(organizations.models, (organization) -> organization.serialize())

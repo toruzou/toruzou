@@ -46,13 +46,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         selectize:
           render:
             option: (item, escape) => "<div>#{Activity::renderAction item.text}</div>"
-
       date:
         type: "Datepicker"
-      # TODO create: true
       organizationId: Models.Schema.organization
-      # TODO create: true
-      dealId: Models.Schema.organization
+      # dealId: Models.Schema.organization
       # TODO people, multiple, create
       # TODO users, multiple, create
       note:

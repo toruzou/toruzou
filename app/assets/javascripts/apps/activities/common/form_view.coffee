@@ -10,16 +10,19 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
       subject:
         editorAttrs:
           placeholder: "Subject"
-      type:
+      action:
         editorAttrs:
-          placeholder: "Type"
+          placeholder: "Action"
       date:
         editorAttrs:
           placeholder: "Date"
+      organizationId:
+        editorAttrs:
+          placeholder: "Organization"
       note:
         editorAttrs:
           placeholder: "Note"
-      # TODO organizations, deals, people, users
+      # TODO deals, people, users
 
     serializeData: ->
       data = super
