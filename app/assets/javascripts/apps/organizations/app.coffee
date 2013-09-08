@@ -13,7 +13,7 @@ Toruzou.module "Organizations", (Organizations, Toruzou, Backbone, Marionette, $
       Organizations.Show.Controller.showOrganization id, slug
 
   # TODO Remove following code
-  Toruzou.on "authentication:signed_in", ->
+  Toruzou.on "authentication:signedIn", ->
     Toruzou.navigate "organizations"
     API.listOrganizations()
 

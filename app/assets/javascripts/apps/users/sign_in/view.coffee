@@ -21,5 +21,5 @@ Toruzou.module "Users.SignIn", (SignIn, Toruzou, Backbone, Marionette, $, _) ->
       e.preventDefault()
       @commit
         success: (model, response) ->
-          Toruzou.curentUser = new Toruzou.Models.User response
-          Toruzou.trigger "authentication:signed_in"
+          Toruzou.currentUser = new Toruzou.Models.User response
+          Toruzou.trigger "authentication:signedIn"

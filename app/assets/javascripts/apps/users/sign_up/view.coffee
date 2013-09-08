@@ -24,5 +24,5 @@ Toruzou.module "Users.SignUp", (SignUp, Toruzou, Backbone, Marionette, $, _) ->
       @commit
         success: (model, response) ->
           Toruzou.curentUser = new Toruzou.Models.User response
-          Toruzou.trigger "authentication:signed_in"
+          Toruzou.trigger "authentication:signedIn"
           
