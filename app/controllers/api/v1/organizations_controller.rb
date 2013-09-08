@@ -18,7 +18,11 @@ module Api
 
       # GET /organizations/1
       def show
-        render json: @organization
+        if @organization != nil then
+          render json: @organization
+        else
+          head :not_found
+        end
       end
 
       # GET /organizations/new
@@ -35,7 +39,7 @@ module Api
         # TODO validation, etc ...
         @organization = Organization.new(organization_params)
         if @organization.save
-          render json: @organization
+          render json: @organization, status: :ok
         else
           render json: @organization, status: :unprocessable_entity
         end
@@ -59,7 +63,11 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_organization
-          @organization = Organization.find(params[:id])
+          begin
+            @organization = Organization.find(params[:id])
+          rescue 
+             @organization = nil
+          end
         end
 
         # Only allow a trusted parameter "white list" through.
