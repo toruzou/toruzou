@@ -1,15 +1,20 @@
 module Api
   module V1
     class DealsController < ApplicationController
+
+      include Pageable
+
       before_action :set_deal, only: [:show, :edit, :update, :destroy]
 
       # GET /deals
       def index
         @deals = Deal.all
+        render json: to_pageable(@deals)
       end
 
       # GET /deals/1
       def show
+        render json: @deal
       end
 
       # GET /deals/new
@@ -24,27 +29,26 @@ module Api
       # POST /deals
       def create
         @deal = Deal.new(deal_params)
-
         if @deal.save
-          redirect_to @deal, notice: 'Deal was successfully created.'
+          render json: @deal
         else
-          render action: 'new'
+          render json: @deal, status: :unprocessable_entity
         end
       end
 
       # PATCH/PUT /deals/1
       def update
         if @deal.update(deal_params)
-          redirect_to @deal, notice: 'Deal was successfully updated.'
+          render json: @deal
         else
-          render action: 'edit'
+          render json: @deal, status: :unprocessable_entity
         end
       end
 
       # DELETE /deals/1
       def destroy
         @deal.destroy
-        redirect_to deals_url, notice: 'Deal was successfully destroyed.'
+        render json: @deal
       end
 
       private
@@ -55,7 +59,7 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def deal_params
-          params.require(:deal).permit(:organization_id, :counter_person, :pm, :sales, :start_date, :order_date, :accept_date, :amount, :accuracy, :status)
+          params.require(:deal).permit(:name, :organization_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status)
         end
     end
   end

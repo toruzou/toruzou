@@ -14,7 +14,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     defaults:
       subject: ""
-      action: null
+      action: ""
       date: ""
       note: ""
       done: false
