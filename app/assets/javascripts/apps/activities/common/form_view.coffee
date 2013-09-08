@@ -24,11 +24,15 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
           placeholder: "Note"
       # TODO deals, people, users
 
+    constructor: (options) ->
+      super options
+      @title = _.result options, "title"
+
     serializeData: ->
       data = super
-      data["title"] = _.result @options, "title"
+      data["title"] = @title
       data
-
+      
     save: (e) ->
       e.preventDefault()
       @commit

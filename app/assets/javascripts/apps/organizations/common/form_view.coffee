@@ -26,9 +26,13 @@ Toruzou.module "Organizations.Common", (Common, Toruzou, Backbone, Marionette, $
         editorAttrs:
           placeholder: "Owner"
 
+    constructor: (options) ->
+      super options
+      @title = _.result options, "title"
+
     serializeData: ->
       data = super
-      data["title"] = _.result @options, "title"
+      data["title"] = @title
       data
 
     save: (e) ->
