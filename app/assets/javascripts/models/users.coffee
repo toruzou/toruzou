@@ -75,12 +75,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
 
   API =
-    getUsers: (q) ->
+    getUsers: (options) ->
       users = new Models.Users()
+      _.extend users.queryParams, options
       dfd = $.Deferred()
-      users.fetch
-        data: $.param q: q
-        success: (collection) -> dfd.resolve collection
+      users.fetch success: (collection) -> dfd.resolve collection
       dfd.promise()
 
-  Toruzou.reqres.setHandler "users:fetch", (q) -> API.getUsers q
+  Toruzou.reqres.setHandler "users:fetch", (options) -> API.getUsers options

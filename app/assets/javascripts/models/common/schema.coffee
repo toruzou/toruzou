@@ -20,27 +20,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         create: false
         load: (query, callback) ->
           return callback() unless query.length
-          $.when(Toruzou.request "users:fetch", query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
-
-    deal:
-      title: "Deal"
-      type: "Selectize"
-      restore: (model) ->
-        attributes = model.get "deal"
-        if attributes
-          model = if attributes instanceof Backbone.Model then attributes else new Models.Deal attributes
-          {
-            value: model.get "id"
-            data: model.serialize()
-          }
-      selectize:
-        valueField: "id"
-        labelField: "name"
-        searchField: "name"
-        create: false
-        load: (query, callback) ->
-          return callback() unless query.length
-          $.when(Toruzou.request "deals:fetch", query).done (deals) -> callback _.map(deals.models, (deal) -> deal.serialize())
+          $.when(Toruzou.request "users:fetch", username: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
     organization:
       title: "Organization"
@@ -57,9 +37,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         valueField: "id"
         labelField: "name"
         searchField: "name"
-        create: false
+        create: (input, callback) ->
+          organization = new Toruzou.Models.Organization name: input
+          organization.save success: (organization) => callback { value: organization.get "id", data: organization.serialize() }
         load: (query, callback) ->
           return callback() unless query.length
-          $.when(Toruzou.request "organizations:fetch", query).done (organizations) -> callback _.map(organizations.models, (organization) -> organization.serialize())
+          $.when(Toruzou.request "organizations:fetch", name: query).done (organizations) -> callback _.map(organizations.models, (organization) -> organization.serialize())
 
-  Object.freeze? Models.Schema                    
+  Object.freeze? Models.Schema
