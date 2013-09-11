@@ -35,7 +35,7 @@ module Api
         # TODO validation, etc ...
         @organization = Organization.new(organization_params)
         if @organization.save
-          render json: @organization
+          render json: @organization, status: :ok
         else
           render json: @organization, status: :unprocessable_entity
         end
@@ -66,7 +66,6 @@ module Api
         def organization_params
           params.require(:organization).permit(:name, :abbreviation, :address, :remarks, :url, :owner_id)
         end
-        
     end
 
   end
