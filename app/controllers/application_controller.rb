@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base  
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_devise_parameters, if: :devise_controller?
@@ -11,4 +13,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :password) }
   end
 
+  private
+  
+  def not_found
+    head :not_found
+  end
 end
