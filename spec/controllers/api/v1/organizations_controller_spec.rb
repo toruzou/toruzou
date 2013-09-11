@@ -80,10 +80,10 @@ describe Api::V1::OrganizationsController do
       expect(body).to be_json_eql(JSON.generate(organization_hash(target)))
     end
 
-    it "returns 403 when no entity exists for given id" do
+    it "returns 404 when no entity exists for given id" do
       entity = valid_organization
       get :show, id: entity.id + 1
-
+      
       expect(status).to eq(404)
       expect(body).to eq(" ")
     end
@@ -95,15 +95,59 @@ describe Api::V1::OrganizationsController do
         abbreviation: 'org1', 
         address: 'sample address', 
         remarks: 'sample remarks',
-        owner_id: 1}
+        }
       post :create, organization: param
+
+      expect(status).to eq(200)
+      expect(JSON.parse(body)['name']).to eq("organization 1")
+      expect(JSON.parse(body)['abbreviation']).to eq("org1")
+      expect(JSON.parse(body)['address']).to eq("sample address")
+      expect(JSON.parse(body)['remarks']).to eq("sample remarks")
+    end
+  end
+  
+  describe "PUT api/v1/organizations/1" do
+    it "is able to update existing record." do
+      new_param = {name: 'organization 1', 
+        abbreviation: 'org1', 
+        address: 'sample address', 
+        remarks: 'sample remarks',
+        }
+      post :create, organization: new_param
+
+      id = JSON.parse(response.body)['id']
+
+      update_param = {name: 'organization 2', 
+        abbreviation: 'org2', 
+        address: 'modified address', 
+        remarks: 'modified remarks',
+        }
+      
+      put :update, id: id, organization: update_param
+
+      expect(status).to eq(200)
+      expect(JSON.parse(body)['id']).to eq(id)
+      expect(JSON.parse(body)['name']).to eq("organization 2")
+      expect(JSON.parse(body)['abbreviation']).to eq("org2")
+      expect(JSON.parse(body)['address']).to eq("modified address")
+      expect(JSON.parse(body)['remarks']).to eq("modified remarks")
     end
   end
 
-  # TODO test new
-  # TODO test edit
-  # TODO test update
-  # TODO test destroy
+  describe "DELETE api/v1/organizations/1" do
+    it "is able to delete existing record." do
+      organization = valid_organization
+      get :show, id: organization.id
+      expect(status).to eq(200)
+
+      delete :destroy, id: organization.id
+      expect(status).to eq(200)
+
+      get :show, id: organization.id
+      expect(status).to eq(404)
+      expect(body).to eq(" ")
+    end
+  end
 
   private 
   def valid_organization
