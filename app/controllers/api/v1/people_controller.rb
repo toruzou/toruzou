@@ -15,7 +15,7 @@ module Api
         @people = @people.where("lower(phone) LIKE ?", "%#{params[:phone].downcase}%") if params[:phone].present?
         @people = @people.where("lower(email) LIKE ?", "%#{params[:email].downcase}%") if params[:email].present?
         @people = @people.joins(:organization).where("lower(organizations_contacts.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
-        @people = @people.joins(:owner).where("lower(users.username) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?
+        @people = @people.joins(:owner).where("lower(users.name) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?
         render json: to_pageable(@people)
       end
 

@@ -49,7 +49,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         name: "owner"
         label: "Owner"
         editable: false
-        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["username"] else ""
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
         cell: class extends Backgrid.Extension.LinkCell
           href: -> "users/" + @model.get("owner")?["id"]
       }

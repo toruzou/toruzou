@@ -5,7 +5,7 @@ module Api
       include Pageable
 
       def index
-        @users = params[:username] ? User.where("lower(username) LIKE ?", "%#{params[:username].downcase}%") : User.all
+        @users = params[:name] ? User.where("lower(name) LIKE ?", "%#{params[:name].downcase}%") : User.all
         render json: to_pageable(@users)
       end
 

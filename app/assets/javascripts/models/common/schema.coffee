@@ -15,12 +15,12 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           }
       selectize:
         valueField: "id"
-        labelField: "username"
-        searchField: "username"
+        labelField: "name"
+        searchField: "name"
         create: false
         load: (query, callback) ->
           return callback() unless query.length
-          $.when(Toruzou.request "users:fetch", username: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
+          $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
     organization:
       title: "Organization"

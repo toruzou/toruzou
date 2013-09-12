@@ -37,13 +37,13 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     modelName: "user"
 
     defaults:
-      "username": ""
+      "name": ""
       "email": ""
       "password": ""
       "passwordConfirmation": ""
 
     schema:
-      username:
+      name:
         type: "Text"
         validators: [ "required" ]
       email:
