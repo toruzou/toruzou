@@ -76,15 +76,15 @@ describe Api::V1::Organization do
         assert organization.invalid?
       end
 
-      it "accepts 200 chars for remarks" do
+      it "accepts 500 chars for remarks" do
         organization = FactoryGirl.build(:organization, 
-                                          remarks: 'a' * 200)
+                                          remarks: 'a' * 500)
         assert organization.valid?
       end
 
-      it "doesn't accept 201 chars for remarks" do
+      it "doesn't accept 501 chars for remarks" do
         organization = FactoryGirl.build(:organization, 
-                                          remarks: 'a' * 201)
+                                          remarks: 'a' * 501)
         assert organization.invalid?
       end
 
