@@ -15,12 +15,12 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           }
       selectize:
         valueField: "id"
-        labelField: "username"
-        searchField: "username"
+        labelField: "name"
+        searchField: "name"
         create: false
         load: (query, callback) ->
           return callback() unless query.length
-          $.when(Toruzou.request "users:fetch", username: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
+          $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
     organization:
       title: "Organization"
@@ -45,5 +45,29 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         load: (query, callback) ->
           return callback() unless query.length
           $.when(Toruzou.request "organizations:fetch", name: query).done (organizations) -> callback _.map(organizations.models, (organization) -> organization.serialize())
+
+    deal:
+      title: "Deal"
+      type: "Selectize"
+      restore: (model) ->
+        attributes = model.get "deal"
+        if attributes
+          model = if attributes instanceof Backbone.Model then attributes else new Models.Deal attributes
+          {
+            value: model.get "id"
+            data: model.serialize()
+          }
+      selectize:
+        valueField: "id"
+        labelField: "name"
+        searchField: "name"
+        create: (input, callback) ->
+          return callback() unless input.length
+          deal = new Toruzou.Models.Deal()
+          deal.save "name", input, success: (deal) => callback deal.serialize()
+          undefined
+        load: (query, callback) ->
+          return callback() unless query.length
+          $.when(Toruzou.request "deals:fetch", name: query).done (deals) -> callback _.map(deals.models, (deal) -> deal.serialize())
 
   Object.freeze? Models.Schema
