@@ -1,48 +1,27 @@
 <div class="section-container accordion" data-section="accordion">
   <section class="active">
     <p class="title" data-section-title>
-      <a href="#">Filter by attribute</a>
+      <a href="#">Filter by attributes</a>
     </p>
     <div class="content" data-section-content>
       <div class="row collapse">
-        <div class="filter-item">
-          <label for="filter-subject"><i class="icon-search icon-inline-prefix"></i>Subject</label>
-          <input data-filter="subject" type="text" placeholder="Filter by subject">
-        </div>
+        <div class="filter-item" data-fields="subject"></div>
       </div>
-      <!-- TODO done ? -->
-      <!-- TODO organizations, deals, people, users ? -->
-    </div>
-  </section>
-</div>
-<div class="section-container accordion" data-section="accordion">
-  <section class="active">
-    <p class="title" data-section-title>
-      <a href="#">Filter by action</a>
-    </p>
-    <div class="content" data-section-content>
-      <ul class="side-nav">
-        <li class="filter-item"><a href="#"><i class="icon-briefcase icon-inline-prefix"></i>Metting</a></li>
-        <li class="filter-item"><a href="#"><i class="icon-phone icon-inline-prefix"></i>Call</a></li>
-        <li class="filter-item"><a href="#"><i class="icon-envelope icon-inline-prefix"></i>Email</a></li>
-        <li class="filter-item"><a href="#"><i class="icon-check icon-inline-prefix"></i>Task</a></li>
-      </ul>
-    </div>
-  </section>
-  <section class="active">
-    <p class="title" data-section-title>
-      <a href="#">Filter by date</a>
-    </p>
-    <div class="content" data-section-content>
-      <ul class="side-nav" data-selection-single>
-        <li class="filter-item"><a href="#">Overdue</a></li>
-        <li class="filter-item"><a href="#">Last week</a></li>
-        <li class="filter-item"><a href="#">Today</a></li>
-        <li class="filter-item"><a href="#">Tomorrow</a></li>
-        <li class="filter-item"><a href="#">This week</a></li>
-        <li class="filter-item"><a href="#">Next week</a></li>
-        <!-- TODO Date -->
-      </ul>
+      <div class="row collapse">
+        <div class="filter-item" data-fields="actions"></div>
+      </div>
+      <div class="row collapse">
+        <div class="filter-item" data-fields="dealName"></div>
+      </div>
+      <div class="row collapse">
+        <div class="filter-item" data-fields="organizationName"></div>
+      </div>
+      <div class="row collapse">
+        <div class="filter-item" data-fields="term"></div>
+      </div>
+      <div class="row collapse">
+        <div class="filter-item" data-fields="status"></div>
+      </div>
     </div>
   </section>
 </div>

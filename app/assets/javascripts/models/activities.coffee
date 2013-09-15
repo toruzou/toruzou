@@ -6,6 +6,12 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     urlRoot: Models.endpoint "activities"
     modelName: "activity"
+    actions: [
+      "Meeting"
+      "Call"
+      "Email"
+      "Task"
+    ]
     icons:
       "Meeting": "briefcase"
       "Email": "envelope"
@@ -44,13 +50,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
             value: action
             data: action
           }
-        options:
-          [
-            "Meeting"
-            "Call"
-            "Email"
-            "Task"
-          ]
+        options: @::actions
         selectize:
           render:
             option: (item, escape) => "<div>#{Activity::renderAction item.text}</div>"

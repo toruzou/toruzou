@@ -8,8 +8,30 @@ module Api
 
       # GET /activities
       def index
-        # TODO apply filtering conditions
+        # TODO refactoring
         @activities = Activity.all
+        @activities = @activities.where("lower(activities.subject) LIKE ?", "%#{params[:subject].downcase}%") if params[:subject].present?
+        @activities = @activities.where(action: params[:actions]) if params[:actions].present?
+        @activities = @activities.joins(:deal).where("lower(deals.name) LIKE ?", "%#{params[:deal_name].downcase}%") if params[:deal_name].present?
+        @activities = @activities.joins(:organization).where("lower(contacts.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
+        if params[:term].present?
+          term = params[:term]
+          case term
+          when "Overdue" then
+            @activities = @activities.where("date < ?", Date.today)
+          when "Last Week" then
+            @activities = @activities.where(:date => 1.week.ago.beginning_of_week..1.week.ago.end_of_week)
+          when "Today" then
+            @activities = @activities.where(:date => Date.today)
+          when "Tomorrow" then
+            @activities = @activities.where(:date => Date.tomorrow)
+          when "This Week" then
+            @activities = @activities.where(:date => Date.today.beginning_of_week..Date.today.end_of_week)
+          when "Next Week" then
+            @activities = @activities.where(:date => 1.week.since.beginning_of_week..1.week.since.end_of_week)
+          end
+        end
+        @activities = @activities.where(:done => params[:status]) if params[:status].present?
         render json: to_pageable(@activities)
       end
 

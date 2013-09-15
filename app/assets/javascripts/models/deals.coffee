@@ -6,6 +6,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     urlRoot: Models.endpoint "deals"
     modelName: "deal"
+    statuses: [
+      "Plan"
+      "Proposal"
+      "In Negotiation"
+    ]
 
     defaults:
       name: ""
@@ -52,13 +57,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
             value: status
             data: status
           }
-        options:
-          # TODO
-          [
-            "Plan"
-            "Proposal"
-            "In Negotiation"
-          ]
+        options: @::statuses
       amount:
         type: "PositiveAmount"
       accuracy:

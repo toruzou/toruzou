@@ -207,11 +207,21 @@ textarea {
     }
 }
 
+div[data-fields] {
+    label {
+        display: block;
+        margin-bottom: 0.5em;
+    }
+}
+
 .filter-container {
     margin-top: 1em;
     .filter-item {
         label {
-            margin-bottom: 0.5em;
+            &:before {
+                content: "\f002";
+                margin-right: 0.25em;
+            }
         }
     }
     .prefix {

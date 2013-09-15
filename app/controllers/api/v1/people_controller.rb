@@ -11,9 +11,9 @@ module Api
       def index
         @people = Person.all
         @people = @people.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
-        @people = @people.where("lower(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
-        @people = @people.where("lower(phone) LIKE ?", "%#{params[:phone].downcase}%") if params[:phone].present?
-        @people = @people.where("lower(email) LIKE ?", "%#{params[:email].downcase}%") if params[:email].present?
+        @people = @people.where("lower(contacts.name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
+        @people = @people.where("lower(contacts.phone) LIKE ?", "%#{params[:phone].downcase}%") if params[:phone].present?
+        @people = @people.where("lower(contacts.email) LIKE ?", "%#{params[:email].downcase}%") if params[:email].present?
         @people = @people.joins(:organization).where("lower(organizations_contacts.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
         @people = @people.joins(:owner).where("lower(users.name) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?
         render json: to_pageable(@people)
