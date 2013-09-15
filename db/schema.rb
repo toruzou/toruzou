@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130912154906) do
+ActiveRecord::Schema.define(version: 20130915060818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,11 +30,6 @@ ActiveRecord::Schema.define(version: 20130912154906) do
 
   add_index "activities", ["deal_id"], name: "index_activities_on_deal_id", using: :btree
   add_index "activities", ["organization_id"], name: "index_activities_on_organization_id", using: :btree
-
-  create_table "activities_people", id: false, force: true do |t|
-    t.integer "activity_id"
-    t.integer "person_id"
-  end
 
   create_table "careers", force: true do |t|
     t.date     "from"
@@ -88,6 +83,15 @@ ActiveRecord::Schema.define(version: 20130912154906) do
     t.integer "deal_id"
     t.integer "user_id"
   end
+
+  create_table "participants", force: true do |t|
+    t.integer "activity_id"
+    t.integer "participable_id"
+    t.string  "participable_type"
+  end
+
+  add_index "participants", ["activity_id"], name: "index_participants_on_activity_id", using: :btree
+  add_index "participants", ["participable_id"], name: "index_participants_on_participable_id", using: :btree
 
   create_table "updates", force: true do |t|
     t.string   "type"

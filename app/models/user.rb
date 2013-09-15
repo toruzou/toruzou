@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_and_belongs_to_many :deals
+  has_many :participants, :as => :participable, :dependent => :destroy
+  has_many :activities, :as => :participable, :through => :participants
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
