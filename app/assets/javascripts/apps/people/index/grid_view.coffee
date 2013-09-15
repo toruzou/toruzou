@@ -8,7 +8,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         label: "Name"
         editable: false
         cell: class extends Backgrid.Extension.LinkCell
-          href: (rawValue) -> if rawValue?["id"] then "people/" + rawValue["id"] else null
+          href: (rawValue) -> "people/" + @model.get("id")
       }
       {
         name: "organization"
