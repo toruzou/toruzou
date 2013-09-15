@@ -97,6 +97,26 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "deals:fetch", name: query).done (deals) -> callback _.map(deals.models, (deal) -> deal.serialize())
 
+    person:
+      title: "Contact"
+      type: "Selectize"
+      restore: (model) ->
+        attributes = model.get "person"
+        if attributes
+          model = restoreModel attributes, Models.Person
+          {
+            value: model.get "id"
+            data: model.serialize()
+          }
+      selectize:
+        valueField: "id"
+        labelField: "name"
+        searchField: "name"
+        create: false
+        load: (query, callback) ->
+          return callback() unless query.length
+          $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())
+
     people:
       title: "Contacts"
       type: "Selectize"

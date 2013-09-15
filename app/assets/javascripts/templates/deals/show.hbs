@@ -22,6 +22,24 @@
       <span class="value"><a href="organizations/{{organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
     </div>
     {{/if}}
+    {{#if contact}}
+    <div class="property">
+      <span class="label">Contact Person</span>
+      <span class="value"><a href="people/{{contact.id}}">{{contact.name}}</a></span>
+    </div>
+    {{/if}}
+    {{#if pm}}
+    <div class="property">
+      <span class="label">Project Manager</span>
+      <span class="value"><a href="users/{{pm.id}}">{{pm.name}}</a></span>
+    </div>
+    {{/if}}
+    {{#if sales}}
+    <div class="property">
+      <span class="label">Sales Person</span>
+      <span class="value"><a href="users/{{sales.id}}">{{sales.name}}</a></span>
+    </div>
+    {{/if}}
     {{#if amount}}
     <!-- TODO format -->
     <div class="property">

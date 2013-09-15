@@ -13,6 +13,15 @@ Toruzou.module "Deals.Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       organizationId:
         editorAttrs:
           placeholder: "Organization"
+      contactId:
+        editorAttrs:
+          placeholder: "Contact"
+      pmId:
+        editorAttrs:
+          placeholder: "Project Manager"
+      salesId:
+        editorAttrs:
+          placeholder: "Sales Person"
       status:
         editorAttrs:
           placeholder: "Status"

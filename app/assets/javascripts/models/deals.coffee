@@ -11,6 +11,12 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       name: ""
       organization: null
       organizationId: null
+      pm: null
+      pmId: null
+      sales: null
+      salesId: null
+      contact: null
+      contactId: null
       status: ""
       amount: null
       accuracy: null
@@ -23,6 +29,9 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Text"
         validators: [ "required" ]
       organizationId: Models.Schema.organization
+      pmId: $.extend true, Models.Schema.user, title: "Project Manager"
+      salesId: $.extend true, Models.Schema.user, title: "Sales Person"
+      contactId: Models.Schema.person
       status:
         type: "Selectize"
         restore: (model) ->
@@ -52,7 +61,6 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Datepicker"
       acceptDate:
         type: "Datepicker"
-      # TODO
 
 
   Models.Deals = class Deal extends Backbone.PageableCollection

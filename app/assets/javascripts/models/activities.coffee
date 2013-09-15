@@ -18,6 +18,14 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       date: ""
       note: ""
       done: false
+      organization: null
+      organizationId: null
+      deal: null
+      dealId: null
+      users: []
+      userIds: []
+      people: []
+      peopleIds: []
 
     # TODO ugly, should be moved to view layer
     renderAction: (action) ->

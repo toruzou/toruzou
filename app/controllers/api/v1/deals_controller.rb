@@ -59,7 +59,19 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def deal_params
-          params.require(:deal).permit(:name, :organization_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status)
+          params.require(:deal).permit(
+            :name,
+            :organization_id,
+            :contact_id,
+            :pm_id,
+            :sales_id,
+            :start_date,
+            :order_date,
+            :accept_date,
+            :amount,
+            :accuracy,
+            :status
+          )
         end
     end
   end
