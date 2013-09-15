@@ -19,6 +19,30 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
           href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("organizations/" + rawValue["id"]) else null
       }
       {
+        name: "contact"
+        label: "Contact Person"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("people/" + rawValue["id"]) else null
+      }
+      {
+        name: "pm"
+        label: "Project Manager"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
+      }
+      {
+        name: "sales"
+        label: "Sales Person"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
+      }
+      {
         name: "status"
         label: "Status"
         editable: false
