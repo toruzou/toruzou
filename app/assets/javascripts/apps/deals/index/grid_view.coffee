@@ -16,7 +16,7 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         editable: false
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
         cell: class extends Backgrid.Extension.LinkCell
-          href: (rawValue) -> if rawValue?["id"] then "organizations/" + rawValue["id"] else null
+          href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("organizations/" + rawValue["id"]) else null
       }
       {
         name: "status"

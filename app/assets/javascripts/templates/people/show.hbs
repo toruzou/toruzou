@@ -13,7 +13,7 @@
     {{#if organization}}
     <div class="property">
       <span class="label">Organization</span>
-      <span class="value"><a href="organizations/{{organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
+      <span class="value"><a href="{{relativeUrl "organizations" organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
     </div>
     {{/if}}
     {{#if phone}}
@@ -37,7 +37,7 @@
     {{#if owner}}
     <div class="property">
       <span class="label">Owner</span>
-      <span class="value"><a href="users/{{owner.id}}">{{owner.name}}</a></span>
+      <span class="value"><a href="{{relativeUrl "users" owner.id}}">{{owner.name}}</a></span>
     </div>
     {{/if}}
     {{#if remarks}}

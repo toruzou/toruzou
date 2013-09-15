@@ -8,7 +8,7 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         label: "Name"
         editable: false
         cell: class extends Backgrid.Extension.LinkCell
-          href: (rawValue) -> "organizations/" + @model.get("id")
+          href: (rawValue) -> Toruzou.linkTo("organizations/" + @model.get("id"))
       }
       {
         name: "abbreviation"
@@ -29,6 +29,6 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         editable: false
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
         cell: class extends Backgrid.Extension.LinkCell
-          href: (rawValue) -> if rawValue?["id"] then "users/" + rawValue["id"] else null
+          href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
       }
     ]

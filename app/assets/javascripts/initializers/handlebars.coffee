@@ -1,5 +1,10 @@
 Toruzou.addInitializer ->
 
+  Handlebars.registerHelper "relativeUrl", (relative, key) ->
+    path = relative
+    path += "/#{key}" if key
+    Toruzou.linkTo path
+
   # TODO duplicated, should refactor
 
   Handlebars.registerHelper "amount", (value) ->

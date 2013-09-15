@@ -30,6 +30,10 @@ Toruzou.Launcher =
         e.preventDefault()
         Backbone.history.navigate href.attr, true
 
+Toruzou.linkTo = (relative) ->
+  root = Toruzou.Configuration.root 
+  "#{root}#{relative}"
+
 Toruzou.navigate = (route, options) ->
   options or= {}
   Backbone.history.navigate(route, options)
