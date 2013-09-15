@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::Organization do
+describe Organization do
   describe "validator" do
     describe "presence" do
       it "accepts valid instance." do
