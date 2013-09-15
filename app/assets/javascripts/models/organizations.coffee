@@ -30,8 +30,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         title: "URL"
         type: "Text"
         validators: [ "url" ]
-      ownerId: $.extend true, Models.Schema.user, title: "Owner"
-
+      ownerId: $.extend true, {},
+        Models.Schema.User,
+        title: "Owner"
+        key: "owner"
 
   Models.Organizations = class Organizations extends Backbone.PageableCollection
 

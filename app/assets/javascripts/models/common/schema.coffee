@@ -3,12 +3,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
   restoreModel = (attributes, Model) -> if attributes instanceof Backbone.Model then attributes else new Model attributes
 
   Models.Schema =
-    
-    user:
-      title: "User"
+
+    User:
       type: "Selectize"
       restore: (model) ->
-        attributes = model.get "owner"
+        attributes = model.get @key
         if attributes
           model = restoreModel attributes, Models.User
           {
@@ -24,11 +23,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
-    users:
-      title: "Users"
+    Users:
       type: "Selectize"
       restore: (model) ->
-        users = model.get "users"
+        users = model.get @key
         return [] unless users
         users = _.map users, (attributes) -> restoreModel attributes, Models.Person
         {
@@ -49,11 +47,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
-    organization:
-      title: "Organization"
+    Organization:
       type: "Selectize"
       restore: (model) ->
-        attributes = model.get "organization"
+        attributes = model.get @key
         if attributes
           model = restoreModel attributes, Models.Organization
           {
@@ -73,11 +70,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "organizations:fetch", name: query).done (organizations) -> callback _.map(organizations.models, (organization) -> organization.serialize())
 
-    deal:
-      title: "Deal"
+    Deal:
       type: "Selectize"
       restore: (model) ->
-        attributes = model.get "deal"
+        attributes = model.get @key
         if attributes
           model = restoreModel attributes, Models.Deal
           {
@@ -97,11 +93,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "deals:fetch", name: query).done (deals) -> callback _.map(deals.models, (deal) -> deal.serialize())
 
-    person:
-      title: "Contact"
+    Person:
       type: "Selectize"
       restore: (model) ->
-        attributes = model.get "person"
+        attributes = model.get @key
         if attributes
           model = restoreModel attributes, Models.Person
           {
@@ -117,11 +112,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())
 
-    people:
-      title: "Contacts"
+    People:
       type: "Selectize"
       restore: (model) ->
-        people = model.get "people"
+        people = model.get @key
         return [] unless people
         people = _.map people, (attributes) -> restoreModel attributes, Models.Person
         {
@@ -135,11 +129,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         searchField: "name"
         create: (input, callback) ->
           return callback() unless input.length
-          person = new Toruzou.Models.Person()
+          person = new Models.Person()
           person.save "name", input, success: (person) => callback person.serialize()
           undefined
         load: (query, callback) ->
           return callback() unless query.length
           $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())
 
-  Object.freeze? Models.Schema
+  # Object.freeze? Models.Schema

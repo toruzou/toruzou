@@ -23,7 +23,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       name:
         type: "Text"
         validators: [ "required" ]
-      organizationId: Models.Schema.organization
+      organizationId: $.extend true, {},
+        Models.Schema.Organization,
+        title: "Organization"
+        key: "organization"
       phone:
         type: "Text"
         validators: [ /\d{2,4}-?\d{2,4}-?\d{4}/ ]
@@ -34,8 +37,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Text"
       remarks:
         type: "TextArea"
-      ownerId: $.extend true, Models.Schema.user, title: "Owner"
-
+      ownerId: $.extend true, {},
+        Models.Schema.User,
+        title: "Owner"
+        key: "owner"
 
   Models.People = class People extends Backbone.PageableCollection
 

@@ -28,10 +28,22 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       name:
         type: "Text"
         validators: [ "required" ]
-      organizationId: Models.Schema.organization
-      pmId: $.extend true, Models.Schema.user, title: "Project Manager"
-      salesId: $.extend true, Models.Schema.user, title: "Sales Person"
-      contactId: Models.Schema.person
+      organizationId: $.extend true, {},
+        Models.Schema.Organization,
+        title: "Organization"
+        key: "organization"
+      pmId: $.extend true, {},
+        Models.Schema.User,
+        title: "Project Manager"
+        key: "pm"
+      salesId: $.extend true, {},
+        Models.Schema.User,
+        title: "Sales Person"
+        key: "sales"
+      contactId: $.extend true, {},
+        Models.Schema.Person,
+        title: "Contact Person"
+        key: "contact"
       status:
         type: "Selectize"
         restore: (model) ->

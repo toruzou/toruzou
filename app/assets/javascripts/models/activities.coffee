@@ -56,10 +56,22 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
             option: (item, escape) => "<div>#{Activity::renderAction item.text}</div>"
       date:
         type: "Datepicker"
-      organizationId: Models.Schema.organization
-      dealId: Models.Schema.deal
-      usersIds: Models.Schema.users
-      peopleIds: Models.Schema.people
+      organizationId: $.extend true, {},
+        Models.Schema.Organization,
+        title: "Organization"
+        key: "organization"
+      dealId: $.extend true, {},
+        Models.Schema.Deal,
+        title: "Deal"
+        key: "deal"
+      usersIds: $.extend true, {},
+        Models.Schema.Users,
+        title: "Users"
+        key: "users"
+      peopleIds: $.extend true, {},
+        Models.Schema.People,
+        title: "Contacts"
+        key: "people"
       note:
         type: "TextArea"
       done:
