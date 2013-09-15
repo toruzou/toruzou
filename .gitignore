@@ -16,6 +16,3 @@
 /tmp
 /vendor/bundle
 /vendor/assets/components
-
-# ignore vim file
-*.swp
