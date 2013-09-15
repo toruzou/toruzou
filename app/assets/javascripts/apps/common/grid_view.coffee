@@ -56,14 +56,31 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     render: ->
       @$el.empty()
       rawValue = @model.get(@column.get "name")
+      if _.isArray rawValue
+        _.each rawValue, (v) => @renderLink v
+      else
+        @renderLink rawValue
+      @delegateEvents()
+      @
+
+    renderLink: (rawValue) ->
       formattedValue = @formatter.fromRaw rawValue
-      $link = $("<a></a>")
+      href = @href rawValue
+      if _.isUndefined href or _.isNull href
+        $link = $("<span></span>")
+      else
+        $link = $("<a></a>").attr("href", href)
+      $link
         .attr("tabIndex", -1)
-        .attr("href", _.result(@, "href") or "/#")
-        .attr("title", if @title then (_.result @, "title") else formattedValue)
+        .attr("title", @title rawValue, formattedValue)
       $link.attr "target", @target if @target
       $link.text formattedValue
       @$el.append $link
-      @delegateEvents()
-      @
+
+    href: (rawValue) ->
+      undefined
+
+    title: (rawValue, formattedValue) ->
+      formattedValue
+
 

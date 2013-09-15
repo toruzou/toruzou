@@ -10,6 +10,9 @@
     td {
         white-space: pre;
         word-wrap: break-word;
+        a + a {
+            margin-left: 0.5em;
+        }
     }
     .select-row-cell,
     .select-all-header-cell {

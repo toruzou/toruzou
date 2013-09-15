@@ -43,14 +43,13 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         editable: false
         cell: "localDate"
       }
-      # TODO organizations, deals, people, users
       {
         name: "deal"
         label: "Deal"
         editable: false
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
         cell: class extends Backgrid.Extension.LinkCell
-          href: -> "deals/" + @model.get("deal")?["id"]
+          href: (rawValue) -> if rawValue?["id"] then "deals/" + rawValue["id"] else null
       }
       {
         name: "organization"
@@ -58,7 +57,23 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         editable: false
         formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
         cell: class extends Backgrid.Extension.LinkCell
-          href: -> "organizations/" + @model.get("organization")?["id"]
+          href: (rawValue) -> if rawValue?["id"] then "organizations/" + rawValue["id"] else null
+      }
+      {
+        name: "users"
+        label: "Users"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: (rawValue) -> if rawValue?["id"] then "users/" + rawValue["id"] else null
+      }
+      {
+        name: "people"
+        label: "Contacts"
+        editable: false
+        formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+        cell: class extends Backgrid.Extension.LinkCell
+          href: (rawValue) -> if rawValue?["id"] then "people/" + rawValue["id"] else null
       }
     ]
 
