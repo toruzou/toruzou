@@ -1,5 +1,6 @@
 class Deal < ActiveRecord::Base
   belongs_to :organization
-  has_and_belongs_to_many :people
-  has_and_belongs_to_many :users
+  belongs_to :pm, :class_name => "User"
+  belongs_to :sales, :class_name => "User"
+  belongs_to :contact, :class_name => "Person"
 end
