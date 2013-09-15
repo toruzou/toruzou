@@ -30,6 +30,8 @@ module Api
       # POST /activities
       def create
         @activity = Activity.new(activity_params)
+        @activity.users = User.find(users_params[:users_ids] ||= [])
+        @activity.people = Person.find(people_params[:people_ids] ||= [])
         if @activity.save
           render json: @activity
         else
@@ -39,7 +41,12 @@ module Api
 
       # PATCH/PUT /activities/1
       def update
-        if @activity.update(activity_params)
+        @activity.assign_attributes(activity_params)
+        @activity.users.clear
+        @activity.users = User.find(users_params[:users_ids] ||= [])
+        @activity.people.clear
+        @activity.people = Person.find(people_params[:people_ids] ||= [])
+        if @activity.save
           render json: @activity
         else
           render json: @activity, status: :unprocessable_entity
@@ -60,8 +67,25 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def activity_params
-          params.require(:activity).permit(:subject, :action, :date, :note, :done, :organization_id, :deal_id)
+          params.require(:activity).permit(
+            :subject,
+            :action,
+            :date,
+            :note,
+            :done,
+            :organization_id,
+            :deal_id
+          )
         end
+
+        def users_params
+          params.require(:activity).permit(:users_ids => [])
+        end
+
+        def people_params
+          params.require(:activity).permit(:people_ids => [])
+        end
+
     end
   end
 end

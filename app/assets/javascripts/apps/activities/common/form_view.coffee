@@ -22,10 +22,15 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
       organizationId:
         editorAttrs:
           placeholder: "Organization"
+      usersIds:
+        editorAttrs:
+          placeholder: "Users"
+      peopleIds:
+        editorAttrs:
+          placeholder: "Contacts"
       note:
         editorAttrs:
           placeholder: "Note"
-      # TODO deals, people, users
 
     constructor: (options) ->
       super options

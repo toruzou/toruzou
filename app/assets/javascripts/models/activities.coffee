@@ -50,8 +50,8 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         type: "Datepicker"
       organizationId: Models.Schema.organization
       dealId: Models.Schema.deal
-      # TODO people, multiple, create
-      # TODO users, multiple, create
+      usersIds: Models.Schema.users
+      peopleIds: Models.Schema.people
       note:
         type: "TextArea"
       done:

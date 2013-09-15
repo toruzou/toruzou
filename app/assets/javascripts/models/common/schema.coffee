@@ -1,5 +1,7 @@
 Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
+  restoreModel = (attributes, Model) -> if attributes instanceof Backbone.Model then attributes else new Model attributes
+
   Models.Schema =
     
     user:
@@ -8,7 +10,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       restore: (model) ->
         attributes = model.get "owner"
         if attributes
-          model = if attributes instanceof Backbone.Model then attributes else new Models.User attributes
+          model = restoreModel attributes, Models.User
           {
             value: model.get "id"
             data: model.serialize()
@@ -22,13 +24,38 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
           return callback() unless query.length
           $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
 
+    users:
+      title: "Users"
+      type: "Selectize"
+      restore: (model) ->
+        users = model.get "users"
+        return [] unless users
+        users = _.map users, (attributes) -> restoreModel attributes, Models.Person
+        {
+          value: _.map users, (user) -> user.get "id"
+          data: _.map users, (user) -> user.serialize()
+        }
+      selectize:
+        maxItems: null
+        valueField: "id"
+        labelField: "name"
+        searchField: "name"
+        create: (input, callback) ->
+          return callback() unless input.length
+          user = new Toruzou.Models.User()
+          user.save "name", input, success: (user) => callback user.serialize()
+          undefined
+        load: (query, callback) ->
+          return callback() unless query.length
+          $.when(Toruzou.request "users:fetch", name: query).done (users) -> callback _.map(users.models, (user) -> user.serialize())
+
     organization:
       title: "Organization"
       type: "Selectize"
       restore: (model) ->
         attributes = model.get "organization"
         if attributes
-          model = if attributes instanceof Backbone.Model then attributes else new Models.Organization attributes
+          model = restoreModel attributes, Models.Organization
           {
             value: model.get "id"
             data: model.serialize()
@@ -52,7 +79,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       restore: (model) ->
         attributes = model.get "deal"
         if attributes
-          model = if attributes instanceof Backbone.Model then attributes else new Models.Deal attributes
+          model = restoreModel attributes, Models.Deal
           {
             value: model.get "id"
             data: model.serialize()
@@ -69,5 +96,30 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         load: (query, callback) ->
           return callback() unless query.length
           $.when(Toruzou.request "deals:fetch", name: query).done (deals) -> callback _.map(deals.models, (deal) -> deal.serialize())
+
+    people:
+      title: "Contacts"
+      type: "Selectize"
+      restore: (model) ->
+        people = model.get "people"
+        return [] unless people
+        people = _.map people, (attributes) -> restoreModel attributes, Models.Person
+        {
+          value: _.map people, (person) -> person.get "id"
+          data: _.map people, (person) -> person.serialize()
+        }
+      selectize:
+        maxItems: null
+        valueField: "id"
+        labelField: "name"
+        searchField: "name"
+        create: (input, callback) ->
+          return callback() unless input.length
+          person = new Toruzou.Models.Person()
+          person.save "name", input, success: (person) => callback person.serialize()
+          undefined
+        load: (query, callback) ->
+          return callback() unless query.length
+          $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())
 
   Object.freeze? Models.Schema
