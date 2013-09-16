@@ -30,6 +30,13 @@ describe Api::V1::PeopleController do
       @person1 = valid_person(@organization1.id)
     end
 
+    after(:all) do
+      @organization1.destroy
+      @organization2.destroy
+
+      @person1.destroy
+    end
+
     it "shows person which belongs to organization." do
       get :show, organization_id: @organization1.id, id: @person1.id
 
