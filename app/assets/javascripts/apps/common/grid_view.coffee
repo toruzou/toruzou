@@ -83,23 +83,22 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     title: (rawValue, formattedValue) ->
       formattedValue
 
-  class Backgrid.Extension.ButtonCell extends Backgrid.Cell
+  class Backgrid.Extension.IconButtonCell extends Backgrid.Cell
 
-    className: "button-cell"
-    buttonName: undefined
+    className: "button-icon-cell"
+    iconClassName: undefined
+    title: undefined
 
     render: ->
       @$el.empty()
-      @$el.append @createLink()
+      @$el.append @createIconLink()
       @delegateEvents()
       @
 
-    createLink: ->
-      $("<a></a>")
-        .addClass("small button")
+    createIconLink: ->
+      $("<a class=\"small button\"></a>")
         .attr("href", "/#")
         .attr("tabIndex", -1)
-        .attr("title", @buttonName)
-        .text @buttonName
-
+        .attr("title", @title)
+        .html "<i class=\"icon-#{@iconClassName}\"></i>"
 

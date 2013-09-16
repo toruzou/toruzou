@@ -80,14 +80,16 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         label: ""
         editable: false
         sortable: false
-        cell: class extends Backgrid.Extension.ButtonCell
-          buttonName: "Delete"
-          createLink: ->
+        cell: class extends Backgrid.Extension.IconButtonCell
+          title: "Delete"
+          iconClassName: "remove"
+          createIconLink: ->
             $link = super.addClass "alert"
             $link.on "click", (e) =>
               e.preventDefault()
               e.stopPropagation()
               @model.destroy success: @refresh
+            $link
       }
     ]
 
