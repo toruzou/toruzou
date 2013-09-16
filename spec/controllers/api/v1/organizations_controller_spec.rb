@@ -13,8 +13,7 @@ describe Api::V1::OrganizationsController do
       get :index, ""
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
-      expect(body).to include_json(JSON.generate( 
-        {total_entries: 2 }))
+      expect(JSON.parse(body)[0]['total_entries']).to eq(2)
       expect(body).to include_json(JSON.generate([ 
         organization_hash(first), 
         organization_hash(second)]))
@@ -95,7 +94,7 @@ describe Api::V1::OrganizationsController do
         abbreviation: 'org1', 
         address: 'sample address', 
         remarks: 'sample remarks',
-        }
+      }
       post :create, organization: param
 
       expect(status).to eq(200)
@@ -103,6 +102,18 @@ describe Api::V1::OrganizationsController do
       expect(JSON.parse(body)['abbreviation']).to eq("org1")
       expect(JSON.parse(body)['address']).to eq("sample address")
       expect(JSON.parse(body)['remarks']).to eq("sample remarks")
+    end
+
+    it "is unable to register record when entity was invalid." do
+      param = {name: '', 
+        abbreviation: 'org1', 
+        address: 'sample address', 
+        remarks: 'sample remarks',
+      }
+      post :create, organization: param
+
+      expect(status).to eq(422)
+      expect(body).to be_json_eql(JSON.generate({name: ["can't be blank"]}))
     end
   end
   
@@ -131,6 +142,19 @@ describe Api::V1::OrganizationsController do
       expect(JSON.parse(body)['abbreviation']).to eq("org2")
       expect(JSON.parse(body)['address']).to eq("modified address")
       expect(JSON.parse(body)['remarks']).to eq("modified remarks")
+    end
+
+    it "is unable to update record when entity was invalid." do
+      organization = valid_organization
+      param = {name: '', abbreviation: 'a'*21}
+
+      put :update, id: organization.id, organization: param
+
+      expect(status).to eq(422)
+      expect(body).to be_json_eql(JSON.generate(
+        {name: ["can't be blank"], 
+         abbreviation: ["is too long (maximum is 20 characters)"]
+      }))
     end
   end
 

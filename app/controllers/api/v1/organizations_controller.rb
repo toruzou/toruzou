@@ -9,7 +9,7 @@ module Api
 
       # GET /organizations
       def index
-        @organizations = ::Organization.all
+        @organizations = Organization.all
         @organizations = @organizations.where("lower(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
         @organizations = @organizations.where("lower(abbreviation) LIKE ?", "%#{params[:abbreviation].downcase}%") if params[:abbreviation].present?
         @organizations = @organizations.joins(:owner).where("lower(users.name) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?
@@ -23,7 +23,7 @@ module Api
 
       # GET /organizations/new
       def new
-        @organization = ::Organization.new
+        @organization = Organization.new
       end
 
       # GET /organizations/1/edit
@@ -32,12 +32,11 @@ module Api
 
       # POST /organizations
       def create
-        # TODO validation, etc ...
-        @organization = ::Organization.new(organization_params)
+        @organization = Organization.new(organization_params)
         if @organization.save
           render json: @organization
         else
-          render json: @organization, status: :unprocessable_entity
+          render json: @organization.errors ,status: :unprocessable_entity
         end
       end
 
@@ -46,7 +45,7 @@ module Api
         if @organization.update(organization_params)
           render json: @organization
         else
-          render json: @organization, status: :unprocessable_entity
+          render json: @organization.errors ,status: :unprocessable_entity
         end
       end
 
@@ -59,7 +58,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_organization
-          @organization = ::Organization.find(params[:id])
+          @organization = Organization.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.
