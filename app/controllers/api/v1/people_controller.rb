@@ -61,7 +61,13 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_person
-          @person = Person.find(params[:id])
+          if params[:organization_id].present? then
+            @person = Person.find(params[:id], 
+                                  conditions: ["organization_id = ?", 
+                                  params[:organization_id]])
+          else
+            @person = Person.find(params[:id])
+          end
         end
 
         # Only allow a trusted parameter "white list" through.
