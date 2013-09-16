@@ -171,7 +171,7 @@ Toruzou.addInitializer ->
         if _.isString option
           { val: option, label: option }
         else if _.isObject option
-          option.val = option.label unless option.val
+          option.val = option.label if _.isUndefined option.val
           option
 
     render: ->
