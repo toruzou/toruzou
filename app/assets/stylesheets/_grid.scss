@@ -26,6 +26,13 @@
         width: 8em;
         text-align: right;
     }
+    .button-cell {
+        width: 80px;
+        text-align: center;
+        .button {
+            margin: 0 auto;
+        }
+    }
     .activity-action-cell {
         width: 10em;
     }

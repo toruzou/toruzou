@@ -75,6 +75,20 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         cell: class extends Backgrid.Extension.LinkCell
           href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("people/" + rawValue["id"]) else null
       }
+      {
+        name: "delete"
+        label: ""
+        editable: false
+        sortable: false
+        cell: class extends Backgrid.Extension.ButtonCell
+          buttonName: "Delete"
+          createLink: ->
+            $link = super.addClass "alert"
+            $link.on "click", (e) =>
+              e.preventDefault()
+              e.stopPropagation()
+              @model.destroy success: @refresh
+      }
     ]
 
     initialize: (options) ->
