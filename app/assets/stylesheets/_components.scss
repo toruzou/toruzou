@@ -103,6 +103,21 @@ textarea {
     box-shadow: none;
 }
 
+@mixin placeholder($color) {
+    &:-moz-placeholder {
+        color: $color;
+    }
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+    &::-moz-placeholder {
+        color: $color;
+    }
+    &::-webkit-input-placeholder {
+        color: $color;
+}
+}
+
 .selectize-control {
     width: 100%;
     margin-bottom: 1em;
@@ -113,9 +128,10 @@ textarea {
         border-radius: 0;
         border-color: #ddd;
         box-shadow: none;
-        padding: 0.5em;
+        padding: 0.25em 0.5em;
         > input {
             display: inline-block;
+            @include placeholder(rgba($input-font-color, 0.5));
         }
         &.focus {
             $fade-time: 300ms;
@@ -128,6 +144,9 @@ textarea {
             box-shadow: 0 0 5px $input-focus-border-color;
             -webkit-box-shadow: 0 0 5px $input-focus-border-color;
             -moz-box-shadow: 0 0 5px $input-focus-border-color;
+        }
+        &.has-items {
+            padding: 0.5em;
         }
     }
 }
