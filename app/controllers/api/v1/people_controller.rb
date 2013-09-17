@@ -62,9 +62,8 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_person
           if params[:organization_id].present? then
-            @person = Person.find(params[:id], 
-                                  conditions: ["organization_id = ?", 
-                                  params[:organization_id]])
+            @person = Person.in_organization(params[:organization_id]) \
+              .find(params[:id])
           else
             @person = Person.find(params[:id])
           end
