@@ -5,39 +5,39 @@ describe Api::V1::PeopleController do
     login_user
   end
 
+  before(:all) do
+    @bank1 = valid_organization
+    @bank2 = valid_organization
+
+    @person1 = valid_person(@bank1.id)
+    @person1.name  = "Ichibanme"
+    @person1.phone = "0120-444-444"
+    @person1.email = "first@example.com"
+    @person1.save
+
+    @person2 = valid_person(@bank2.id)
+    @person2.name  = "Nibanme"
+    @person2.phone = "03-3278-6768"
+    @person2.email = "second@example.com"
+    @person2.save
+    
+    @person3 = valid_person(@bank1.id)
+    @person3.name  = "Sanbanme"
+    @person3.phone = "03-3278-6768"
+    @person3.email = "third@dummy.com"
+    @person3.save
+  end
+
+  after(:all) do
+    @bank1.destroy
+    @bank2.destroy
+
+    @person1.destroy
+    @person2.destroy
+    @person3.destroy
+  end
+
   describe "GET api/v1/people" do
-    before(:all) do
-      @bank1 = valid_organization
-      @bank2 = valid_organization
-
-      @person1 = valid_person(@bank1.id)
-      @person1.name  = "Ichibanme"
-      @person1.phone = "0120-444-444"
-      @person1.email = "first@example.com"
-      @person1.save
-
-      @person2 = valid_person(@bank2.id)
-      @person2.name  = "Nibanme"
-      @person2.phone = "03-3278-6768"
-      @person2.email = "second@example.com"
-      @person2.save
-      
-      @person3 = valid_person(@bank1.id)
-      @person3.name  = "Sanbanme"
-      @person3.phone = "03-3278-6768"
-      @person3.email = "third@dummy.com"
-      @person3.save
-    end
-
-    after(:all) do
-      @bank1.destroy
-      @bank2.destroy
-
-      @person1.destroy
-      @person2.destroy
-      @person3.destroy
-    end
-
     it "shows all people registered." do
       get :index
 
@@ -97,50 +97,54 @@ describe Api::V1::PeopleController do
     end
   end
 
-  describe "GET api/v1/organizations/1/people" do
-    it "shows people which belongs to organization #1." do
-      @organization1 = valid_organization
-      @organization2 = valid_organization
-
-      @person1 = valid_person(@organization1.id)
-      @person2 = valid_person(@organization2.id)
-
-      get :index, organization_id: @organization1.id
-
-      expect(status).to eq(200)
-
-      expect(JSON.parse(body)[0]).to eq({"total_entries" =>  1})
-      expect(JSON.parse(body)[1][0]['id']).to eq(@person1.id)
-    end
-  end
-
-  describe "GET api/v1/organization/1/people/1" do
-    before(:all) do
-      @organization1 = valid_organization
-      @organization2 = valid_organization
-
-      @person1 = valid_person(@organization1.id)
-    end
-
-    after(:all) do
-      @organization1.destroy
-      @organization2.destroy
-
-      @person1.destroy
-    end
-
-    it "shows person which belongs to organization." do
-      get :show, organization_id: @organization1.id, id: @person1.id
+  describe "GET api/v1/people/1" do
+    it "shows designated person when given id is valid." do
+      get :show, id: @person1.id
 
       expect(status).to eq(200)
       expect(JSON.parse(body)['id']).to eq(@person1.id)
+      expect(JSON.parse(body)['name']).to eq(@person1.name)
     end
 
-    it "returns 404 when person doesn't belong to organization." do
-      get :show, organization_id: @organization2.id, id: @person1.id
-
+    it "returns 404 when record for given id doesn't exist" do
+      get :show, id: @person3.id + 100
       expect(status).to eq(404)
       expect(body).to eq(" ")
+    end
+  end
+
+  describe "People API under Organization" do
+    describe "GET api/v1/organizations/1/people" do
+      it "shows people which belongs to organization #1." do
+        @bank1 = valid_organization
+        @bank2 = valid_organization
+
+        @person1 = valid_person(@bank1.id)
+        @person2 = valid_person(@bank2.id)
+
+        get :index, organization_id: @bank1.id
+
+        expect(status).to eq(200)
+
+        expect(JSON.parse(body)[0]).to eq({"total_entries" =>  1})
+        expect(JSON.parse(body)[1][0]['id']).to eq(@person1.id)
+      end
+    end
+
+    describe "GET api/v1/organization/1/people/1" do
+      it "shows person which belongs to organization." do
+        get :show, organization_id: @bank1.id, id: @person1.id
+
+        expect(status).to eq(200)
+        expect(JSON.parse(body)['id']).to eq(@person1.id)
+      end
+
+      it "returns 404 when person doesn't belong to organization." do
+        get :show, organization_id: @bank2.id, id: @person1.id
+
+        expect(status).to eq(404)
+        expect(body).to eq(" ")
+      end
     end
   end
 
