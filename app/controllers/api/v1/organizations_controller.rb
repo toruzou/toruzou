@@ -32,12 +32,11 @@ module Api
 
       # POST /organizations
       def create
-        # TODO validation, etc ...
         @organization = Organization.new(organization_params)
         if @organization.save
           render json: @organization
         else
-          render json: @organization, status: :unprocessable_entity
+          render json: @organization.errors ,status: :unprocessable_entity
         end
       end
 
@@ -46,7 +45,7 @@ module Api
         if @organization.update(organization_params)
           render json: @organization
         else
-          render json: @organization, status: :unprocessable_entity
+          render json: @organization.errors ,status: :unprocessable_entity
         end
       end
 
