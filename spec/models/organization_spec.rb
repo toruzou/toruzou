@@ -8,32 +8,33 @@ describe Organization do
         assert organization.valid?
       end
 
-      it "contains no error message when address, url or remarks is nil." do
+      it "contains no error message when abbreviation, 
+          address, url or remarks is nil." do
         organization = FactoryGirl.create(:organization, address: nil, 
-                                          url: nil, remarks: nil)
+                                          url: nil, remarks: nil, 
+                                          abbreviation: nil)
         assert organization.valid?
       end
 
       it "contains no error message when address, url or remarks is blank." do
         organization = FactoryGirl.create(:organization, address: "", 
-                                          url: "", remarks: "")
+                                          url: "", remarks: "", 
+                                          abbreviation: "")
         assert organization.valid?
       end
 
-      it "has errors when name or abbreviation is nil" do
+      it "has errors when name is nil" do
         organization = FactoryGirl.build(:organization, 
-                                          name: nil, abbreviation: nil)
+                                          name: nil)
         assert organization.invalid?
         assert organization.errors[:name].any?
-        assert organization.errors[:abbreviation].any?
       end
 
-      it "has errors when name or abbreviation is blank" do
+      it "has errors when name is blank" do
         organization = FactoryGirl.build(:organization, 
-                                          name: "", abbreviation: "")
+                                          name: "")
         assert organization.invalid?
         assert organization.errors[:name].any?
-        assert organization.errors[:abbreviation].any?
       end
     end
 
