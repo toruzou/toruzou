@@ -10,6 +10,11 @@ module Api
       def index
         # FIXME ugly, does anyone know how to alias the joined table on Rails ?
         @deals = Deal.all
+        if params[:user_id]
+          condition = Deal.arel_table[:pm_id].eq(params[:user_id])
+          condition = condition.or(Deal.arel_table[:sales_id].eq(params[:user_id]))
+          @deals = @deals.where(condition)
+        end
         @deals = @deals.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
         @deals = @deals.where(:contact_id => params[:person_id]) if params[:person_id].present?
         @deals = @deals.where("lower(deals.name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?

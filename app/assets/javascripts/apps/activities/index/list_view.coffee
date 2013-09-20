@@ -12,6 +12,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       super options
       @organization = options?.organization
       @deal = options?.deal
+      @users = options?.users
       @people = options?.people
       
     onShow: ->
@@ -23,6 +24,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       activity = new Toruzou.Models.Activity()
       activity.set "organization", @organization if @organization
       activity.set "deal", @deal if @deal
+      activity.set "users", @users if @users
       activity.set "people", @people if @people
       newView = new Toruzou.Activities.New.View model: activity
       newView.on "activities:saved", => @refresh()

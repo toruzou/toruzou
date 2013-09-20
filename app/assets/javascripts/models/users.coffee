@@ -85,5 +85,13 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       dfd = $.Deferred()
       users.fetch success: (collection) -> dfd.resolve collection
       dfd.promise()
+    getUser: (id) ->
+      user = new Models.User id: id
+      dfd = $.Deferred()
+      user.fetch
+        success: (model) -> dfd.resolve model
+        error: (model) -> dfd.resolve undefined
+      dfd.promise()
 
   Toruzou.reqres.setHandler "users:fetch", (options) -> API.getUsers options
+  Toruzou.reqres.setHandler "user:fetch", (id) -> API.getUser id

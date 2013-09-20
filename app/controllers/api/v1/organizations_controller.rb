@@ -10,6 +10,7 @@ module Api
       # GET /organizations
       def index
         @organizations = Organization.all
+        @organizations = @organizations.where(:owner_id => params[:owner_id]) if params[:owner_id]
         @organizations = @organizations.where("lower(contacts.name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
         @organizations = @organizations.where("lower(contacts.abbreviation) LIKE ?", "%#{params[:abbreviation].downcase}%") if params[:abbreviation].present?
         @organizations = @organizations.joins(:owner).where("lower(users.name) LIKE ?", "%#{params[:owner_name].downcase}%") if params[:owner_name].present?

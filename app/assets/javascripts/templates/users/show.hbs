@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="large-12 columns">
+    <div class="description-container">
+      <h4><i class="icon-user-md icon-inline-prefix"></i>{{name}}</h4>
+    </div>
+  </div>
+</div>
+<div class="row collapse properties-container">
+  <div class="large-12 columns">
+    {{#if email}}
+    <div class="property">
+      <span class="label">Email</span>
+      <span class="value"><a href="mailto:{{email}}">{{email}}</a></span>
+    </div>
+    {{/if}}
+    {{#if lastSignInAt}}
+    <div class="property">
+      <span class="label">Last Sign-in Datetime</span>
+      <span class="value">{{localDatetime lastSignInAt}}</span>
+    </div>
+    {{/if}}
+    {{#if lastSignInIp}}
+    <div class="property">
+      <span class="label">Last Sign-in IP Address</span>
+      <span class="value">{{lastSignInIp}}</span>
+    </div>
+    {{/if}}
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <div class="activity-panel">
+      <span class="subject"><i class="icon-calendar icon-inline-prefix"></i>Last Activity (Email to James)</span>
+      <span class="calendar">14 days ago</span>
+      <span class="owner"><a href="users/1">monzou</a></span>
+    </div>
+  </div>
+  <div class="large-6 columns">
+    <div class="activity-panel">
+      <span class="subject"><i class="icon-calendar icon-inline-prefix"></i>Next Activity (Email to James)</span>
+      <span class="calendar">in 2 months, 6 days</span>
+      <span class="owner"><a href="users/1">monzou</a></span>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="section-container tabs" data-section="tabs">
+      <section id="updates" class="active">
+        <p class="title" data-section-title>
+          <a href="#" data-bypass><i class="icon-circle-blank icon-inline-prefix"></i>Updates</a>
+        </p>
+        <div class="content" data-section-content></div>
+      </section>
+      <section id="activities">
+        <p class="title" data-section-title>
+          <a href="#" data-bypass><i class="icon-calendar icon-inline-prefix"></i>Activities</a>
+        </p>
+        <div class="content" data-section-content></div>
+      </section>
+      <section id="organizations">
+        <p class="title" data-section-title>
+          <a href="#" data-bypass><i class="icon-building icon-inline-prefix"></i>Organizations</a>
+        </p>
+        <div class="content" data-section-content></div>
+      </section>
+      <section id="deals">
+        <p class="title" data-section-title>
+          <a href="#" data-bypass><i class="icon-tasks icon-inline-prefix"></i>Deals</a>
+        </p>
+        <div class="content" data-section-content></div>
+      </section>
+    </div>
+  </div>
+</div>

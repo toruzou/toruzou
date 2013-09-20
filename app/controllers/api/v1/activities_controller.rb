@@ -15,6 +15,7 @@ module Api
         @activities = @activities.where("lower(activities.subject) LIKE ?", "%#{params[:subject].downcase}%") if params[:subject].present?
         @activities = @activities.where(action: params[:actions]) if params[:actions].present?
         @activities = @activities.joins(:deal).where("lower(deals.name) LIKE ?", "%#{params[:deal_name].downcase}%") if params[:deal_name].present?
+        @activities = @activities.joins(:users).where("users.id" => params[:users_ids]) if params[:users_ids].present?
         @activities = @activities.joins(:people).where("contacts.id" => params[:people_ids]) if params[:people_ids].present?
         @activities = @activities.joins(:organization).where("lower(contacts.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
         if params[:term].present?

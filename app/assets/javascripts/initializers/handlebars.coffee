@@ -22,3 +22,12 @@ Toruzou.addInitializer ->
   Handlebars.registerHelper "localDate", (value) ->
     return "" unless value
     if /\d{4}-\d{2}-\d{2}/.test(value) then value.replace(/-/g, "/") else ""
+
+  Handlebars.registerHelper "localDatetime", (value) ->
+    return "" unless value
+    if /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/.test(value)
+      value = value.replace(/-/g, "/")
+      value = value.replace(/T/, " ")
+      value = value.replace(/\..*$/, "")
+    else
+      ""

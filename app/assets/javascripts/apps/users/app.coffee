@@ -5,6 +5,9 @@ Toruzou.module "Users", (Users, Toruzou, Backbone, Marionette, $, _) ->
       "sign_in": "signIn"
       "sign_up": "signUp"
       "retrieve_password": "retrievePassword"
+      "users": "listUsers"
+      "users/:id": "showUser"
+      "users/:id/*slug": "showUser"
       "users/cancel": "cancelRegistration"
       "users/edit": "edit"
       "users/password/new": "newPassword"
@@ -17,6 +20,11 @@ Toruzou.module "Users", (Users, Toruzou, Backbone, Marionette, $, _) ->
       Users.SignUp.Controller.show()
     retrievePassword: ->
       Users.RetrievePassword.Controller.show()
+    listUsers: ->
+      Users.Index.Controller.listUsers()
+    showUser: (id, slug) ->
+      Users.Show.Controller.showUser id, slug
+    # TODO
     cancelRegistration: ->
       console.log "cancel-registration"
     edit: ->
@@ -29,5 +37,8 @@ Toruzou.module "Users", (Users, Toruzou, Backbone, Marionette, $, _) ->
   Toruzou.on "users:signIn", ->
     Toruzou.navigate "sign_in"
     API.signIn()
+
+  Toruzou.on "user:sectionChanged", (options) ->
+    Toruzou.navigate "users/#{options.id}/#{options.slug}"
 
   Toruzou.addInitializer -> new Users.Router controller: API
