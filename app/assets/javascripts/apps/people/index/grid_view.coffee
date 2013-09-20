@@ -19,19 +19,6 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
           href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("organizations/" + rawValue["id"]) else null
       }
       {
-        name: "phone"
-        label: "Phone"
-        editable: false
-        cell: "string"
-      }
-      {
-        name: "email"
-        label: "Email"
-        editable: false
-        cell: class extends Backgrid.Extension.LinkCell
-          href: -> "mailto:#{@model.get('email')}"
-      }
-      {
         name: "career"
         label: "Department"
         editable: false
@@ -44,6 +31,19 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         editable: false
         cell: "string"
         formatter: fromRaw: (rawValue) -> rawValue?["title"]
+      }
+      {
+        name: "phone"
+        label: "Phone"
+        editable: false
+        cell: "string"
+      }
+      {
+        name: "email"
+        label: "Email"
+        editable: false
+        cell: class extends Backgrid.Extension.LinkCell
+          href: -> "mailto:#{@model.get('email')}"
       }
       {
         name: "owner"
