@@ -16,6 +16,8 @@ module Api
           @attachments = @attachments.where(:attachable_type => "Contact", :attachable_id => params[:organization_id])
         elsif params[:person_id].present?
           @attachments = @attachments.where(:attachable_type => "Contact", :attachable_id => params[:person_id])
+        elsif params[:career_id].present?
+          @attachments = @attachments.where(:attachable_type => "Career", :attachable_id => params[:career_id])
         elsif params[:deal_id].present?
           @attachments = @attachments.where(:attachable_type => "Deal", :attachable_id => params[:deal_id])
         elsif params[:activity_id].present?
@@ -35,6 +37,7 @@ module Api
         # TODO refactoring
         @attachment.attachable = Organization.find attachment_params[:organization_id] if attachment_params[:organization_id].present?
         @attachment.attachable = Person.find attachment_params[:person_id] if attachment_params[:person_id].present?
+        @attachment.attachable = Career.find attachment_params[:career_id] if attachment_params[:career_id].present?
         @attachment.attachable = Deal.find attachment_params[:deal_id] if attachment_params[:deal_id].present?
         @attachment.attachable = Activity.find attachment_params[:activity_id] if attachment_params[:activity_id].present?
         if @attachment.save
@@ -68,7 +71,7 @@ module Api
         # Only allow a trusted parameter "white list" through.
         def attachment_params
           # TODO refactoring
-          params.permit(:file, :organization_id, :person_id, :deal_id, :activity_id)
+          params.permit(:file, :organization_id, :person_id, :career_id, :deal_id, :activity_id)
         end
 
         def attachment_update_params

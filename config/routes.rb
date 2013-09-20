@@ -9,11 +9,14 @@ Toruzou::Application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :users
+      resources :updates
+      resources :attachments
       resources :organizations do
         resources :attachments
       end
       resources :people do
         resources :attachments
+        resources :careers
       end
       resources :activities do
         resources :attachments
@@ -21,8 +24,9 @@ Toruzou::Application.routes.draw do
       resources :deals do
         resources :attachments
       end
-      resources :updates
-      resources :attachments
+      resources :careers do
+        resources :attachments
+      end
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130920034008) do
+ActiveRecord::Schema.define(version: 20130920071828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,14 +45,17 @@ ActiveRecord::Schema.define(version: 20130920034008) do
   add_index "attachments", ["attachable_id"], name: "index_attachments_on_attachable_id", using: :btree
 
   create_table "careers", force: true do |t|
-    t.date     "from"
-    t.date     "to"
+    t.date     "from_date"
+    t.date     "to_date"
     t.string   "department"
     t.string   "title"
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "person_id"
   end
+
+  add_index "careers", ["person_id"], name: "index_careers_on_person_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "type"

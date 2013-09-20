@@ -32,18 +32,18 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
           href: -> "mailto:#{@model.get('email')}"
       }
       {
-        name: "department"
+        name: "career"
         label: "Department"
         editable: false
         cell: "string"
-        formatter: fromRaw: (rawValue) -> rawValue #TODO
+        formatter: fromRaw: (rawValue) -> rawValue?["department"]
       }
       {
-        name: "title"
+        name: "career"
         label: "Title"
         editable: false
         cell: "string"
-        formatter: fromRaw: (rawValue) -> rawValue #TODO
+        formatter: fromRaw: (rawValue) -> rawValue?["title"]
       }
       {
         name: "owner"

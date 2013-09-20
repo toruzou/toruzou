@@ -4,6 +4,7 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "people/show"
     regions:
+      careersRegion: "#careers [data-section-content]"
       filesRegion: "#files [data-section-content]"
     events:
       "click #edit-button": "edit"
@@ -19,9 +20,15 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       _.each @$el.find("section"), (section) -> $(section).removeClass "active"
       @$el.find("##{slug}").addClass "active"
       switch slug
+        when "careers"
+          @showCareers()
         when "files"
           @showFiles()
       Toruzou.trigger "person:sectionChanged", id: @model.get("id"), slug: slug
+
+    showCareers: ->
+      $.when(Toruzou.request "careers:fetch", person_id: @model.get("id")).done (careers) =>
+        @careersRegion.show new Toruzou.Careers.Index.ListView collection: careers, person: @model
 
     showFiles: ->
       view = new Toruzou.Attachments.View
