@@ -86,6 +86,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     url: Models.endpoint "activities"
     model: Models.Activity
 
+    state:
+      sortKey: "date"
+      order: 1
+      
 
   API =
     getActivities: (options) ->

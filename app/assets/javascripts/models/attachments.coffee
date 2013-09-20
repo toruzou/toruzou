@@ -10,6 +10,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     url: Models.endpoint "attachments"
     model: Models.Attachment
 
+    state:
+      sortKey: "updated_at"
+      order: 1
+
+
   API =
     getAttachments: (options) ->
       attachments = new Models.Attachments()

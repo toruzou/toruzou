@@ -82,6 +82,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     url: Models.endpoint "deals"
     model: Models.Deal
 
+    state:
+      sortKey: "name"
+      order: 1
+
 
   API =
     getDeals: (options) ->

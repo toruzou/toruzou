@@ -10,6 +10,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     url: Models.endpoint "users"
     model: Models.User
 
+    state:
+      sortKey: "name"
+      order: 1
+
   # TODO Refine validators (character length etc.)
 
   Models.UserCredential = class UserCredential extends Backbone.Model

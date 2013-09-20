@@ -44,6 +44,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     url: Models.endpoint "organizations"
     model: Models.Organization
 
+    state:
+      sortKey: "name"
+      order: 1
+
 
   API =
     getOrganizations: (options) ->
