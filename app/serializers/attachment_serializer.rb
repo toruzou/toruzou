@@ -1,3 +1,3 @@
 class AttachmentSerializer < ActiveModel::Serializer
-  attributes :id, :name, :updated_at
+  attributes :id, :name, :comments, :updated_at
 end

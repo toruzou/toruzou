@@ -44,6 +44,15 @@ module Api
         end
       end
 
+      # PATCH/PUT /attachments/1
+      def update
+        if @attachment.update(attachment_update_params)
+          render json: @attachment
+        else
+          render json: @attachment.errors ,status: :unprocessable_entity
+        end
+      end
+
       # DELETE /attachments/1
       def destroy
         @attachment.destroy
@@ -60,6 +69,10 @@ module Api
         def attachment_params
           # TODO refactoring
           params.permit(:file, :organization_id, :person_id, :deal_id, :activity_id)
+        end
+
+        def attachment_update_params
+          params.permit(:comments)
         end
 
     end
