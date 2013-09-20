@@ -4,6 +4,7 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "deals/show"
     regions:
+      activitiesRegion: "#activities [data-section-content]"
       filesRegion: "#files [data-section-content]"
     events:
       "click #edit-button": "edit"
@@ -19,9 +20,15 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       _.each @$el.find("section"), (section) -> $(section).removeClass "active"
       @$el.find("##{slug}").addClass "active"
       switch slug
+        when "activities"
+          @showActivities()
         when "files"
           @showFiles()
       Toruzou.trigger "deal:sectionChanged", id: @model.get("id"), slug: slug
+
+    showActivities: ->
+      $.when(Toruzou.request "activities:fetch", deal_id: @model.get "id").done (activities) =>
+        @activitiesRegion.show new Toruzou.Activities.Index.ListView collection: activities, deal: @model
 
     showFiles: ->
       view = new Toruzou.Attachments.View

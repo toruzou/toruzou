@@ -11,6 +11,7 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
     constructor: (options) ->
       super options
       @organization = options?.organization
+      @person = options?.person
 
     onShow: ->
       @gridRegion.show new Index.GridView collection: @collection
@@ -20,6 +21,7 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       e.stopPropagation()
       deal = new Toruzou.Models.Deal()
       deal.set "organization", @organization if @organization
+      deal.set "contact", @person if @person
       newView = new Toruzou.Deals.New.View model: deal
       newView.on "deals:saved", => @refresh()
       Toruzou.dialogRegion.show newView
