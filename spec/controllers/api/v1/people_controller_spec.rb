@@ -113,6 +113,79 @@ describe Api::V1::PeopleController do
     end
   end
 
+  describe "POST api/v1/people" do
+    it "is able to create new record." do
+      param = { name: 'sample john', address: 'dummy address',
+                remarks: 'sample remarks' }
+      post :create, person: param
+
+      expect(status).to eq(200)
+      expect(JSON.parse(body)['id']).not_to be_nil
+      expect(JSON.parse(body)['name']).to eq('sample john')
+      expect(JSON.parse(body)['address']).to eq('dummy address')
+      expect(JSON.parse(body)['remarks']).to eq('sample remarks')
+    end
+
+    it "is unable to create new record with invalid parameter" do
+      param = { name: '', address: 'dummy address',
+                remarks: 'sample remarks' }
+      post :create, person: param
+
+      expect(status).to eq(422)
+    end
+  end
+
+  describe "PUT api/v1/people/1" do
+    it "is able to update existing record." do
+      id = @person1.id
+      name = @person1.name
+
+      get :show, id: id
+      expect(JSON.parse(body)['name']).to eq(name)
+
+      put :update, id: id, person: { name: "updated name" }
+
+      expect(status).to eq(200)
+      expect(JSON.parse(body)['id']).to eq(id)
+      expect(JSON.parse(body)['name']).to eq("updated name")
+    end
+    
+    it "is unable to update existing record with invalid param." do
+      id = @person1.id
+      name = @person1.name
+
+      get :show, id: id
+      expect(JSON.parse(body)['name']).to eq(name)
+
+      put :update, id: id, person: { name: "" }
+
+      expect(status).to eq(422)
+      expect(body).to eq(JSON.generate(
+        { name: [
+            "can't be blank"
+          ] 
+        }
+      ))
+    end
+  end
+
+  describe "DELETE api/v1/people/1" do
+    it "is able to delete existing record" do
+      @to_delete = FactoryGirl.create(:person)
+      id = @to_delete.id
+
+      get :show, id: id
+      expect(status).to eq(200)
+
+      delete :destroy, id: id
+      expect(status).to eq(200)
+      expect(JSON.parse(body)['id']).to eq(id)
+
+      get :show, id: id
+      expect(status).to eq(404)
+    end
+  end
+
   describe "People API under Organization" do
     describe "GET api/v1/organizations/1/people" do
       it "shows people which belongs to organization #1." do
