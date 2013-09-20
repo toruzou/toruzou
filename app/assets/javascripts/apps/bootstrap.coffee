@@ -10,7 +10,17 @@ Toruzou.module "Bootstrap", (Bootstrap, Toruzou, Backbone, Marionette, $, _) ->
     initializeApplication: ->
       Toruzou.addRegions
         mainRegion: "#application"
+        loadingRegion: "#loading-region"
         dialogRegion: Toruzou.Common.DialogRegion.extend el: "#dialog-region"
+      sync = Backbone.sync
+      Backbone.sync = (method, model, options) ->
+        options.beforeSend = _.wrap options.beforeSend, (beforeSend, xhr) ->
+          Toruzou.loadingRegion.show new Toruzou.Common.LoadingView()
+          beforeSend @, xhr if beforeSend
+        options.complete = _.wrap options.complete, (complete, xhr, status) ->
+          Toruzou.loadingRegion.close()
+          complete @, xhr, status if complete
+        sync method, model, options
 
     launchApplication: ->
       @launch Toruzou.Configuration.root

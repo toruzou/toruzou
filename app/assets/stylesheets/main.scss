@@ -7,6 +7,7 @@
 @import 'components';
 @import "grid";
 @import 'helper';
+@import 'loading';
 
 html, body, #application {
   @extend .full-screen;
