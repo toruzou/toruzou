@@ -66,7 +66,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       @$el.empty()
       rawValue = @model.get(@column.get "name")
       if _.isArray rawValue
-        _.each rawValue, (v) => @renderLink v
+        _.each rawValue, (v) => @$el.append @renderLink v
       else
         @$el.append (@renderLink rawValue)
       @delegateEvents()
