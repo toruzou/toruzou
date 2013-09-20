@@ -18,8 +18,6 @@ Toruzou.addInitializer ->
     (attributes[_.str.camelize(key)] = value) for key, value of resp
     attributes
 
-  # TODO Should implement parse method for adapting naming convention.
-
   # for Rails CSRF Token
   sync = Backbone.sync
   Backbone.sync = (method, model, options) ->
