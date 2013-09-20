@@ -77,6 +77,9 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       done:
         type: "Checkbox"
 
+    attachmentsUrl: ->
+      _.result(@, "url") + "/attachments"
+
 
   Models.Activities = class Activity extends Backbone.PageableCollection
 

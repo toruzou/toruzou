@@ -62,6 +62,7 @@ fieldset {
     border-bottom: none;
     legend {
         background: transparent;
+        font-size: $h5-font-size;
     }
     label {
         margin-bottom: 0.5em;
@@ -160,6 +161,7 @@ textarea {
 
 .description-container {
     margin-top: 0.5em;
+    margin-bottom: 0.5em;
     h1, h2, h3, h4, h5, h6 {
         float: left;
     }
@@ -268,4 +270,12 @@ li.filter-item {
 
 .dropzone {
     margin-bottom: 1em;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
 }

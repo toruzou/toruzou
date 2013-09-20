@@ -5,7 +5,10 @@ Backbone.Marionette.Region.Dialog = class DialogRegion extends Backbone.Marionet
   onShow: (view) ->
     $modal = @$el.closest("#modal-dialog")
     view.on "close", -> $modal.foundation("reveal", "close")
-    $modal.foundation("reveal", "open").on "closed", => @close()
+    $modal.foundation("reveal", "open")
+    $modal.on "opened", -> $modal.foundation("section", "reflow")
+    $modal.on "closed", => @close()
+
 
 root = exports ? this
 Toruzou = root.Toruzou = new Marionette.Application()

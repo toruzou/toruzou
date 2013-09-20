@@ -35,12 +35,13 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
     constructor: (options) ->
       super options
       @title = _.result options, "title"
+      @dialog = options.dialog
 
     serializeData: ->
       data = super
-      data["title"] = @title
+      data["title"] = @title if @title
       data
-      
+
     save: (e) ->
       e.preventDefault()
       @commit
@@ -50,4 +51,53 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
           
     cancel: (e) ->
       e.preventDefault()
+      @triggerMethod "edit:cancel"
       @close()
+
+
+  class Common.EditFormView extends Marionette.Layout
+
+    template: "activities/show"
+    regions:
+      formRegion: "#form [data-section-content]"
+      filesRegion: "#files [data-section-content]"
+    events:
+      "click [data-section-title]": "sectionChanged"
+
+    constructor: (options) ->
+      super options
+      @options = options
+
+    serializeData: ->
+      data = super
+      data["title"] = @options.title
+      data
+      
+    sectionChanged: (e) ->
+      $section = $(e.target).closest("section")
+      @show $section.attr "id"
+
+    show: (slug) ->
+      return unless slug
+      _.each @$el.find("section"), (section) -> $(section).removeClass "active"
+      @$el.find("##{slug}").addClass "active"
+      switch slug
+        when "form"
+          @showForm()
+        when "files"
+          @showFiles()
+      Toruzou.trigger "activity:sectionChanged", id: @model.get("id"), slug: slug
+
+    showForm: ->
+      formView = new Common.FormView(_.omit @options, "title")
+      formView.on "edit:cancel", => @close()
+      @formRegion.show formView
+
+    showFiles: ->
+      view = new Toruzou.Attachments.View
+        fetch: activity_id: @model.get "id"
+        dropzone: url: _.result @model, "attachmentsUrl"
+      @filesRegion.show view
+
+    onShow: ->
+      @show "form"
