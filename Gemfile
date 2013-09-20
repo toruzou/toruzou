@@ -17,6 +17,8 @@ gem 'devise', '~> 3.0.3'
 gem 'kaminari', '~> 0.14.1'
 gem 'active_model_serializers', '~> 0.8.1'
 
+gem 'validates_email_format_of'
+
 group :doc do
   gem 'sdoc', require: false
 end
