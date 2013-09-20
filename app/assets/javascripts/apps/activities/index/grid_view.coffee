@@ -103,7 +103,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       $.when(Toruzou.request "activity:fetch", activity.get "id").done (activity) =>
         if activity
           view = new Toruzou.Activities.Edit.View model: activity
-          view.on "activities:saved", => @refresh()
+          view.on "item:closed", => @refresh()
           Toruzou.dialogRegion.show view
 
     toggleDone: (activity, done) ->

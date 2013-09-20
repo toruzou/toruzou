@@ -48,10 +48,11 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
         success: (model, response) =>
           @close()
           @triggerMethod "activities:saved"
+          @triggerMethod "form:closed"
           
     cancel: (e) ->
       e.preventDefault()
-      @triggerMethod "edit:cancel"
+      @triggerMethod "form:closed"
       @close()
 
 
@@ -90,7 +91,7 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
 
     showForm: ->
       formView = new Common.FormView(_.omit @options, "title")
-      formView.on "edit:cancel", => @close()
+      formView.on "form:closed", => @close()
       @formRegion.show formView
 
     showFiles: ->
