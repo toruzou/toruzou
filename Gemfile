@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise', '~> 3.0.3'
 gem 'kaminari', '~> 0.14.1'
 gem 'active_model_serializers', '~> 0.8.1'
+gem 'carrierwave', '~> 0.9.0'
+gem 'carrierwave-postgresql', '~> 0.1.1'
 
 group :doc do
   gem 'sdoc', require: false

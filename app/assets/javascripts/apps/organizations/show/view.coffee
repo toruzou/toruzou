@@ -5,6 +5,7 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
     template: "organizations/show"
     regions:
       peopleRegion: "#people [data-section-content]"
+      filesRegion: "#files [data-section-content]"
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
@@ -21,12 +22,19 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
       switch slug
         when "people"
           @showPeople()
+        when "files"
+          @showFiles()
       Toruzou.trigger "organization:sectionChanged", id: @model.get("id"), slug: slug
 
     showPeople: ->
-      # TODO should fetch from organization resource (/organizations/people)
       $.when(Toruzou.request "people:fetch", organization_id: @model.get "id").done (people) =>
         @peopleRegion.show new Toruzou.People.Index.ListView collection: people, organization: @model
+
+    showFiles: ->
+      view = new Toruzou.Attachments.View
+        fetch: organization_id: @model.get "id"
+        dropzone: url: _.result @model, "attachmentsUrl"
+      @filesRegion.show view
 
     onRender: ->
       @$el.foundation("section", "reflow")

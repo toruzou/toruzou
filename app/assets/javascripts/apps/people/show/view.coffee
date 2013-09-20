@@ -1,8 +1,10 @@
 Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
-  class Show.View extends Marionette.ItemView
+  class Show.View extends Marionette.Layout
 
     template: "people/show"
+    regions:
+      filesRegion: "#files [data-section-content]"
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
@@ -16,10 +18,17 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       return unless slug
       _.each @$el.find("section"), (section) -> $(section).removeClass "active"
       @$el.find("##{slug}").addClass "active"
-      # TODO switch slug
+      switch slug
+        when "files"
+          @showFiles()
       Toruzou.trigger "person:sectionChanged", id: @model.get("id"), slug: slug
 
-    showPeople: ->
+    showFiles: ->
+      view = new Toruzou.Attachments.View
+        fetch: person_id: @model.get "id"
+        dropzone: url: _.result @model, "attachmentsUrl"
+      @filesRegion.show view
+
     onRender: ->
       @$el.foundation("section", "reflow")
       

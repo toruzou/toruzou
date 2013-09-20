@@ -1,7 +1,9 @@
 class Organization < Contact
+
   has_many :deals
   has_many :activities
   has_many :people
+  has_many :attachments, :as => :attachable, :dependent => :delete_all
 
   validates :name, presence: true
   validates :name, length: { maximum: 80 }
@@ -9,4 +11,5 @@ class Organization < Contact
   validates :address, length: { maximum: 200 }
   validates :remarks, length: { maximum: 500 }
   validates :url, length: { maximum: 100 }
+  
 end

@@ -23,7 +23,11 @@
         }
     }
     .local-date-cell {
-        width: 8em;
+        width: 10em;
+        text-align: right;
+    }
+    .local-datetime-cell {
+        width: 15em;
         text-align: right;
     }
     .button-icon-cell {

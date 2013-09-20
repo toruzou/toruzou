@@ -73,6 +73,9 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       acceptDate:
         type: "Datepicker"
 
+    attachmentsUrl: ->
+      _.result(@, "url") + "/attachments"
+      
 
   Models.Deals = class Deal extends Backbone.PageableCollection
 

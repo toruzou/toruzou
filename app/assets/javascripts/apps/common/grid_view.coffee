@@ -48,6 +48,15 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       fromRaw: (rawData) ->
         super if _.str.isBlank(rawData) then null else rawData # workaround
 
+  class Backgrid.Extension.LocalDatetimeCell extends Backgrid.Extension.MomentCell
+
+    className: "local-datetime-cell"
+
+    modelInUTC: true
+    modelFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+    displayInUTC: false
+    displayFormat: "YYYY/MM/DD HH:mm:ss"
+
   class Backgrid.Extension.LinkCell extends Backgrid.Cell
 
     className: "link-cell"
@@ -59,7 +68,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       if _.isArray rawValue
         _.each rawValue, (v) => @renderLink v
       else
-        @renderLink rawValue
+        @$el.append (@renderLink rawValue)
       @delegateEvents()
       @
 
@@ -75,7 +84,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
         .attr("title", @title rawValue, formattedValue)
       $link.attr "target", @target if @target
       $link.text formattedValue
-      @$el.append $link
+      $link
 
     href: (rawValue) ->
       undefined

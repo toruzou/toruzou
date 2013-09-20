@@ -9,15 +9,20 @@ Toruzou::Application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :users
-      resources :contacts
-      resources :organizations
       resources :organizations do
-        resources :people
+        resources :attachments
       end
-      resources :people
-      resources :activities
-      resources :deals
+      resources :people do
+        resources :attachments
+      end
+      resources :activities do
+        resources :attachments
+      end
+      resources :deals do
+        resources :attachments
+      end
       resources :updates
+      resources :attachments
     end
   end
 

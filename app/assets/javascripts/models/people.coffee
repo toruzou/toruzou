@@ -42,6 +42,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         title: "Owner"
         key: "owner"
 
+    attachmentsUrl: ->
+      _.result(@, "url") + "/attachments"
+
+
   Models.People = class People extends Backbone.PageableCollection
 
     url: Models.endpoint "people"

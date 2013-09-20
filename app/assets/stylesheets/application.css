@@ -18,5 +18,6 @@
  *= require selectize/dist/css/selectize
  *= require pickadate/lib/themes/classic
  *= require pickadate/lib/themes/classic.date
+ *= require dropzone/downloads/css/basic
  *= require main
  */

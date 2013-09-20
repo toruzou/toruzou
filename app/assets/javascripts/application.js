@@ -27,6 +27,7 @@
 //= require selectize/dist/js/standalone/selectize
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
+//= require dropzone/downloads/dropzone
 //= require ./vendor/jquery.selection/src/jquery.selection
 //= require toruzou
 //= require_tree ./models/common

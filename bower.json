@@ -14,6 +14,7 @@
     "font-awesome": "latest",
     "momentjs": "latest",
     "selectize": "latest",
-    "pickadate": "~3.2.1"
+    "pickadate": "~3.2.1",
+    "dropzone": "~3.7.1"
   }
 }

@@ -4,6 +4,9 @@ class CreateAttachments < ActiveRecord::Migration
       t.references :attachable, index: true
       t.string :attachable_type
       t.column :attachment, :oid, :null => false
+      t.string :name
+      t.string :content_type
+      t.timestamps
     end
   end
 end
