@@ -10,6 +10,8 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       "Plan"
       "Proposal"
       "In Negotiation"
+      "Won"
+      "Lost"
     ]
 
     defaults:
