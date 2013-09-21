@@ -5,9 +5,26 @@ class Person < Contact
   has_many :participants, :as => :participable, :dependent => :destroy
   has_many :activities, :as => :participable, :through => :participants
 
-  scope :in_organization, lambda { |organization_id|
+  scope :has_organization_id, lambda { |organization_id|
     where(organization_id: organization_id)
   }
+
+  scope :include_email, lambda { |value|
+    where("lower(contacts.email) LIKE ?", "%#{value.downcase}%")
+  }
+
+  scope :include_phone, lambda { |value|
+    where("lower(contacts.phone) LIKE ?", "%#{value.downcase}%")
+  }
+
+  scope :in_organization, lambda { |value|
+    joins(:organization).where("lower(organizations_contacts.name) LIKE ?", "%#{value.downcase}%")
+  }
+
+  scope :include_owner, lambda { |value| 
+    joins(:owner).where("lower(users.name) LIKE ?", "%#{value.downcase}%")
+  }
+
 
   # name, address and remarks is validated in Contact.rb
   validates :phone, length: { minimum: 12, maximum: 13 },

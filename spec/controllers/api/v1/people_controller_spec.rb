@@ -52,8 +52,16 @@ describe Api::V1::PeopleController do
       assert ids.include?(@person3.id)
     end
 
-    it "shows people belongs to designated organization." do
+    it "shows people belongs to designated organization id." do
       get :index, organization_id: @bank2.id
+
+      expect(JSON.parse(body)[0]['total_entries']).to eq(1)
+      expect(JSON.parse(body)[1][0]['id']).to eq(@person2.id)
+      expect(JSON.parse(body)[1][1]).to eq(nil)
+    end
+
+    it "shows people belongs to designated organization." do
+      get :index, organization_name: @bank2.name
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(1)
       expect(JSON.parse(body)[1][0]['id']).to eq(@person2.id)

@@ -5,4 +5,8 @@ class Contact < ActiveRecord::Base
   validates :name, length: {maximum: 80}
   validates :address, length: {maximum: 200}
   validates :remarks, length: {maximum: 500}
+
+  scope :has_name, lambda { |value|
+    where("lower(contacts.name) LIKE ?", "%#{value.downcase}%")
+  }
 end
