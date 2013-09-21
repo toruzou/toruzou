@@ -14,17 +14,12 @@ class Person < Contact
                     format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/ },
                     if: :phone_is_filled
   validates :email, length: { maximum: 200 }, 
-                    email_format: {:message => 'invalid e-mail format'},
-                    if: :email_is_filled
-  
+                    email_format: {message: 'invalid e-mail format', 
+                                   allow_nil: true,
+                                   allow_blank: true } 
 
   private 
     def phone_is_filled
       return self.phone != nil && self.phone != ""
     end
-
-    def email_is_filled
-      return self.email != nil && self.email != ""
-    end
-
 end
