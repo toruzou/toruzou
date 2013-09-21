@@ -11,7 +11,7 @@ describe Api::V1::PeopleController do
 
     @person1 = valid_person(@bank1.id)
     @person1.name  = "Ichibanme"
-    @person1.phone = "0120-444-444"
+    @person1.phone = "0120-44-4444"
     @person1.email = "first@example.com"
     @person1.save
 
