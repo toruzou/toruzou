@@ -10,19 +10,17 @@ module Api
       def index
         # FIXME ugly, does anyone know how to alias the joined table on Rails ?
         @deals = Deal.all
-        if params[:user_id]
-          condition = Deal.arel_table[:pm_id].eq(params[:user_id])
-          condition = condition.or(Deal.arel_table[:sales_id].eq(params[:user_id]))
-          @deals = @deals.where(condition)
-        end
-        @deals = @deals.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
+
+        @deals = @deals.match_user(params[:user_id]) if params[:user_id].present?
+        @deals = @deals.in_organization(params[:organization_id]) if params[:organization_id].present?
         @deals = @deals.where(:contact_id => params[:person_id]) if params[:person_id].present?
-        @deals = @deals.where("lower(deals.name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
-        @deals = @deals.joins(%(INNER JOIN "contacts" as "organization" ON "organization"."id" = "deals"."organization_id" AND "organization"."type" IN ('Organization'))).where("lower(organization.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
-        @deals = @deals.joins(%(INNER JOIN "contacts" as "contact" ON "contact"."id" = "deals"."contact_id" AND "contact"."type" IN ('Person'))).where("lower(contact.name) LIKE ?", "%#{params[:contact_name].downcase}%") if params[:contact_name].present?
-        @deals = @deals.joins(%(INNER JOIN "users" as "pm" ON "pm"."id" = "deals"."pm_id")).where("lower(pm.name) LIKE ?", "%#{params[:pm_name].downcase}%") if params[:pm_name].present?
-        @deals = @deals.joins(%(INNER JOIN "users" as "sales" ON "sales"."id" = "deals"."sales_id")).where("lower(sales.name) LIKE ?", "%#{params[:sales_name].downcase}%") if params[:sales_name].present?
-        @deals = @deals.where(status: params[:statuses]) if params[:statuses].present?
+        @deals = @deals.match_name(params[:name]) if params[:name].present?
+        @deals = @deals.match_organization(params[:organization_name]) if params[:organization_name].present?
+        @deals = @deals.match_contact(params[:contact_name]) if params[:contact_name].present?
+        @deals = @deals.match_pm(params[:pm_name]) if params[:pm_name].present?
+        @deals = @deals.match_sales(params[:sales_name]) if params[:sales_name].present?
+        @deals = @deals.match_status(params[:statuses]) if params[:statuses].present?
+
         render json: to_pageable(@deals)
       end
 
@@ -31,22 +29,13 @@ module Api
         render json: @deal
       end
 
-      # GET /deals/new
-      def new
-        @deal = Deal.new
-      end
-
-      # GET /deals/1/edit
-      def edit
-      end
-
       # POST /deals
       def create
         @deal = Deal.new(deal_params)
         if @deal.save
           render json: @deal
         else
-          render json: @deal, status: :unprocessable_entity
+          render json: @deal.errors, status: :unprocessable_entity
         end
       end
 
@@ -55,7 +44,7 @@ module Api
         if @deal.update(deal_params)
           render json: @deal
         else
-          render json: @deal, status: :unprocessable_entity
+          render json: @deal.errors, status: :unprocessable_entity
         end
       end
 
