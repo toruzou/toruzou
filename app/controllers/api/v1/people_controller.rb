@@ -39,7 +39,7 @@ module Api
         if @person.save
           render json: @person
         else
-          render json: remove_empty_value_from(@person.errors), status: :unprocessable_entity
+          render json: @person.errors, status: :unprocessable_entity
         end
       end
 
@@ -48,7 +48,7 @@ module Api
         if @person.update(person_params)
           render json: @person
         else
-          render json: remove_empty_value_from(@person.errors), status: :unprocessable_entity
+          render json: @person.errors, status: :unprocessable_entity
         end
       end
 
@@ -62,7 +62,7 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_person
           if params[:organization_id].present? then
-            @person = Person.has_organization_id(params[:organization_id]).find(params[:id])
+            @person = Person.in_organization(params[:organization_id]).find(params[:id])
           else
             @person = Person.find(params[:id])
           end
@@ -73,13 +73,6 @@ module Api
           params.require(:person).permit(:name, :organization_id, :phone, :email, :address, :remarks, :owner_id)
         end
 
-        # workaround for plugin "validates_email_format_of" returning empty array for 'email' key
-        def remove_empty_value_from(hash)
-          if hash[:email] == [] then
-            hash.delete(:email)
-          end
-          hash
-        end
     end
 
   end
