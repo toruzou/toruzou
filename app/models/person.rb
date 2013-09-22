@@ -27,17 +27,15 @@ class Person < Contact
     joins(:owner).where("lower(users.name) LIKE ?", "%#{q.downcase}%")
   }
 
-  validates :phone, length: { minimum: 12, maximum: 13 }, format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/ }, if: :phone_is_filled
-  validates :email, length: { maximum: 200 }, email_format: { message: 'Invalid Email format', allow_nil: true, allow_blank: true } 
+  validates :phone, length: { minimum: 12, maximum: 13 }, 
+              format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/ }, 
+              allow_nil: true, allow_blank: true 
+  validates :email, length: { maximum: 200 },  
+              format: { with: /\A[A-Za-z0-9.-_+]+@[A-Za-z0-9.-_+]+\.[A-Za-z0-9.-_+]+\z/ }, 
+              allow_nil: true, allow_blank: true
 
   def latest_career
     careers.sort.first
   end
-
-  private 
-  
-    def phone_is_filled
-      return self.phone != nil && self.phone != ""
-    end
 
 end
