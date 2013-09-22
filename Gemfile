@@ -19,6 +19,8 @@ gem 'active_model_serializers', '~> 0.8.1'
 gem 'carrierwave', '~> 0.9.0'
 gem 'carrierwave-postgresql', '~> 0.1.1'
 
+gem 'validates_email_format_of'
+
 group :doc do
   gem 'sdoc', require: false
 end
