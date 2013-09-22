@@ -36,7 +36,7 @@ module Api
           end
         end
         @activities = @activities.where(:done => params[:status]) if params[:status].present?
-        render json: to_pageable(@activities)
+        render json: to_pageable(@activities, { :order => "done ASC" })
       end
 
       # GET /activities/1

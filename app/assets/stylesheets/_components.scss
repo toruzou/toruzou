@@ -26,6 +26,10 @@
     }
 }
 
+.alert {
+    color: $alert-color;
+}
+
 .row {
     max-width: none;
 }
@@ -217,14 +221,26 @@ textarea {
     .subject {
         display: block;
         color: $success-color;
+        .link {
+            color: $success-color;
+        }
     }
     .calendar {
         display: block;
         margin: 0.5em 0;
-        font-size: emCalc(23);
+        font-size: $h4-font-size;
+        .status {
+            color: $body-font-color;
+            i {
+                vertical-align: middle;
+            }
+        }
     }
-    .owner {
-        display: block;
+    .users {
+        margin-bottom: 0;
+        .user + .user {
+            margin-left: 0.5em;
+        }
     }
 }
 

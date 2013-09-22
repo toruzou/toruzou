@@ -55,7 +55,7 @@ Toruzou.module "Deals.Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       @commit
         success: (model, response) =>
           @close()
-          @triggerMethod "deals:saved"
+          @triggerMethod "deal:saved", model
           
     cancel: (e) ->
       e.preventDefault()

@@ -43,7 +43,7 @@ Toruzou.module "People.Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       @commit
         success: (model, response) =>
           @close()
-          @triggerMethod "people:saved"
+          @triggerMethod "person:saved", model
           
     cancel: (e) ->
       e.preventDefault()

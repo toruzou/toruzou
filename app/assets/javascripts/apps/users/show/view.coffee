@@ -4,12 +4,21 @@ Toruzou.module "Users.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "users/show"
     regions:
+      activitiesPanelRegion: ".activities-panel"
       activitiesRegion: "#activities [data-section-content]"
       organizationRegion: "#organizations [data-section-content]"
       dealsRegion: "#deals [data-section-content]"
       filesRegion: "#files [data-section-content]"
     events:
       "click [data-section-title]": "sectionChanged"
+
+    constructor: (options) ->
+      super options
+      @activitiesHandler = =>
+        $.when(Toruzou.request "user:fetch", @model.get "id").done (user) =>
+          @model = user
+          @showActivitiesPanel()
+      Toruzou.Activities.on "activity:saved activity:deleted", @activitiesHandler
 
     sectionChanged: (e) ->
       $section = $(e.target).closest("section")
@@ -42,4 +51,15 @@ Toruzou.module "Users.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     onRender: ->
       @$el.foundation("section", "reflow")
+
+    onShow: ->
+      @showActivitiesPanel()
+
+    showActivitiesPanel: ->
+      @activitiesPanelRegion.show new Toruzou.Activities.Panel.View model: @model
       
+    close: ->
+      return if @isClosed
+      super
+      Toruzou.Activities.off "activity:saved activity:deleted", @activitiesHandler
+     

@@ -38,7 +38,7 @@ Toruzou.module "Careers.Common", (Common, Toruzou, Backbone, Marionette, $, _) -
       @commit
         success: (model, response) =>
           @close()
-          @triggerMethod "careers:saved"
+          @triggerMethod "career:saved"
           @triggerMethod "form:closed"
           
     cancel: (e) ->

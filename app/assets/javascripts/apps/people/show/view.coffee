@@ -4,6 +4,7 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "people/show"
     regions:
+      activitiesPanelRegion: ".activities-panel"
       activitiesRegion: "#activities [data-section-content]"
       careersRegion: "#careers [data-section-content]"
       dealsRegion: "#deals [data-section-content]"
@@ -12,6 +13,14 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       "click #edit-button": "edit"
       "click #delete-button": "delete"
       "click [data-section-title]": "sectionChanged"
+
+    constructor: (options) ->
+      super options
+      @activitiesHandler = =>
+        $.when(Toruzou.request "person:fetch", @model.get "id").done (person) =>
+          @model = person
+          @showActivitiesPanel()
+      Toruzou.Activities.on "activity:saved activity:deleted", @activitiesHandler
 
     sectionChanged: (e) ->
       $section = $(e.target).closest("section")
@@ -52,15 +61,32 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     onRender: ->
       @$el.foundation("section", "reflow")
+
+    onShow: ->
+      @showActivitiesPanel()
       
     edit: (e) ->
       e.preventDefault()
       e.stopPropagation()
       editView = new Toruzou.People.Edit.View model: @model
-      editView.on "people:saved", => @render()
+      editView.on "person:saved", (model) => @refresh model
       Toruzou.dialogRegion.show editView
 
     delete: (e) ->
       e.preventDefault()
       e.stopPropagation()
       @model.destroy success: (model, response) -> Toruzou.trigger "people:list"
+
+    refresh: (model) ->
+      @model = model
+      @render()
+      @showActivitiesPanel()
+
+    showActivitiesPanel: ->
+      @activitiesPanelRegion.show new Toruzou.Activities.Panel.View model: @model
+
+    close: ->
+      return if @isClosed
+      super
+      Toruzou.Activities.off "activity:saved activity:deleted", @activitiesHandler
+

@@ -1,9 +1,5 @@
-class PersonSerializer < ActiveModel::Serializer
-
-  attributes :id, :name, :organization_id, :phone, :email, :address, :remarks, :owner_id
-  has_one :organization
-  has_one :owner
-  has_one :career
+class PersonSerializer < ActivityAwareSerializer
+  attributes :id, :name, :organization, :organization_id, :phone, :email, :address, :remarks, :career, :owner, :owner_id
   def organization_id
     object.organization.nil? ? nil : object.organization.id
   end
@@ -13,5 +9,4 @@ class PersonSerializer < ActiveModel::Serializer
   def career
     object.latest_career
   end
-  
 end

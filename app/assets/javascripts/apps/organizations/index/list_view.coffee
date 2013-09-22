@@ -21,7 +21,7 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
       organization = new Toruzou.Models.Organization()
       organization.set "owner", @owner if @owner
       newView = new Toruzou.Organizations.New.View model: organization
-      newView.on "organizations:saved", => @refresh()
+      newView.on "organization:saved", => @refresh()
       Toruzou.dialogRegion.show newView
 
     refresh: ->

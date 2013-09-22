@@ -80,6 +80,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     attachmentsUrl: ->
       _.result(@, "url") + "/attachments"
 
+    toggleDone: ->
+      done = !!!(@get "done")
+      @set "done", done
+      done
+
 
   Models.Activities = class Activity extends Backbone.PageableCollection
 

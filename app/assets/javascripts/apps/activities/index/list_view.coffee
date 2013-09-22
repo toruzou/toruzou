@@ -10,6 +10,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
 
     constructor: (options) ->
       super options
+      @handler = _.bind @refresh, @
       @organization = options?.organization
       @deal = options?.deal
       @users = options?.users
@@ -26,9 +27,13 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       activity.set "deal", @deal if @deal
       activity.set "users", @users if @users
       activity.set "people", @people if @people
-      newView = new Toruzou.Activities.New.View model: activity
-      newView.on "activities:saved", => @refresh()
-      Toruzou.dialogRegion.show newView
+      Toruzou.Activities.on "activity:saved activity:deleted", @handler
+      Toruzou.dialogRegion.show new Toruzou.Activities.New.View model: activity
 
     refresh: ->
       @collection.fetch()
+
+    close: ->
+      return if @isClosed
+      super
+      Toruzou.off "activity:saved activity:deleted", @handler

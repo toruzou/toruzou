@@ -1,9 +1,5 @@
-class DealSerializer < ActiveModel::Serializer
-  attributes :id, :name, :organization_id, :contact_id, :pm_id, :sales_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status
-  has_one :organization
-  has_one :contact
-  has_one :pm
-  has_one :sales
+class DealSerializer < ActivityAwareSerializer
+  attributes :id, :name, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status
   def organization_id
     object.organization.nil? ? nil : object.organization.id
   end

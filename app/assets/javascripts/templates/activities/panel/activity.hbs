@@ -1,0 +1,11 @@
+<span class="subject"><a href="{{relativeUrl "activities" id}}" class="link"><i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if subject}} ({{subject}}){{/if}}</a></span>
+<span class="calendar">{{#if date}}<a href="#" class="status"><i class="icon-check{{#unless done}}-empty{{/unless}} icon-inline-prefix"></i></a>{{localDate date}}{{else}}N/A{{/if}}</span>
+<ul class="users inline-list">
+  {{#if users}}
+  {{#each users}}
+  <li class="user"><a href="{{relativeUrl "users" id}}">{{name}}</a></li>
+  {{/each}}
+  {{else}}
+  <li class="alert">No one is assigned</li>
+  {{/if}}
+</ul>

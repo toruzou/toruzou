@@ -47,7 +47,7 @@ Toruzou.module "Activities.Common", (Common, Toruzou, Backbone, Marionette, $, _
       @commit
         success: (model, response) =>
           @close()
-          @triggerMethod "activities:saved"
+          Toruzou.Activities.trigger "activity:saved", model
           @triggerMethod "form:closed"
           
     cancel: (e) ->

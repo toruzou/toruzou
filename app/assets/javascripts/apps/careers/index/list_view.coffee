@@ -20,7 +20,7 @@ Toruzou.module "Careers.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       e.stopPropagation()
       career = new Toruzou.Models.Career personId: @person.get("id")
       newView = new Toruzou.Careers.New.View model: career
-      newView.on "careers:saved", => @refresh()
+      newView.on "career:saved", => @refresh()
       Toruzou.dialogRegion.show newView
 
     refresh: ->

@@ -88,15 +88,17 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
             $link.on "click", (e) =>
               e.preventDefault()
               e.stopPropagation()
-              @model.destroy success: @refresh
+              @model.destroy success: => Toruzou.Activities.trigger "activity:deleted"
             $link
       }
     ]
 
     initialize: (options) ->
       super options
+      @handler = _.bind @refresh, @
       @listenTo @collection, "activity:selected", (model) => @showActivity model
       @listenTo @collection, "backgrid:selected", (model, checked) => @toggleDone model, checked
+      Toruzou.Activities.on "activity:saved activity:deleted", @handler
 
     showActivity: (activity) ->
       return unless activity
@@ -107,8 +109,13 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
           Toruzou.dialogRegion.show view
 
     toggleDone: (activity, done) ->
-      activity.set "done", done
-      activity.save success: (activity) => @trigger "activity:toggleDone", activity, done
+      activity.save "done", done, success: (activity) => Toruzou.Activities.trigger "activity:saved", activity
 
     refresh: ->
       @collection.fetch()
+
+    close: ->
+      return if @isClosed
+      super
+      Toruzou.Activities.off "activity:saved activity:deleted", @handler
+

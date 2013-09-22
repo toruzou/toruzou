@@ -40,7 +40,7 @@ Toruzou.module "Organizations.Common", (Common, Toruzou, Backbone, Marionette, $
       @commit
         success: (model, response) =>
           @close()
-          @trigger "organizations:saved"
+          @trigger "organization:saved", model
           
     cancel: (e) ->
       e.preventDefault()

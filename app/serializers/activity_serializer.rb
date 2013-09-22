@@ -1,9 +1,5 @@
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :id, :subject, :action, :date, :note, :done, :organization_id, :deal_id, :users_ids, :people_ids
-  has_one :organization
-  has_one :deal
-  has_many :users
-  has_many :people
+  attributes :id, :subject, :action, :date, :note, :done, :organization, :organization_id, :deal, :deal_id, :users, :users_ids, :people, :people_ids
   def organization_id
     object.organization.nil? ? nil : object.organization.id
   end

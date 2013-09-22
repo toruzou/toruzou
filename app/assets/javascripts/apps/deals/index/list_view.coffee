@@ -23,7 +23,7 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       deal.set "organization", @organization if @organization
       deal.set "contact", @person if @person
       newView = new Toruzou.Deals.New.View model: deal
-      newView.on "deals:saved", => @refresh()
+      newView.on "deal:saved", => @refresh()
       Toruzou.dialogRegion.show newView
 
     refresh: ->

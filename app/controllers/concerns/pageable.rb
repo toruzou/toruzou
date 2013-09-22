@@ -1,18 +1,21 @@
 module Pageable
 
-  def to_pageable(relation)
-    to_pageable_collection to_pageable_relation(relation)
+  def to_pageable(relation, options={})
+    to_pageable_collection to_pageable_relation(relation, options)
   end
 
-  def to_pageable_relation(relation)
+  def to_pageable_relation(relation, options={})
     if params[:page].present?
       relation = relation.page(params[:page])
       relation = relation.per(params[:per_page]) if params[:per_page].present?
+      orders = []
       if params[:sort_by].present?
         order = params[:sort_by]
         order = "#{order} #{params[:order]}" if params[:order].present?
-        relation = relation.order order
+        orders << order
       end
+      orders << options[:order] if options[:order].present?
+      relation = relation.order orders.join(", ")
     end
     relation
   end

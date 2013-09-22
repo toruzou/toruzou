@@ -21,7 +21,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       person = new Toruzou.Models.Person()
       person.set "organization", @organization if @organization
       newView = new Toruzou.People.New.View model: person
-      newView.on "people:saved", => @refresh()
+      newView.on "person:saved", => @refresh()
       Toruzou.dialogRegion.show newView
 
     refresh: ->

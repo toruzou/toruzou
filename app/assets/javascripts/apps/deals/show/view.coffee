@@ -4,12 +4,21 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     template: "deals/show"
     regions:
+      activitiesPanelRegion: ".activities-panel"
       activitiesRegion: "#activities [data-section-content]"
       filesRegion: "#files [data-section-content]"
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
       "click [data-section-title]": "sectionChanged"
+
+    constructor: (options) ->
+      super options
+      @activitiesHandler = =>
+        $.when(Toruzou.request "deal:fetch", @model.get "id").done (deal) =>
+          @model = deal
+          @showActivitiesPanel()
+      Toruzou.Activities.on "activity:saved activity:deleted", @activitiesHandler
 
     sectionChanged: (e) ->
       $section = $(e.target).closest("section")
@@ -38,15 +47,31 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
 
     onRender: ->
       @$el.foundation("section", "reflow")
+
+    onShow: ->
+      @showActivitiesPanel()
       
     edit: (e) ->
       e.preventDefault()
       e.stopPropagation()
       editView = new Toruzou.Deals.Edit.View model: @model
-      editView.on "deals:saved", => @render()
+      editView.on "deal:saved", (model) => @refresh model
       Toruzou.dialogRegion.show editView
 
     delete: (e) ->
       e.preventDefault()
       e.stopPropagation()
       @model.destroy success: (model, response) -> Toruzou.trigger "deals:list"
+      
+    refresh: (model) ->
+      @model = model
+      @render()
+      @showActivitiesPanel()
+
+    showActivitiesPanel: ->
+      @activitiesPanelRegion.show new Toruzou.Activities.Panel.View model: @model
+
+    close: ->
+      return if @isClosed
+      super
+      Toruzou.Activities.off "activity:saved activity:deleted", @activitiesHandler
