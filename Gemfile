@@ -6,7 +6,9 @@ if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new(rubyVersion)
   exit 1
 end
 
-gem 'rails', '4.0.0'
+# https://github.com/rails/rails/pull/11444
+# gem 'rails', '4.0.0'
+gem 'rails', git: 'https://github.com/inopinatus/rails', branch: 'hstore_arrays_fix'
 gem 'pg'
 
 gem 'sass-rails', '~> 4.0.0'
@@ -25,7 +27,10 @@ end
 
 group :development do
   gem 'spring'
-  gem "compass-rails", '>= 2.0.alpha.0'
+  # gem "compass-rails", '>= 2.0.alpha.0'
+  # https://github.com/rails/rails/pull/11444
+  # https://github.com/Compass/compass-rails/pull/96
+  gem 'compass-rails', github: "roderickvd/compass-rails", branch: "rails41"
   gem "zurb-foundation", '>= 4.3.1'
   gem "handlebars_assets", '>= 0.14.1'
 end

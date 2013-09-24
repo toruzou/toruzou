@@ -42,6 +42,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         title: "Owner"
         key: "owner"
 
+    createNote: ->
+      note = new Models.Note()
+      note.subject = @
+      note
+      
     attachmentsUrl: ->
       _.result(@, "url") + "/attachments"
 

@@ -244,6 +244,78 @@ textarea {
     }
 }
 
+// TODO refactoring
+
+.note-editor {
+    .row {
+        margin-top: 0;
+        margin-bottom: 0;
+        form {
+            margin: 0;
+            fieldset {
+                margin: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                border: none;
+            }
+            div[data-fields] {
+                label {
+                    display: none;
+                }
+            }
+            .note-actions {
+                border: none;
+                padding: 0 1.25em;
+                margin-bottom: 1em;
+                .button {
+                    margin-bottom: 0;
+                    padding-top: emCalc(8px);
+                    padding-bottom: emCalc(8px);
+                    &+.button {
+                        margin-left: 0.25em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.row {
+    &.update-item {
+        margin: 0.5em 0.25em 1.5em;
+        header {
+            padding-bottom: 0.25em;
+            border-bottom: 1px solid $well-color;
+        }
+        section {
+            padding: 1em 0;
+            .columns {
+                padding-left: 0.25em;
+                padding-right: 0.25em;
+                .note-actions {
+                    padding: 0 0.5em;
+                }
+            }
+        }
+        pre {
+            font-family: $body-font-family;
+        }
+        footer {
+            font-size: 80%;
+            .separator {
+                margin-left: 0.25em;
+                margin-right: 0.25em;
+            }
+            .actions {
+                display: inline;
+                a {
+                    margin-right: 0.25em;
+                }
+            }
+        }
+    }
+}
+
 div[data-fields] {
     label {
         display: block;

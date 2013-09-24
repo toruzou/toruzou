@@ -4,6 +4,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     urlRoot: Models.endpoint "users"
 
+    createNote: ->
+      note = new Models.Note()
+      note.subject = @
+      note
 
   Models.Users = class Users extends Backbone.PageableCollection
 

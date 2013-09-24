@@ -4,6 +4,7 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
 
     template: "organizations/show"
     regions:
+      updatesRegion: "#updates [data-section-content]"
       activitiesPanelRegion: ".activities-panel"
       activitiesRegion: "#activities [data-section-content]"
       dealsRegion: "#deals [data-section-content]"
@@ -31,6 +32,8 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
       _.each @$el.find("section"), (section) -> $(section).removeClass "active"
       @$el.find("##{slug}").addClass "active"
       switch slug
+        when "updates"
+          @showUpdates()
         when "activities"
           @showActivities()
         when "deals"
@@ -40,6 +43,10 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
         when "files"
           @showFiles()
       Toruzou.trigger "organization:sectionChanged", id: @model.get("id"), slug: slug
+
+    showUpdates: ->
+      $.when(Toruzou.request "updates:fetch", organization_id: @model.get "id").done (updates) =>
+        @updatesRegion.show new Toruzou.Updates.Index.ListView collection: updates, model: @model
 
     showActivities: ->
       $.when(Toruzou.request "activities:fetch", organization_id: @model.get "id").done (activities) =>

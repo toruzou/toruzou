@@ -75,6 +75,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       acceptDate:
         type: "Datepicker"
 
+    createNote: ->
+      note = new Models.Note()
+      note.subject = @
+      note
+      
     attachmentsUrl: ->
       _.result(@, "url") + "/attachments"
       

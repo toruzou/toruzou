@@ -1,0 +1,12 @@
+<div class="note-editor">
+  <header><a href="{{relativeUrl "users" user.id}}">{{user.name}}</a> {{action}} a Note to <a href="{{relativeUrl subjectRoute subjectId}}">{{subjectName}}</a></header>
+  <section class="contents"></section>
+  <footer>
+    <span class="datetime">at {{localDatetime updatedAt}}</span>
+    <span class="separator">|</span>
+    <div class="actions">
+      <a href="#" data-bypass class="edit">Edit</a>
+      <a href="#" data-bypass class="delete">Delete</a>
+    </div>
+  </footer>
+</div>

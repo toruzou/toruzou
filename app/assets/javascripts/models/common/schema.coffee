@@ -107,7 +107,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         valueField: "id"
         labelField: "name"
         searchField: "name"
-        create: false
+        create: (input, callback) ->
+          return callback() unless input.length
+          person = new Toruzou.Models.Person()
+          person.save "name", input, success: (person) => callback person.serialize()
+          undefined
         load: (query, callback) ->
           return callback() unless query.length
           $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())

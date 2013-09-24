@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   has_many :participants, :as => :participable, :dependent => :destroy
   has_many :activities, :as => :participable, :through => :participants
+  has_many :updates, :as => :subject, :dependent => :delete_all
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

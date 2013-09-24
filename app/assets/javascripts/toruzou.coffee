@@ -5,6 +5,12 @@ Toruzou.Configuration =
   root: "/"
   api:
     version: "v1"
+  routes:
+    "User": "users"
+    "Organization": "organizations"
+    "Person": "people"
+    "Deal": "deals"
+    "Activity": "activities"
 
 Toruzou.linkTo = (relative) ->
   root = Toruzou.Configuration.root 

@@ -5,7 +5,6 @@ class Person < Contact
   has_many :deals
   has_many :participants, :as => :participable, :dependent => :destroy
   has_many :activities, :as => :participable, :through => :participants
-  has_many :attachments, :as => :attachable, :dependent => :delete_all
 
   scope :in_organization, ->(organization_id) {
     where(organization_id: organization_id)

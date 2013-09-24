@@ -7,5 +7,9 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
         layout = Toruzou.Common.ApplicationLayout.show()
         view = new Show.View model: deal
         layout.mainRegion.show view
-        view.show slug if slug
+        if slug
+          view.show slug
+        else
+          view.showUpdates()
+
       

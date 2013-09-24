@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20130922120522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "activities", force: true do |t|
     t.string   "subject"
@@ -107,18 +108,16 @@ ActiveRecord::Schema.define(version: 20130922120522) do
 
   create_table "updates", force: true do |t|
     t.string   "type"
-    t.date     "timestamp"
-    t.string   "message"
+    t.integer  "user_id"
     t.string   "subject_type"
     t.integer  "subject_id"
     t.string   "action"
+    t.text     "message"
+    t.hstore   "changesets",   array: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "activity_id"
   end
 
-  add_index "updates", ["activity_id"], name: "index_updates_on_activity_id", using: :btree
   add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
