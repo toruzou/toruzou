@@ -1,10 +1,5 @@
 source 'https://rubygems.org'
-
-rubyVersion = "2.0"
-if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new(rubyVersion)
-  puts "You have to use Ruby #{rubyVersion}+ (Your version is #{RUBY_VERSION})"
-  exit 1
-end
+ruby '2.0.0'
 
 # https://github.com/rails/rails/pull/11444
 # gem 'rails', '4.0.0'
@@ -14,6 +9,13 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
+gem 'handlebars_assets', '>= 0.14.1'
+# gem 'compass-rails', '>= 2.0.alpha.0'
+# https://github.com/rails/rails/pull/11444
+# https://github.com/Compass/compass-rails/pull/96
+gem 'compass-rails', github: "roderickvd/compass-rails", branch: "rails41"
+gem 'zurb-foundation', '>= 4.3.1'
+gem 'font-awesome-rails', github: "bokmann/font-awesome-rails", branch: "master"
 
 gem 'devise', '~> 3.0.3'
 gem 'kaminari', '~> 0.14.1'
@@ -22,20 +24,12 @@ gem 'carrierwave', '~> 0.9.0'
 gem 'carrierwave-postgresql', '~> 0.1.1'
 
 group :doc do
+  gem 'yard'
   gem 'sdoc', require: false
 end
 
-group :development do
-  gem 'spring'
-  # gem "compass-rails", '>= 2.0.alpha.0'
-  # https://github.com/rails/rails/pull/11444
-  # https://github.com/Compass/compass-rails/pull/96
-  gem 'compass-rails', github: "roderickvd/compass-rails", branch: "rails41"
-  gem "zurb-foundation", '>= 4.3.1'
-  gem "handlebars_assets", '>= 0.14.1'
-end
-
 group :development, :test do
+  gem 'spring'
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-debugger'
@@ -56,5 +50,6 @@ group :development, :test do
   gem 'spork', '1.0.0rc3'
 end
 
-# Documentation Tools
-gem 'yard'
+group :production do
+  gem 'rails_12factor'
+end

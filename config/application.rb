@@ -6,12 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-require 'sprockets'
-env = Sprockets::Environment.new
-
-require 'handlebars_assets'
-env.append_path HandlebarsAssets.path
-
 module Toruzou
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
