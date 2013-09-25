@@ -42,10 +42,13 @@ class Deal < ActiveRecord::Base
   }
   
   validates :name, presence: true
+
+  # TODO decide valid combination of status and accuracy.
   validates :status, inclusion: [ 'Plan', 'Proposal', 'In Negotiation', 'Won', 'Lost' ], 
     allow_nil: true, allow_blank: true
   validates :accuracy, inclusion: [ 0, 25, 50, 75, 90, 100 ], 
     allow_nil: true, allow_blank: true
+  
   validates :amount, inclusion: { in: 0..(10 ** 11) }, 
     allow_nil:true, allow_blank: true
 end
