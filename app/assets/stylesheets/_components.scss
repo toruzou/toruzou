@@ -341,6 +341,13 @@ div[data-fields] {
     }
 }
 
+.field {
+    font-family: $body-font-family;
+    label > span {
+        font-family: $body-font-family;
+    }
+}
+
 li.filter-item {
   @include label($label-padding, $form-label-font-size, $well-bg-color, false);
   display: block;
