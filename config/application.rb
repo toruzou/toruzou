@@ -21,6 +21,7 @@ module Toruzou
     # config.i18n.default_locale = :de
     config.assets.paths << Rails.root.join("vendor", "assets", "components")
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
     config.to_prepare do
       Devise::SessionsController.skip_before_action :authenticate_user!
       DeviseController.respond_to :html, :json
