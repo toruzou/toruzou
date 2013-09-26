@@ -23,20 +23,20 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     commit: (options) ->
       options = options or= {}
       Toruzou.Common.Helpers.Notification.clear @$el
+      inputs = @$el.find("[type=\"submit\"]:enabled")
       unless options.error
         options.error = (model, response, options) =>
           @onRequestError response if (response.status + "").match /^4\d{2}$/
-      inputs = @$el.find("[type=\"submit\"]:enabled")
-      try
-        inputs.attr "disabled", "disabled"
-        errors = @updateModel()
-        if errors
-          errors
-        else
-          attributes = options.attributes or null
-          @model.save attributes, options
-      finally
+      options.complete = _.wrap options.complete, (complete, xhr, status) ->
         inputs.removeAttr "disabled"
+        complete xhr, status if complete
+      inputs.attr "disabled", "disabled"
+      errors = @updateModel()
+      if errors
+        errors
+      else
+        attributes = options.attributes or null
+        @model.save attributes, options
 
     onRequestError: (response) ->
       result = Toruzou.Common.Helpers.parseJSON response
