@@ -48,7 +48,8 @@ Toruzou.module "Updates.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       updateRegion: ".update"
 
     onShow: ->
-      @updateRegion.show new Index.NoteItemView model: @model
+      # TODO support other updates
+      @updateRegion.show new Index.NoteItemView model: new Toruzou.Models.Note @model.attributes
 
 
   # FIXME should move endless scrolling handler to common layer
