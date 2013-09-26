@@ -2,15 +2,12 @@
 
 FactoryGirl.define do
   factory :deal do
-    organization_id 1
-    counter_person 1
-    pm 1
-    sales 1
-    start_date "2013-09-01"
-    order_date "2013-09-01"
-    accept_date "2013-09-01"
-    amount 1
-    accuracy "MyString"
-    status "MyString"
+
+    sequence(:name) { |n| "sample deal #{n}" }
+    association :organization, factory: :organization
+    association :pm, factory: :user
+    association :sales, factory: :user
+    association :contact, factory: :person
+
   end
 end
