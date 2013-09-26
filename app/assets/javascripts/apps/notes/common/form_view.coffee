@@ -1,5 +1,7 @@
 Toruzou.module "Note.Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
+  delayed = (fn) -> setTimeout fn, 0
+
   class Common.FormView extends Toruzou.Common.FormView
 
     template: "notes/form"
@@ -16,7 +18,7 @@ Toruzou.module "Note.Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       super options
 
     onShow: ->
-      @$el.find("textarea").focus()
+      delayed => @$el.find(".fs-editable").focus()
 
     save: (e) ->
       e.preventDefault()

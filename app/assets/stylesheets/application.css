@@ -19,5 +19,6 @@
  *= require pickadate/lib/themes/classic
  *= require pickadate/lib/themes/classic.date
  *= require dropzone/downloads/css/basic
+ *= require ../javascripts/vendor/jquery.fseditor/fseditor
  *= require main
  */

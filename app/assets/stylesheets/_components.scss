@@ -297,9 +297,6 @@ textarea {
                 }
             }
         }
-        pre {
-            font-family: $body-font-family;
-        }
         footer {
             font-size: 80%;
             .separator {
@@ -373,4 +370,39 @@ li.filter-item {
 
 .no-margin {
     margin: 0;
+}
+
+.fs-editor-wrapper {
+    .fs-editor {
+        font-family: $input-font-family;
+        font-size: $input-font-size;
+        color: $input-font-color;
+        line-height: $base-line-height;
+        min-height: 0;
+        margin-bottom: 0.75em;
+        .fs-editable {
+            border-radius: 0;
+            border: 1px solid #ddd;
+            box-shadow: none;
+            padding: 0.25em 0.5em;
+            min-height: 100px;
+            &:focus {
+                $fade-time: 300ms;
+                background: $input-focus-bg-color;
+                border-color: $input-focus-border-color;
+                outline: none;
+                transition: box-shadow $fade-time, border-color $fade-time ease-in-out;
+                -webkit-transition: -webkit-box-shadow $fade-time, border-color $fade-time ease-in-out;
+                -moz-transition: -moz-box-shadow $fade-time, border-color $fade-time ease-in-out;
+                box-shadow: 0 0 5px $input-focus-border-color;
+                -webkit-box-shadow: 0 0 5px $input-focus-border-color;
+                -moz-box-shadow: 0 0 5px $input-focus-border-color;
+            }
+        }
+        &.expanded {
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+        }
+    }
 }

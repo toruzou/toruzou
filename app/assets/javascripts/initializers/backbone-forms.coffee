@@ -219,3 +219,25 @@ Toruzou.addInitializer ->
         _.extend pickadateOptions, @schema.pickadate if @schema.pickadate
         @$el.pickadate pickadateOptions
       @
+
+  Backbone.Form.editors.TextArea = class FSTextAreaEditor extends Backbone.Form.editors.TextArea
+
+    render: ->
+      super
+      delayed =>
+        @$el.fseditor()
+        $div = @$el.parent()
+        @$editor = $div.find "[contenteditable]"
+        @$editor.html @value
+        $div.find("a.fs-icon").attr("data-bypass", "")
+      @
+
+    setValue: (value) ->
+      @$editor?.html value
+
+    getValue: ->
+      @$editor?.html()
+
+    remove: ->
+      @$el.fseditor("destroy")
+      super
