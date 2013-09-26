@@ -35,7 +35,7 @@ Toruzou.module "Careers.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       }
       {
         name: "title"
-        label: "Department"
+        label: "Title"
         editable: false
         cell: "string"
       }
