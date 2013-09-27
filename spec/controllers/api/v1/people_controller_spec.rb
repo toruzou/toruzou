@@ -39,7 +39,7 @@ describe Api::V1::PeopleController do
 
   describe "GET api/v1/people" do
     it "shows all people registered." do
-      get :index
+      get :index, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -53,7 +53,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people belongs to designated organization id." do
-      get :index, organization_id: @bank2.id
+      get :index, organization_id: @bank2.id, page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(1)
       expect(JSON.parse(body)[1][0]['id']).to eq(@person2.id)
@@ -61,7 +61,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people belongs to designated organization." do
-      get :index, organization_name: @bank2.name
+      get :index, organization_name: @bank2.name, page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(1)
       expect(JSON.parse(body)[1][0]['id']).to eq(@person2.id)
@@ -69,7 +69,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people belongs to designated name (case non sensitive)." do
-      get :index, name: "iChi"
+      get :index, name: "iChi", page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(1)
       expect(JSON.parse(body)[1][0]['id']).to eq(@person1.id)
@@ -77,7 +77,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people belongs to designated phone." do
-      get :index, phone: "3278"
+      get :index, phone: "3278", page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(2)
       ids = [ JSON.parse(body)[1][0]['id'], JSON.parse(body)[1][1]['id'] ]
@@ -87,7 +87,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people belongs to designated email (case non sensitive)." do
-      get :index, email: "EXaMP"
+      get :index, email: "EXaMP", page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(2)
       ids = [ JSON.parse(body)[1][0]['id'], JSON.parse(body)[1][1]['id'] ]
@@ -97,7 +97,7 @@ describe Api::V1::PeopleController do
     end
 
     it "shows people designated by multiple conditions." do
-      get :index, phone: '3278', email: 'second'
+      get :index, phone: '3278', email: 'second', page: 1
 
       expect(JSON.parse(body)[0]['total_entries']).to eq(1)
       expect(JSON.parse(body)[1][0]['id']).to eq(@person2.id)
@@ -107,7 +107,7 @@ describe Api::V1::PeopleController do
 
   describe "GET api/v1/people/1" do
     it "shows designated person when given id is valid." do
-      get :show, id: @person1.id
+      get :show, id: @person1.id, page: 1
 
       expect(status).to eq(200)
       expect(JSON.parse(body)['id']).to eq(@person1.id)
@@ -115,7 +115,7 @@ describe Api::V1::PeopleController do
     end
 
     it "returns 404 when record for given id doesn't exist" do
-      get :show, id: @person3.id + 100
+      get :show, id: @person3.id + 100, page: 1
       expect(status).to eq(404)
       expect(body).to eq(" ")
     end
@@ -148,7 +148,7 @@ describe Api::V1::PeopleController do
       id = @person1.id
       name = @person1.name
 
-      get :show, id: id
+      get :show, id: id, page: 1
       expect(JSON.parse(body)['name']).to eq(name)
 
       put :update, id: id, person: { name: "updated name" }
@@ -162,7 +162,7 @@ describe Api::V1::PeopleController do
       id = @person1.id
       name = @person1.name
 
-      get :show, id: id
+      get :show, id: id, page: 1
       expect(JSON.parse(body)['name']).to eq(name)
 
       put :update, id: id, person: { name: "" }
@@ -182,14 +182,14 @@ describe Api::V1::PeopleController do
       @to_delete = FactoryGirl.create(:person)
       id = @to_delete.id
 
-      get :show, id: id
+      get :show, id: id, page: 1
       expect(status).to eq(200)
 
       delete :destroy, id: id
       expect(status).to eq(200)
       expect(JSON.parse(body)['id']).to eq(id)
 
-      get :show, id: id
+      get :show, id: id, page: 1
       expect(status).to eq(404)
     end
   end
@@ -203,25 +203,25 @@ describe Api::V1::PeopleController do
         @person1 = valid_person(@bank1.id)
         @person2 = valid_person(@bank2.id)
 
-        get :index, organization_id: @bank1.id
+        get :index, organization_id: @bank1.id, page: 1
 
         expect(status).to eq(200)
 
-        expect(JSON.parse(body)[0]).to eq({"total_entries" =>  1})
+        expect(JSON.parse(body)[0]['total_entries']).to eq(1)
         expect(JSON.parse(body)[1][0]['id']).to eq(@person1.id)
       end
     end
 
     describe "GET api/v1/organization/1/people/1" do
       it "shows person which belongs to organization." do
-        get :show, organization_id: @bank1.id, id: @person1.id
+        get :show, organization_id: @bank1.id, id: @person1.id, page: 1
 
         expect(status).to eq(200)
         expect(JSON.parse(body)['id']).to eq(@person1.id)
       end
 
       it "returns 404 when person doesn't belong to organization." do
-        get :show, organization_id: @bank2.id, id: @person1.id
+        get :show, organization_id: @bank2.id, id: @person1.id, page: 1
 
         expect(status).to eq(404)
         expect(body).to eq(" ")

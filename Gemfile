@@ -48,6 +48,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'spork', '1.0.0rc3'
+  gem 'minitest'
 end
 
 group :production do
