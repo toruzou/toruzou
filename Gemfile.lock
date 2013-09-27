@@ -260,6 +260,7 @@ DEPENDENCIES
   handlebars_assets (>= 0.14.1)
   json_spec (= 1.1.1)
   kaminari (~> 0.14.1)
+  minitest
   pg
   pry
   pry-coolline
