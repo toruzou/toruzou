@@ -10,63 +10,57 @@ describe Api::V1::OrganizationsController do
       first  = valid_organization
       second = valid_organization
 
-      get :index, ""
+      get :index, page: 1
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
       expect(JSON.parse(body)[0]['total_entries']).to eq(2)
-      expect(body).to include_json(JSON.generate([ 
-        organization_hash(first), 
-        organization_hash(second)]))
+
+      ids = [ JSON.parse(body)[1][0]['id'], JSON.parse(body)[1][1]['id'] ]
+
+      assert ids.include?(first.id)
+      assert ids.include?(second.id)
+
     end
 
     it "returns specified organization with param name" do
       first = organization_with_name 'hoge'
       second = organization_with_name 'fuga'
-      get :index, name: 'hoge'
+      get :index, name: 'hoge', page: 1
       expect(body).to have_json_size(2)
 
-      expect(body).to include_json(JSON.generate( 
-        {total_entries: 1 }))
-      expect(body).to include_json(JSON.generate(
-        [
-          organization_hash(first)
-        ]
-      ))
+      expect(JSON.parse(body)[0]['total_entries']).to eq(1)
+      
+      expect(JSON.parse(body)[1][0]['id']).to eq(first.id)
     end
 
     it "returns specified organization with param abbreviation" do
       first  = organization_with_name_abbreviation 'hogehoge', 'hoge'
       second = organization_with_name_abbreviation 'hogefuga', 'fuga'
       third  = organization_with_name_abbreviation 'mogumogu', 'mogu'
-      get :index, abbreviation: 'og'
+      get :index, abbreviation: 'og', page: 1
 
       expect(body).to have_json_size(2)
 
-      expect(body).to include_json(JSON.generate( 
-        {total_entries: 2 }))
-      expect(body).to include_json(JSON.generate(
-        [
-          organization_hash(first),
-          organization_hash(third),
-        ]
-      ))
+      expect(JSON.parse(body)[0]['total_entries']).to eq(2)
+
+      ids = [ JSON.parse(body)[1][0]['id'], JSON.parse(body)[1][1]['id'] ]
+
+      assert ids.include?(first.id)
+      assert ids.include?(third.id)
     end
 
     it "returns specified organization with param name and abbreviation" do
       first  = organization_with_name_abbreviation 'hogehoge', 'hoge'
       second = organization_with_name_abbreviation 'hogefuga', 'fuga'
       third  = organization_with_name_abbreviation 'mogumogu', 'mogu'
-      get :index, abbreviation: 'og', name: 'm'
+      get :index, abbreviation: 'og', name: 'm', page: 1
 
       expect(body).to have_json_size(2)
 
-      expect(body).to include_json(JSON.generate( 
-        {total_entries: 1 }))
-      expect(body).to include_json(JSON.generate(
-        [
-          organization_hash(third),
-        ]
-      ))
+      expect(JSON.parse(body)[0]['total_entries']).to eq(1)
+
+      expect(JSON.parse(body)[1][0]['id']).to eq(third.id)
+
     end
   end
 
@@ -76,7 +70,7 @@ describe Api::V1::OrganizationsController do
       get :show, id: target.id
 
       expect(status).to eq(200)
-      expect(body).to be_json_eql(JSON.generate(organization_hash(target)))
+      expect(JSON.parse(body)['id']).to eq(target.id)
     end
 
     it "returns 404 when no entity exists for given id" do
