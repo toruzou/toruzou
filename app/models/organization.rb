@@ -4,7 +4,6 @@ class Organization < Contact
   has_many :activities
   has_many :people
 
-  validates :name, presence: true
   validates :name, length: { maximum: 80 }
   validates :abbreviation, length: { maximum: 20 }
   validates :address, length: { maximum: 200 }
