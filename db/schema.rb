@@ -97,18 +97,6 @@ ActiveRecord::Schema.define(version: 20130922120522) do
   add_index "deals", ["pm_id"], name: "index_deals_on_pm_id", using: :btree
   add_index "deals", ["sales_id"], name: "index_deals_on_sales_id", using: :btree
 
-  create_table "notes", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "notable_id"
-    t.string   "notable_type"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notes", ["notable_id"], name: "index_notes_on_notable_id", using: :btree
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
-
   create_table "participants", force: true do |t|
     t.integer "activity_id"
     t.integer "participable_id"
