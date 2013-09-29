@@ -71,8 +71,10 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       @model.destroy success: (model, response) -> Toruzou.trigger "deals:list"
       
     refresh: (model) ->
+      slug = @$el.find("section.active").attr "id"
       @model = model
       @render()
+      @show slug
       @showActivitiesPanel()
 
     showActivitiesPanel: ->

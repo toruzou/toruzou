@@ -80,8 +80,10 @@ Toruzou.module "Organizations.Show", (Show, Toruzou, Backbone, Marionette, $, _)
       Toruzou.dialogRegion.show editView
 
     refresh: (model) ->
+      slug = @$el.find("section.active").attr "id"
       @model = model
       @render()
+      @show slug
       @showActivitiesPanel()
 
     showActivitiesPanel: ->
