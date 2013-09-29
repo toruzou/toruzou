@@ -385,7 +385,8 @@ li.filter-item {
             border: 1px solid #ddd;
             box-shadow: none;
             padding: 0.25em 0.5em;
-            min-height: 100px;
+            height: 75px;
+            min-height: 75px;
             &:focus {
                 $fade-time: 300ms;
                 background: $input-focus-bg-color;
