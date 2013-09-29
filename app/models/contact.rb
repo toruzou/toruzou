@@ -5,9 +5,9 @@ class Contact < ActiveRecord::Base
   has_many :updates, :as => :subject, :dependent => :delete_all
 
   validates :name, presence: true
-  validates :name, length: {maximum: 80}
-  validates :address, length: {maximum: 200}
-  validates :remarks, length: {maximum: 500}
+  validates :name, length: { maximum: 80 }
+  validates :address, length: { maximum: 200 }
+  validates :remarks, length: { maximum: 5000 }
 
   scope :match_name, ->(q) {
     where("lower(contacts.name) LIKE ?", "%#{q.downcase}%")
