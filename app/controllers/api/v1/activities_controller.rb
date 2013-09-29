@@ -48,15 +48,6 @@ module Api
         render json: @activity
       end
 
-      # GET /activities/new
-      def new
-        @activity = Activity.new
-      end
-
-      # GET /activities/1/edit
-      def edit
-      end
-
       # POST /activities
       def create
         @activity = Activity.new(activity_params)
@@ -65,7 +56,7 @@ module Api
         if @activity.save
           render json: @activity
         else
-          render json: @activity, status: :unprocessable_entity
+          render json: @activity.errors, status: :unprocessable_entity
         end
       end
 
@@ -83,7 +74,7 @@ module Api
           if @activity.save
             render json: @activity
           else
-            render json: @activity, status: :unprocessable_entity
+            render json: @activity.errors, status: :unprocessable_entity
           end
         end
       end

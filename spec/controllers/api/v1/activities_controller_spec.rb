@@ -20,148 +20,465 @@ require 'spec_helper'
 
 describe Api::V1::ActivitiesController do
 
-  describe "GET index" do
-    it "assigns all activities as @activities" do
-      login_user
+  valid_param = {action: 'Email', date: "2013-09-07"}
 
-      activity = Activity.create! 
-      get :index
-      expect(response.response_code).to eq(200)
+  before(:all) do
+    @person1   = FactoryGirl.create(:person)
+    @person2   = FactoryGirl.create(:person)
+    @person3   = FactoryGirl.create(:person)
+
+    @user1     = FactoryGirl.create(:user)
+    @user2     = FactoryGirl.create(:user)
+    @user3     = FactoryGirl.create(:user)
+
+    @activity1 = FactoryGirl.create(:activity, action: 'Meeting', date: Date.today - 7, done: true)
+    @activity2 = FactoryGirl.create(:activity, action: 'Call', date: Date.today, done: false)
+    @activity3 = FactoryGirl.create(:activity, action: 'Email', date: Date.tomorrow, 
+                                    done: true, users: [ @user1, @user2 ], 
+                                    people: [@person1, @person2])
+    @activity4 = FactoryGirl.create(:activity, action: 'Task', date: Date.today + 7, 
+                                    done: false, users: [ @user1, @user3 ],
+                                    people: [@person2, @person3])
+
+    @organization1 = @activity1.organization
+    @organization2 = @activity2.organization
+  end
+
+  after(:all) do
+    truncate_activity(@activity1, @activity2, @activity3, @activity4)
+
+    @person1.destroy if @person1
+    @person2.destroy if @person2
+    @person3.destroy if @person2
+
+    @user1.destroy if @user1
+    @user2.destroy if @user2
+    @user3.destroy if @user2
+
+    @organization1.destroy if @organization1
+    @organization2.destroy if @organization2
+  end
+
+  before(:each) do
+    login_user
+  end
+
+  describe "GET index" do
+    context "with no filter condition" do
+      it "render all records." do
+        get :index, page: 1
+
+        assert_success
+        assert_total_entries(4)
+
+        assert_contains_entry(@activity1.id, @activity2.id, @activity3.id)
+      end
+    end
+
+    context "with filter condition" do
+      describe ":organization_id" do
+        it "renders activity for designated param." do
+          get :index, page: 1, organization_id: @organization1.id
+
+          assert_success
+          assert_total_entries(1)
+
+          assert_contains_entry(@activity1.id)
+        end
+      end
+
+      describe ":organization_name" do
+        it "renders activity for designated param." do
+          get :index, page: 1, organization_name: @organization2.name
+
+          assert_success
+          assert_total_entries(1)
+
+          assert_contains_entry(@activity2.id)
+        end
+      end
+
+      describe ":deal_name" do
+        it "renders activity for designated param." do
+          get :index, page: 1, deal_name: @activity1.deal.name
+
+          assert_success
+          assert_total_entries(1)
+
+          assert_contains_entry(@activity1.id)
+        end
+      end
+
+      describe ":deal_id" do
+        it "renders activity for designated param." do
+          get :index, page: 1, deal_id: @activity2.deal.id
+
+          assert_success
+          assert_total_entries(1)
+
+          assert_contains_entry(@activity2.id)
+        end
+      end
+
+      describe ":subject" do
+        it "renders activity for designated param." do
+          get :index, page: 1, subject: @activity3.subject
+
+          assert_success
+          assert_total_entries(1)
+
+          assert_contains_entry(@activity3.id)
+        end
+      end
+
+      describe ":action" do
+        context "single" do
+          it "renders activity for designated param." do
+            get :index, page: 1, actions: 'Email'
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity3.id)
+          end
+        end
+
+        context "array with single value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, actions: ['Meeting']
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity1.id)
+          end
+        end
+
+        context "array with multiple value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, actions: ['Call', 'Email']
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity2.id, @activity3.id)
+          end
+        end
+      end
+
+      describe ":users_ids" do
+        context "single" do
+          it "renders activity for designated param." do
+            get :index, page: 1, users_ids: @user1.id
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity3.id, @activity4.id)
+          end
+        end
+
+        context "array with single value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, users_ids: [ @user1.id ]
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity3.id, @activity4.id)
+          end
+        end
+
+        context "array with multiple value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, users_ids: [ @user2.id, @user3.id ]
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity3.id, @activity4.id)
+          end
+        end
+      end
+
+      describe ":people_ids" do
+        context "single" do
+          it "renders activity for designated param." do
+            get :index, page: 1, people_ids: @person1.id
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity3.id)
+          end
+        end
+        context "array with single value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, people_ids: [ @person2.id ]
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity3.id, @activity4.id)
+          end
+        end
+        context "array with single value" do
+          it "renders activity for designated param." do
+            get :index, page: 1, people_ids: [ @person1.id, @person3.id ]
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity3.id, @activity4.id)
+          end
+        end
+      end
+
+      describe ":term" do
+
+        context "Overdue" do
+          it "renders activity overdue." do
+            get :index, page: 1, term: 'Overdue'
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity1.id)
+          end
+        end
+
+        context "Last Week" do
+          it "renders activity whose date is older than last week." do
+            get :index, page: 1, term: 'Last Week'
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity1.id)
+          end
+        end
+
+        context "Today" do
+          it "renders activity whose date is today." do
+            get :index, page: 1, term: 'Today'
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity2.id)
+          end
+        end
+
+        context "Tomorrow" do
+          it "renders activity whose date is tomorrow." do
+            get :index, page: 1, term: 'Tomorrow'
+
+            assert_success
+            assert_total_entries(1)
+
+            assert_contains_entry(@activity3.id)
+          end
+        end
+
+        context "This Week"do
+          it "renders activity whose date is in this week." do
+            get :index, page: 1, term: 'This Week'
+
+            assert_success
+
+            if Date.today.wday == 0 then
+              assert_total_entries(1)
+              assert_contains_entry(@activity2.id)
+            else
+              assert_total_entries(2)
+              assert_contains_entry(@activity2.id, @activity3.id)
+            end
+          end
+        end
+
+        context "Next Week" do
+          it "renders activity whose date is in next week." do
+            get :index, page: 1, term: 'Next Week'
+
+            assert_success
+
+            if Date.today.wday == 0 then
+              assert_total_entries(2)
+              assert_contains_entry(@activity3.id, @activity4.id)
+            else
+              assert_total_entries(1)
+              assert_contains_entry(@activity4.id)
+            end
+          end
+        end
+
+      end
+
+      describe ":done" do
+
+        context "TRUE (value: 1)" do
+          it "renders activity which is done." do
+            get :index, page: 1, status: 1
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity1.id, @activity3.id)
+          end
+        end
+
+        context "FALSE (value: 0)" do
+          it "renders activity which is not done." do
+            get :index, page: 1, status: 0
+
+            assert_success
+            assert_total_entries(2)
+
+            assert_contains_entry(@activity2.id, @activity4.id)
+          end
+        end
+
+      end
+
     end
   end
 
   describe "GET show" do
-    it "assigns the requested activity as @activity" do
-pending
-      activity = Activity.create! valid_attributes
-      get :show, {:id => activity.to_param}, valid_session
-      assigns(:activity).should eq(activity)
-    end
-  end
+    it "shows designated activity when given id is valid." do
+      get :show, id: @activity1.id
 
-  describe "GET new" do
-    it "assigns a new activity as @activity" do
-pending
-      get :new, {}, valid_session
-      assigns(:activity).should be_a_new(Activity)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested activity as @activity" do
-pending
-      activity = Activity.create! valid_attributes
-      get :edit, {:id => activity.to_param}, valid_session
-      assigns(:activity).should eq(activity)
+      assert_success
+      expect(JSON.parse(body)['id']).to eq(@activity1.id)
     end
   end
 
   describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Activity" do
-pending
-        expect {
-          post :create, {:activity => valid_attributes}, valid_session
-        }.to change(Activity, :count).by(1)
-      end
+    context "with valid params" do
+      it "creates new entity." do
+        param = { subject: 'new activity', 
+          user_ids: [ @user1.id, @user2.id ], 
+          people_ids: [ @person1.id, @person2.id ]
+        }.merge(valid_param)
 
-      it "assigns a newly created activity as @activity" do
-pending
-        post :create, {:activity => valid_attributes}, valid_session
-        assigns(:activity).should be_a(Activity)
-        assigns(:activity).should be_persisted
-      end
+        post :create, activity: param
 
-      it "redirects to the created activity" do
-pending
-        post :create, {:activity => valid_attributes}, valid_session
-        response.should redirect_to(Activity.last)
+        assert_success
+        expect(JSON.parse(body)['id']).not_to be_nil
+        expect(JSON.parse(body)['subject']).to eq('new activity')
+
+        assert JSON.parse(body)['people_ids'].include?(@person1.id)
+        assert JSON.parse(body)['people_ids'].include?(@person2.id)
+
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved activity as @activity" do
-pending
-        # Trigger the behavior that occurs when invalid params are submitted
-        Activity.any_instance.stub(:save).and_return(false)
-        post :create, {:activity => { "title" => "invalid value" }}, valid_session
-        assigns(:activity).should be_a_new(Activity)
-      end
+    context "with invalid params" do
+      it "doesn't create new record and return status 422." do
+        param = { subject: '' }.merge(valid_param)
 
-      it "re-renders the 'new' template" do
-pending
-        # Trigger the behavior that occurs when invalid params are submitted
-        Activity.any_instance.stub(:save).and_return(false)
-        post :create, {:activity => { "title" => "invalid value" }}, valid_session
-        response.should render_template("new")
+        post :create, activity: param
+
+        assert_unprocessable_entity
+        expect(body).to be_json_eql( JSON.generate({ subject: [
+          "can't be blank"
+        ] }))
       end
     end
   end
 
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested activity" do
-pending
-        activity = Activity.create! valid_attributes
-        # Assuming there are no other activities in the database, this
-        # specifies that the Activity created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Activity.any_instance.should_receive(:update).with({ "title" => "MyString" })
-        put :update, {:id => activity.to_param, :activity => { "title" => "MyString" }}, valid_session
-      end
-
-      it "assigns the requested activity as @activity" do
-pending
-        activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => valid_attributes}, valid_session
-        assigns(:activity).should eq(activity)
-      end
-
-      it "redirects to the activity" do
-pending
-        activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => valid_attributes}, valid_session
-        response.should redirect_to(activity)
-      end
+    before(:all) do
+      @person11 = FactoryGirl.create(:person)
+      @person12 = FactoryGirl.create(:person)
+      @target = FactoryGirl.create(:activity, 
+                                   organization_id: @organization1.id, 
+                                   people: [ @person11 ]
+                                  )
     end
 
-    describe "with invalid params" do
-      it "assigns the activity as @activity" do
-pending
-        activity = Activity.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Activity.any_instance.stub(:save).and_return(false)
-        put :update, {:id => activity.to_param, :activity => { "title" => "invalid value" }}, valid_session
-        assigns(:activity).should eq(activity)
+    after(:all) do
+      truncate_activity(@target)
+      @person11.destroy if @person11
+      @person12.destroy if @person12
+    end
+
+    context "with valid params" do
+
+      it "updates the designated activity." do
+        param = { subject: 'updated subject', 
+                  people_ids: [ @person12.id ]
+                }
+        
+        put :update, id: @target.id, activity: param
+
+        assert_success
+        expect(JSON.parse(body)['id']).to eq(@target.id)
+        expect(JSON.parse(body)['subject']).to eq('updated subject')
+
+        assert JSON.parse(body)['people_ids'].include?(@person12.id)
+        assert !(JSON.parse(body)['people_ids'].include?(@person11.id))
       end
 
-      it "re-renders the 'edit' template" do
-pending
-        activity = Activity.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Activity.any_instance.stub(:save).and_return(false)
-        put :update, {:id => activity.to_param, :activity => { "title" => "invalid value" }}, valid_session
-        response.should render_template("edit")
+    end
+
+    context "with invalid params" do
+      it "can't update the designated activity." do
+
+        param = {subject: '', organization_id: @organization2.id}
+
+        put :update, id: @target.id, activity: param
+
+        assert_unprocessable_entity
+        expect(body).to be_json_eql( JSON.generate({ subject: [
+          "can't be blank"
+        ] }))
+
+        get :show, id: @target.id
+
+        # verify unnecessary update is not executed.
+        expect(JSON.parse(body)['organization_id']).to eq(@organization1.id)
       end
     end
   end
 
   describe "DELETE destroy" do
     it "destroys the requested activity" do
-pending
-      activity = Activity.create! valid_attributes
-      expect {
-        delete :destroy, {:id => activity.to_param}, valid_session
-      }.to change(Activity, :count).by(-1)
+      target = FactoryGirl.create(:activity)
+
+      delete :destroy, id: target.id
+
+      assert_success
+      expect(JSON.parse(body)['id']).to eq(target.id)
+
+      truncate_activity(target) if target
     end
 
-    it "redirects to the activities list" do
-pending
-      activity = Activity.create! valid_attributes
-      delete :destroy, {:id => activity.to_param}, valid_session
-      response.should redirect_to(activities_url)
-    end
+  end
+
+  private
+  def truncate_activity(*activities)
+    activities.each { |activity|
+      activity.organization.destroy if activity.organization
+      truncate_deal(activity.deal) if activity.deal
+      activity.people.each { |person|
+        person.destroy
+      }
+      activity.users.each { |user|
+        user.destroy
+      }
+
+      activity.destroy if activity
+    }
+  end
+
+  def truncate_deal(*deals)
+    deals.each { |deal|
+      deal.organization.destroy if deal.organization
+      deal.pm.destroy if deal.pm
+      deal.sales.destroy if deal.sales
+      deal.contact.destroy if deal.contact
+      deal.destroy
+    }
   end
 
 end
