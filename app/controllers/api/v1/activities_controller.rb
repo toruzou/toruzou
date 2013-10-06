@@ -8,38 +8,21 @@ module Api
 
       # GET /activities
       def index
-        # TODO refactoring
         if params[:include_deleted].present? and params[:include_deleted] == "true"
           @activities = Activity.with_deleted
         else
           @activities = Activity.all
         end
-        @activities = @activities.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
-        @activities = @activities.where(:deal_id => params[:deal_id]) if params[:deal_id].present?
-        @activities = @activities.where("lower(activities.subject) LIKE ?", "%#{params[:subject].downcase}%") if params[:subject].present?
-        @activities = @activities.where(action: params[:actions]) if params[:actions].present?
-        @activities = @activities.joins(:deal).where("lower(deals.name) LIKE ?", "%#{params[:deal_name].downcase}%") if params[:deal_name].present?
-        @activities = @activities.joins(:users).where("users.id" => params[:users_ids]) if params[:users_ids].present?
-        @activities = @activities.joins(:people).where("contacts.id" => params[:people_ids]) if params[:people_ids].present?
-        @activities = @activities.joins(:organization).where("lower(contacts.name) LIKE ?", "%#{params[:organization_name].downcase}%") if params[:organization_name].present?
-        if params[:term].present?
-          term = params[:term]
-          case term
-          when "Overdue" then
-            @activities = @activities.where("date < ?", Date.today)
-          when "Last Week" then
-            @activities = @activities.where(:date => 1.week.ago.beginning_of_week..1.week.ago.end_of_week)
-          when "Today" then
-            @activities = @activities.where(:date => Date.today)
-          when "Tomorrow" then
-            @activities = @activities.where(:date => Date.tomorrow)
-          when "This Week" then
-            @activities = @activities.where(:date => Date.today.beginning_of_week..Date.today.end_of_week)
-          when "Next Week" then
-            @activities = @activities.where(:date => 1.week.since.beginning_of_week..1.week.since.end_of_week)
-          end
-        end
-        @activities = @activities.where(:done => params[:status]) if params[:status].present?
+        @activities = @activities.in_organization(params[:organization_id]) if params[:organization_id].present?
+        @activities = @activities.in_deal(params[:deal_id]) if params[:deal_id].present?
+        @activities = @activities.match_subject(params[:subject]) if params[:subject].present?
+        @activities = @activities.in_actions(params[:actions]) if params[:actions].present?
+        @activities = @activities.match_deal(params[:deal_name]) if params[:deal_name].present?
+        @activities = @activities.with_users(params[:users_ids]) if params[:users_ids].present?
+        @activities = @activities.with_people(params[:people_ids]) if params[:people_ids].present?
+        @activities = @activities.match_organization(params[:organization_name]) if params[:organization_name].present?
+        @activities = @activities.date_is(params[:term]) if params[:term].present?
+        @activities = @activities.is_done(params[:status]) if params[:status].present?
         render json: to_pageable(@activities, { :order => "done ASC" })
       end
 

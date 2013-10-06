@@ -312,6 +312,15 @@ describe Api::V1::ActivitiesController do
           end
         end
 
+        context "Invalid value" do
+          it "returns all activities" do
+            get :index, page: 1, term: 'invalid value'
+
+            assert_success
+            assert_contains_entry(@activity1.id, @activity2.id, @activity3.id, @activity4.id)
+          end
+        end
+
       end
 
       describe ":done" do
