@@ -404,6 +404,10 @@ li.filter-item {
             width: 100%;
             height: 100%;
             z-index: 999;
+            .fs-editable {
+                width: 100% !important;
+                height: 100% !important;
+            }
         }
     }
 }
