@@ -113,3 +113,4 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Toruzou.reqres.setHandler "activities:fetch", (options) -> API.getActivities options
   Toruzou.reqres.setHandler "activity:fetch", (id) -> API.getActivity id
+  

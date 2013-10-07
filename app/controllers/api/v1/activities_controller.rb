@@ -9,7 +9,11 @@ module Api
       # GET /activities
       def index
         # TODO refactoring
-        @activities = Activity.all
+        if params[:include_deleted].present? and params[:include_deleted] == "true"
+          @activities = Activity.with_deleted
+        else
+          @activities = Activity.all
+        end
         @activities = @activities.where(:organization_id => params[:organization_id]) if params[:organization_id].present?
         @activities = @activities.where(:deal_id => params[:deal_id]) if params[:deal_id].present?
         @activities = @activities.where("lower(activities.subject) LIKE ?", "%#{params[:subject].downcase}%") if params[:subject].present?
@@ -67,15 +71,20 @@ module Api
 
       # PATCH/PUT /activities/1
       def update
-        @activity.assign_attributes(activity_params)
-        @activity.users.clear
-        @activity.users = User.find(users_params[:users_ids] ||= [])
-        @activity.people.clear
-        @activity.people = Person.find(people_params[:people_ids] ||= [])
-        if @activity.save
+        if params[:restore].present? and params[:restore] == "true"
+          @activity.restore!
           render json: @activity
         else
-          render json: @activity, status: :unprocessable_entity
+          @activity.assign_attributes(activity_params)
+          @activity.users.clear
+          @activity.users = User.find(users_params[:users_ids] ||= [])
+          @activity.people.clear
+          @activity.people = Person.find(people_params[:people_ids] ||= [])
+          if @activity.save
+            render json: @activity
+          else
+            render json: @activity, status: :unprocessable_entity
+          end
         end
       end
 
@@ -88,7 +97,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_activity
-          @activity = Activity.find(params[:id])
+          @activity = Activity.with_deleted.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

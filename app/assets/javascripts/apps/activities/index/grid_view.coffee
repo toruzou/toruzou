@@ -76,20 +76,40 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
           href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("people/" + rawValue["id"]) else null
       }
       {
+        name: "deletedAt"
+        label: "Deleted Datetime"
+        editable: false
+        cell: "localDatetime"
+      }
+      {
         name: "delete"
         label: ""
         editable: false
         sortable: false
-        cell: class extends Backgrid.Extension.IconButtonCell
-          title: "Delete"
-          iconClassName: "remove"
-          createIconLink: ->
-            $link = super.addClass "alert"
-            $link.on "click", (e) =>
-              e.preventDefault()
-              e.stopPropagation()
-              @model.destroy success: => Toruzou.Activities.trigger "activity:deleted"
-            $link
+        cell: class extends Backgrid.Cell
+          className: "button-cell"
+          render: ->
+            @$el.empty()
+            if @model.get("deletedAt")
+              $restoreButton = @renderIconLink "reply", "Restore activity"
+              $restoreButton.on "click", (e) =>
+                e.preventDefault()
+                e.stopPropagation()
+                @model.save @model.attributes,
+                  url: _.result(@model, "url") + "?restore=true"
+                  success: => Toruzou.Activities.trigger "activity:restored" 
+              @$el.append $restoreButton
+            else
+              $deleteButton = @renderIconLink "trash", "Delete activity"
+              $deleteButton.addClass "alert"
+              $deleteButton.on "click", (e) =>
+                e.preventDefault()
+                e.stopPropagation()
+                @model.destroy success: => Toruzou.Activities.trigger "activity:deleted" 
+              @$el.append $deleteButton
+            @
+          renderIconLink: (iconName, title, handler) ->
+            $("<a></a>").attr("href", "/#").attr("tabIndex", -1).attr("title",  title).html "<i class=\"icon-#{iconName} icon-large\"></i>"
       }
     ]
 
@@ -98,7 +118,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       @handler = _.bind @refresh, @
       @listenTo @collection, "activity:selected", (model) => @showActivity model
       @listenTo @collection, "backgrid:selected", (model, checked) => @toggleDone model, checked
-      Toruzou.Activities.on "activity:saved activity:deleted", @handler
+      Toruzou.Activities.on "activity:saved activity:deleted activity:restored", @handler
 
     showActivity: (activity) ->
       return unless activity
@@ -117,5 +137,5 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
     close: ->
       return if @isClosed
       super
-      Toruzou.Activities.off "activity:saved activity:deleted", @handler
+      Toruzou.Activities.off "activity:saved activity:deleted activity:restored", @handler
 

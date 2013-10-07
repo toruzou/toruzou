@@ -13,6 +13,7 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
+      "click #restore-button": "restore"
       "click [data-section-title]": "sectionChanged"
 
     constructor: (options) ->
@@ -83,6 +84,13 @@ Toruzou.module "People.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       e.preventDefault()
       e.stopPropagation()
       @model.destroy success: (model, response) -> Toruzou.trigger "people:list"
+
+    restore: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      @model.save @model.attributes,
+        url: _.result(@model, "url") + "?restore=true"
+        success: (model, response) -> Toruzou.trigger "people:list"
 
     refresh: (model) ->
       slug = @$el.find("section.active").attr "id"

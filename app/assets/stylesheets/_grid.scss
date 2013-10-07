@@ -8,6 +8,11 @@
         font-weight: normal;
         border-bottom: 3px solid #DDD;
     }
+    tr {
+        &.deleted {
+            opacity: 0.6;
+        }
+    }
     td {
         white-space: pre;
         word-wrap: break-word;
@@ -31,14 +36,11 @@
         width: 15em;
         text-align: right;
     }
-    .button-icon-cell {
-        width: 1em;
-        text-align: center;
-        .button {
-            margin: 0 auto;
-        }
-    }
     .activity-action-cell {
         width: 10em;
+    }
+    .button-cell {
+        width: 3em;
+        text-align: center;
     }
 }

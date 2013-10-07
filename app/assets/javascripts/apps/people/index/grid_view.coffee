@@ -53,4 +53,10 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         cell: class extends Backgrid.Extension.LinkCell
           href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
       }
+      {
+        name: "deletedAt"
+        label: "Deleted Datetime"
+        editable: false
+        cell: "localDatetime"
+      }
     ]

@@ -9,7 +9,11 @@ module Api
 
       # GET /people
       def index
-        @people = Person.all
+        if params[:include_deleted].present? and params[:include_deleted] == "true"
+          @people = Person.with_deleted
+        else
+          @people = Person.all
+        end
         @people = @people.in_organization(params[:organization_id]) if params[:organization_id].present?
         @people = @people.match_name(params[:name]) if params[:name].present?
         @people = @people.match_phone(params[:phone]) if params[:phone].present?
@@ -45,10 +49,15 @@ module Api
 
       # PATCH/PUT /people/1
       def update
-        if @person.update(person_params)
+        if params[:restore].present? and params[:restore] == "true"
+          @person.restore!
           render json: @person
         else
-          render json: @person.errors, status: :unprocessable_entity
+          if @person.update(person_params)
+            render json: @person
+          else
+            render json: @person.errors, status: :unprocessable_entity
+          end
         end
       end
 
@@ -62,9 +71,9 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_person
           if params[:organization_id].present? then
-            @person = Person.in_organization(params[:organization_id]).find(params[:id])
+            @person = Person.with_deleted.in_organization(params[:organization_id]).find(params[:id])
           else
-            @person = Person.find(params[:id])
+            @person = Person.with_deleted.find(params[:id])
           end
         end
 

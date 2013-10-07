@@ -9,8 +9,11 @@ module Api
       # GET /deals
       def index
         # FIXME ugly, does anyone know how to alias the joined table on Rails ?
-        @deals = Deal.all
-
+        if params[:include_deleted].present? and params[:include_deleted] == "true"
+          @deals = Deal.with_deleted
+        else
+          @deals = Deal.all
+        end
         @deals = @deals.match_user(params[:user_id]) if params[:user_id].present?
         @deals = @deals.in_organization(params[:organization_id]) if params[:organization_id].present?
         @deals = @deals.where(:contact_id => params[:person_id]) if params[:person_id].present?
@@ -20,7 +23,6 @@ module Api
         @deals = @deals.match_pm(params[:pm_name]) if params[:pm_name].present?
         @deals = @deals.match_sales(params[:sales_name]) if params[:sales_name].present?
         @deals = @deals.match_status(params[:statuses]) if params[:statuses].present?
-
         render json: to_pageable(@deals)
       end
 
@@ -41,10 +43,15 @@ module Api
 
       # PATCH/PUT /deals/1
       def update
-        if @deal.update(deal_params)
+        if params[:restore].present? and params[:restore] == "true"
+          @deal.restore!
           render json: @deal
         else
-          render json: @deal.errors, status: :unprocessable_entity
+          if @deal.update(deal_params)
+            render json: @deal
+          else
+            render json: @deal.errors, status: :unprocessable_entity
+          end
         end
       end
 
@@ -57,7 +64,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_deal
-          @deal = Deal.find(params[:id])
+          @deal = Deal.with_deleted.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

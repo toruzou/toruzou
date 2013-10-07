@@ -11,6 +11,7 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
     events:
       "click #edit-button": "edit"
       "click #delete-button": "delete"
+      "click #restore-button": "restore"
       "click [data-section-title]": "sectionChanged"
 
     constructor: (options) ->
@@ -70,6 +71,13 @@ Toruzou.module "Deals.Show", (Show, Toruzou, Backbone, Marionette, $, _) ->
       e.stopPropagation()
       @model.destroy success: (model, response) -> Toruzou.trigger "deals:list"
       
+    restore: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      @model.save @model.attributes,
+        url: _.result(@model, "url") + "?restore=true"
+        success: (model, response) -> Toruzou.trigger "deals:list"
+
     refresh: (model) ->
       slug = @$el.find("section.active").attr "id"
       @model = model

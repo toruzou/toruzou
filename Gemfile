@@ -1,19 +1,14 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-# https://github.com/rails/rails/pull/11444
-# gem 'rails', '4.0.0'
-gem 'rails', git: 'https://github.com/inopinatus/rails', branch: 'hstore_arrays_fix'
+gem 'rails', '4.0.0'
 gem 'pg'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'handlebars_assets', '>= 0.14.1'
-# gem 'compass-rails', '>= 2.0.alpha.0'
-# https://github.com/rails/rails/pull/11444
-# https://github.com/Compass/compass-rails/pull/96
-gem 'compass-rails', github: "roderickvd/compass-rails", branch: "rails41"
+gem 'compass-rails', '>= 2.0.alpha.0'
 gem 'zurb-foundation', '>= 4.3.1'
 gem 'font-awesome-rails', github: "bokmann/font-awesome-rails", branch: "master"
 
@@ -22,6 +17,7 @@ gem 'kaminari', '~> 0.14.1'
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'carrierwave', '~> 0.9.0'
 gem 'carrierwave-postgresql', '~> 0.1.1'
+gem 'paranoia', '~> 2.0.0'
 
 group :doc do
   gem 'yard'

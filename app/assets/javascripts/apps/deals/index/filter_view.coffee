@@ -8,7 +8,8 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       contactName: ""
       pmName: ""
       salesName: ""
-      statuses: undefined
+      statuses: []
+      includeDeleted: false
 
     schema:
       name:
@@ -42,6 +43,10 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
           maxItems: Toruzou.Models.Deal::statuses.length
         editorAttrs:
           placeholder: "Filter by Statuses"
+      includeDeleted:
+        type: "Checkbox"
+        editorAttrs:
+          placeholder: "Include Deleted"
 
   class Index.FilterView extends Toruzou.Common.FilterView
 

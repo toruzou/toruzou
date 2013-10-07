@@ -82,4 +82,10 @@ Toruzou.module "Deals.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         editable: false
         cell: "localDate"
       }
+      {
+        name: "deletedAt"
+        label: "Deleted Datetime"
+        editable: false
+        cell: "localDatetime"
+      }
     ]

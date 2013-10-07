@@ -6,6 +6,7 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
       name: ""
       abbreviation: ""
       ownerName: ""
+      includeDeleted: false
 
     schema:
       name:
@@ -21,12 +22,17 @@ Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, 
         type: "Text"
         editorAttrs:
           placeholder: "Filter by Owner"
+      includeDeleted:
+        type: "Checkbox"
+        editorAttrs:
+          placeholder: "Include Deleted"
 
   class Index.FilterView extends Toruzou.Common.FilterView
 
     template: "organizations/filter"
     events:
       "keyup .filter-item": "filterChanged"
+      "change .filter-item": "filterChanged"
 
     constructor: (options) ->
       options.model or= new Index.FilteringCondition()

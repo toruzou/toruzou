@@ -1,5 +1,5 @@
 class DealSerializer < ActivityAwareSerializer
-  attributes :id, :name, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status
+  attributes :id, :name, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status, :deleted_at
   def organization_id
     object.organization.nil? ? nil : object.organization.id
   end

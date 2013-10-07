@@ -11,6 +11,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
         collection: @collection
       @paginator = new Backgrid.Extension.Paginator
         collection: @collection
+      @collection.on "backgrid:refresh", @updateAttributes, @
 
     render: ->
       @isClosed = false
@@ -20,6 +21,9 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       @bindUIElements()
       @triggerMethod "render", @
       @
+
+    updateAttributes: ->
+      _.each @grid.body.rows, (row) -> row.$el.addClass "deleted" if row.model and row.model.get("deletedAt")
 
     close: ->
       return if @isClosed
@@ -91,23 +95,3 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
     title: (rawValue, formattedValue) ->
       formattedValue
-
-  class Backgrid.Extension.IconButtonCell extends Backgrid.Cell
-
-    className: "button-icon-cell"
-    iconClassName: undefined
-    title: undefined
-
-    render: ->
-      @$el.empty()
-      @$el.append @createIconLink()
-      @delegateEvents()
-      @
-
-    createIconLink: ->
-      $("<a class=\"small button\"></a>")
-        .attr("href", "/#")
-        .attr("tabIndex", -1)
-        .attr("title", @title)
-        .html "<i class=\"icon-#{@iconClassName}\"></i>"
-

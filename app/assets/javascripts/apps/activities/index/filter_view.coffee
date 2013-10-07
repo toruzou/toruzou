@@ -22,6 +22,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       organizationName: ""
       term: ""
       status: []
+      includeDeleted: false
 
     schema:
       subject:
@@ -55,6 +56,10 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         options: statuses
         editorAttrs:
           placeholder: "Filter by Status"
+      includeDeleted:
+        type: "Checkbox"
+        editorAttrs:
+          placeholder: "Include Deleted"
 
   class Index.FilterView extends Toruzou.Common.FilterView
 

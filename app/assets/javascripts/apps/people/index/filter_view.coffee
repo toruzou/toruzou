@@ -8,6 +8,7 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       phone: ""
       email: ""
       ownerName: ""
+      includeDeleted: false
 
     schema:
       name:
@@ -32,12 +33,17 @@ Toruzou.module "People.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
         type: "Text"
         editorAttrs:
           placeholder: "Filter by Owner"
+      includeDeleted:
+        type: "Checkbox"
+        editorAttrs:
+          placeholder: "Include Deleted"
 
   class Index.FilterView extends Toruzou.Common.FilterView
 
     template: "people/filter"
     events:
       "keyup .filter-item": "filterChanged"
+      "change .filter-item": "filterChanged"
 
     constructor: (options) ->
       options.model or= new Index.FilteringCondition()

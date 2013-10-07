@@ -27,7 +27,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
       activity.set "deal", @deal if @deal
       activity.set "users", @users if @users
       activity.set "people", @people if @people
-      Toruzou.Activities.on "activity:saved activity:deleted", @handler
+      Toruzou.Activities.on "activity:saved activity:deleted activity:restored", @handler
       Toruzou.dialogRegion.show new Toruzou.Activities.New.View model: activity
 
     refresh: ->

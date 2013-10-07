@@ -9,7 +9,11 @@ module Api
 
       # GET /organizations
       def index
-        @organizations = Organization.all
+        if params[:include_deleted].present? and params[:include_deleted] == "true"
+          @organizations = Organization.with_deleted
+        else
+          @organizations = Organization.all
+        end
         @organizations = @organizations.where(:owner_id => params[:owner_id]) if params[:owner_id]
         @organizations = @organizations.where("lower(contacts.name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
         @organizations = @organizations.where("lower(contacts.abbreviation) LIKE ?", "%#{params[:abbreviation].downcase}%") if params[:abbreviation].present?
@@ -43,10 +47,15 @@ module Api
 
       # PATCH/PUT /organizations/1
       def update
-        if @organization.update(organization_params)
+        if params[:restore].present? and params[:restore] == "true"
+          @organization.restore!
           render json: @organization
         else
-          render json: @organization.errors ,status: :unprocessable_entity
+          if @organization.update(organization_params)
+            render json: @organization
+          else
+            render json: @organization.errors ,status: :unprocessable_entity
+          end
         end
       end
 
@@ -59,7 +68,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_organization
-          @organization = Organization.find(params[:id])
+          @organization = Organization.with_deleted.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

@@ -88,7 +88,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       super options
       events = 
         "click .accordion [data-section-title]": "toggleSection"
-        "click .filter-item": "toggleFilter"
+        # "click .filter-item": "toggleFilter" # TODO workaround for checkbox, this code is not used for now.
       events = $.extend true, events, @events if @events
       @delegateEvents events
 
