@@ -241,3 +241,22 @@ Toruzou.addInitializer ->
     remove: ->
       @$el.fseditor("destroy")
       super
+
+  Backbone.Form.editors.Checkbox = class AwesomeCheckboxEditor extends Backbone.Form.editors.Checkbox
+
+    initialize: (options) ->
+      super options
+      @$el.on "change", (e) => @$el.focus()
+
+    render: ->
+      super
+      $check = @$el
+      $div = $("<div/>")
+      $div.addClass "checkbox-editor"
+      $div.append $check
+      $label = $("<label/>")
+      $label.attr "for", $check.attr("id")
+      $label.text(@schema.label) if @schema.label
+      $div.append $label
+      @el = $div.get 0
+      @

@@ -411,3 +411,33 @@ li.filter-item {
         }
     }
 }
+
+$checkbox-color: lighten($input-font-color, 30%);
+div.checkbox-editor {
+    input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        z-index: 5;
+        width: 20px;
+        & + label {
+            cursor: pointer;
+            display: inline;
+            margin-left: 23px;
+            color: $checkbox-color;
+            &:before {
+                cursor: pointer;
+                content: "\f096";
+                font: 23px/1em FontAwesome;
+                margin-left: -20px;
+                vertical-align: middle;
+            }
+        }
+        &:disabled + label {
+            color: lighten($checkbox-color, 30%);
+            cursor: default;
+        }
+        &:checked + label:before {
+            content: "\f046";
+        }
+    }
+}
