@@ -16,7 +16,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       "Meeting": "briefcase"
       "Email": "envelope"
       "Call": "phone"
-      "Task": "check"
+      "Task": "ticket"
 
     defaults:
       subject: ""
