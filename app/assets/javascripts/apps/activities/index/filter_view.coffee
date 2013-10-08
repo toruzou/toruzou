@@ -9,8 +9,8 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
     "Next Week"
   ]
   statuses = [
-    { label: "Done", val: "true" }
-    { label: "Undone", val: "false" }
+    { label: "Complete", val: "true" }
+    { label: "Incomplete", val: "false" }
   ]
 
   class Index.FilteringCondition extends Toruzou.Common.FilteringCondition

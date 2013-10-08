@@ -15,7 +15,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
     columns: [
       {
         name: "done"
-        label: "Done"
+        label: "Complete"
         cell: "select-row"
       }
       {
