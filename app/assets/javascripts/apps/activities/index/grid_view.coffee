@@ -86,12 +86,11 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
         label: ""
         editable: false
         sortable: false
-        cell: class extends Backgrid.Cell
-          className: "button-cell"
+        cell: class extends Backgrid.Extension.IconButtonCell
           render: ->
             @$el.empty()
             if @model.get("deletedAt")
-              $restoreButton = @renderIconLink "reply", "Restore activity"
+              $restoreButton = @renderIconButton "reply", "Restore activity"
               $restoreButton.on "click", (e) =>
                 e.preventDefault()
                 e.stopPropagation()
@@ -100,7 +99,7 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
                   success: => Toruzou.Activities.trigger "activity:restored" 
               @$el.append $restoreButton
             else
-              $deleteButton = @renderIconLink "trash", "Delete activity"
+              $deleteButton = @renderIconButton "trash", "Delete activity"
               $deleteButton.addClass "alert"
               $deleteButton.on "click", (e) =>
                 e.preventDefault()
@@ -108,8 +107,6 @@ Toruzou.module "Activities.Index", (Index, Toruzou, Backbone, Marionette, $, _) 
                 @model.destroy success: => Toruzou.Activities.trigger "activity:deleted" 
               @$el.append $deleteButton
             @
-          renderIconLink: (iconName, title, handler) ->
-            $("<a></a>").attr("href", "/#").attr("tabIndex", -1).attr("title",  title).html "<i class=\"icon-#{iconName} icon-large\"></i>"
       }
     ]
 

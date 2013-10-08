@@ -28,15 +28,15 @@ Toruzou.module "Attachments", (Attachments, Toruzou, Backbone, Marionette, $, _)
         editable: false
         sortable: false
         cell: class extends Backgrid.Extension.IconButtonCell
-          title: "Delete"
-          iconClassName: "remove"
-          createIconLink: ->
-            $link = super.addClass "alert"
-            $link.on "click", (e) =>
+          iconName: "trash"
+          title: "Delete file"
+          renderIconButton: (iconName, title) ->
+            $button = super iconName, title
+            $button.addClass("alert").on "click", (e) =>
               e.preventDefault()
               e.stopPropagation()
               @model.destroy success: @refresh
-            $link
+            $button
       }
     ]
 

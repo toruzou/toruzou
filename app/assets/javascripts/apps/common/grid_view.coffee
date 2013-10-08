@@ -95,3 +95,16 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
     title: (rawValue, formattedValue) ->
       formattedValue
+
+  class Backgrid.Extension.IconButtonCell extends Backgrid.Cell
+
+    className: "button-cell"
+
+    render: ->
+      $button = @renderIconButton @iconName, @title
+      @$el.append $button
+      @
+
+    renderIconButton: (iconName, title) ->
+      $("<a></a>").attr("href", "/#").attr("tabIndex", -1).attr("title",  title).html "<i class=\"icon-#{iconName} icon-large\"></i>"
+
