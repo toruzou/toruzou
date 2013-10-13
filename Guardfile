@@ -1,7 +1,7 @@
 # More info at https://github.com/guard/guard#readme
 require 'active_support/inflector'
 
-guard 'spork', :cucumber => false, :test_unit => false, :rspec_env => { 'RAILS_ENV' => 'test' } do
+guard 'spork', minitest: false, cucumber: false, test_unit: false, rspec_env: { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch('config/environments/test.rb')
@@ -9,7 +9,9 @@ guard 'spork', :cucumber => false, :test_unit => false, :rspec_env => { 'RAILS_E
   watch('Gemfile.lock')
   watch('spec/spec_helper.rb') { :rspec }
   watch('test/test_helper.rb') { :test_unit }
+  watch('spec/controllers/controller_helpers.rb') { :rspec }
   watch(%r{features/support/}) { :cucumber }
+  watch(%r{^spec/factories/(.*)\.rb$}) { :rspec }
 end
 
 guard :rspec do
@@ -24,6 +26,7 @@ guard :rspec do
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
+  watch('spec/controllers/controller_helpers.rb')     { "spec/controllers" }
   watch(%r{^spec/factories/(.*)\.rb$})                { |m| ["spec/models/#{m[1].singularize}_spec.rb", "spec/controllers/#{m[1]}_controller_spec.rb", "spec/controllers/api/v1/#{m[1]}_controller_spec.rb"] }
 
   # Capybara features specs
