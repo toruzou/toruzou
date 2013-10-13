@@ -33,7 +33,7 @@ describe Api::V1::DealsController do
 
   describe "GET api/v1/deals" do
     it "shows all people registered." do
-      get :index
+      get :index, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -47,7 +47,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals belonging to organization designated by id." do
-      get :index, organization_id: @deal1.organization.id
+      get :index, organization_id: @deal1.organization.id, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -59,7 +59,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals belonging to organization designated by name." do
-      get :index, organization_name: @deal3.organization.name
+      get :index, organization_name: @deal3.organization.name, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -69,7 +69,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals which have designated name." do
-      get :index, name: 'Ir'
+      get :index, name: 'Ir', page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -81,7 +81,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals whose pm is designated by name." do
-      get :index, pm_name: @deal1.pm.name
+      get :index, pm_name: @deal1.pm.name, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -92,7 +92,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals whose sales is designated by name." do
-      get :index, sales_name: @deal1.sales.name
+      get :index, sales_name: @deal1.sales.name, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -103,7 +103,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals whose pm or sales is designated by id." do
-      get :index, user_id: @special_user.id
+      get :index, user_id: @special_user.id, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -116,7 +116,7 @@ describe Api::V1::DealsController do
     end
 
     it "shows deals whose contact is designated by name." do
-      get :index, contact_name: @deal1.contact.name
+      get :index, contact_name: @deal1.contact.name, page: 1
 
       expect(status).to eq(200)
       expect(body).to have_json_size(2)
@@ -128,7 +128,7 @@ describe Api::V1::DealsController do
 
     describe "showing deals whose status is designated" do
       it "single status." do
-        get :index, statuses: ['Won']
+        get :index, statuses: ['Won'], page: 1
 
         expect(status).to eq(200)
         expect(body).to have_json_size(2)
@@ -138,7 +138,7 @@ describe Api::V1::DealsController do
       end
 
       it "multiple status." do
-        get :index, statuses: ['Won', 'Plan']
+        get :index, statuses: ['Won', 'Plan'], page: 1
 
         expect(status).to eq(200)
         expect(body).to have_json_size(2)
