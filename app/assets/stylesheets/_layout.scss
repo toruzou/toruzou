@@ -1,0 +1,17 @@
+.top-bar {
+    li.name > h1 {
+        font-weight: bold;
+        color: $body-bg;
+        padding: 0 15px;
+    }
+}
+
+.top-bar.expanded .toggle-topbar a {
+  color: $body-bg;
+}
+
+.top-search {
+    .button {
+        border-radius: 0;
+    }
+}
