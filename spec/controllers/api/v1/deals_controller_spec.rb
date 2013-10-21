@@ -22,11 +22,11 @@ describe Api::V1::DealsController do
 
   after(:all) do
     [@deal1, @deal2, @deal3].each { |deal|
-      deal.organization.destroy if deal.organization
-      deal.pm.destroy if deal.pm
-      deal.sales.destroy if deal.sales
-      deal.contact.destroy if deal.contact
-      deal.destroy
+      deal.organization.destroy! if deal.organization
+      deal.pm.destroy! if deal.pm
+      deal.sales.destroy! if deal.sales
+      deal.contact.destroy! if deal.contact
+      deal.destroy!
     }
 
   end
@@ -190,7 +190,7 @@ describe Api::V1::DealsController do
     end
 
     after(:each) do
-      @update_deal.destroy
+      @update_deal.destroy!
     end
 
     it "is able to update existing record." do
@@ -222,7 +222,8 @@ describe Api::V1::DealsController do
       expect(JSON.parse(body)['id']).to eq(delete_deal.id)
 
       get :show, id: delete_deal.id
-      expect(status).to eq(404)
+      expect(status).to eq(200)
+      assert_deleted(body)
     end
   end
 

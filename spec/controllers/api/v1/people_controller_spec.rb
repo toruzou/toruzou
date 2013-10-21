@@ -29,12 +29,12 @@ describe Api::V1::PeopleController do
   end
 
   after(:all) do
-    @bank1.destroy
-    @bank2.destroy
+    @bank1.destroy!
+    @bank2.destroy!
 
-    @person1.destroy
-    @person2.destroy
-    @person3.destroy
+    @person1.destroy!
+    @person2.destroy!
+    @person3.destroy!
   end
 
   describe "GET api/v1/people" do
@@ -187,10 +187,10 @@ describe Api::V1::PeopleController do
 
       delete :destroy, id: id
       expect(status).to eq(200)
-      expect(JSON.parse(body)['id']).to eq(id)
 
       get :show, id: id, page: 1
-      expect(status).to eq(404)
+      expect(status).to eq(200)
+      assert_deleted(body)
     end
   end
 

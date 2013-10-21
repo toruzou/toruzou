@@ -33,3 +33,11 @@ def assert_contains_entry(*id)
     assert ids.include?(entry), "Entry #" + entry.to_s + " is expected to rendered, but isn't."
   }
 end
+
+def assert_deleted(entry_json)
+  expect(JSON.parse(entry_json)['deleted_at']).not_to be_nil
+end
+
+def assert_alive(entry_json)
+  expect(JSON.parse(entry_json)['deleted_at']).to be_nil
+end

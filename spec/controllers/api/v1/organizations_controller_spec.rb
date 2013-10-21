@@ -19,7 +19,6 @@ describe Api::V1::OrganizationsController do
 
       assert ids.include?(first.id)
       assert ids.include?(second.id)
-
     end
 
     it "returns specified organization with param name" do
@@ -162,8 +161,8 @@ describe Api::V1::OrganizationsController do
       expect(status).to eq(200)
 
       get :show, id: organization.id
-      expect(status).to eq(404)
-      expect(body).to eq(" ")
+      expect(status).to eq(200)
+      assert_deleted(body)
     end
   end
 

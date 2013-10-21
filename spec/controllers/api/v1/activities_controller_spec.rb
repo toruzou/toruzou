@@ -47,16 +47,16 @@ describe Api::V1::ActivitiesController do
   after(:all) do
     truncate_activity(@activity1, @activity2, @activity3, @activity4)
 
-    @person1.destroy if @person1
-    @person2.destroy if @person2
-    @person3.destroy if @person2
+    @person1.destroy! if @person1
+    @person2.destroy! if @person2
+    @person3.destroy! if @person2
 
-    @user1.destroy if @user1
-    @user2.destroy if @user2
-    @user3.destroy if @user2
+    @user1.destroy! if @user1
+    @user2.destroy! if @user2
+    @user3.destroy! if @user2
 
-    @organization1.destroy if @organization1
-    @organization2.destroy if @organization2
+    @organization1.destroy! if @organization1
+    @organization2.destroy! if @organization2
   end
 
   before(:each) do
@@ -407,8 +407,8 @@ describe Api::V1::ActivitiesController do
 
     after(:all) do
       truncate_activity(@target)
-      @person11.destroy if @person11
-      @person12.destroy if @person12
+      @person11.destroy! if @person11
+      @person12.destroy! if @person12
     end
 
     context "with valid params" do
@@ -467,26 +467,26 @@ describe Api::V1::ActivitiesController do
   private
   def truncate_activity(*activities)
     activities.each { |activity|
-      activity.organization.destroy if activity.organization
+      activity.organization.destroy! if activity.organization
       truncate_deal(activity.deal) if activity.deal
       activity.people.each { |person|
-        person.destroy
+        person.destroy!
       }
       activity.users.each { |user|
-        user.destroy
+        user.destroy!
       }
 
-      activity.destroy if activity
+      activity.destroy! if activity
     }
   end
 
   def truncate_deal(*deals)
     deals.each { |deal|
-      deal.organization.destroy if deal.organization
-      deal.pm.destroy if deal.pm
-      deal.sales.destroy if deal.sales
-      deal.contact.destroy if deal.contact
-      deal.destroy
+      deal.organization.destroy! if deal.organization
+      deal.pm.destroy! if deal.pm
+      deal.sales.destroy! if deal.sales
+      deal.contact.destroy! if deal.contact
+      deal.destroy!
     }
   end
 
