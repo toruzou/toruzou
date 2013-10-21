@@ -79,13 +79,13 @@ describe Organization do
 
       it "accepts 500 chars for remarks" do
         organization = FactoryGirl.build(:organization, 
-                                          remarks: 'a' * 500)
+                                          remarks: 'a' * 5000)
         assert organization.valid?
       end
 
       it "doesn't accept 501 chars for remarks" do
         organization = FactoryGirl.build(:organization, 
-                                          remarks: 'a' * 501)
+                                          remarks: 'a' * 5001)
         assert organization.invalid?
       end
 
