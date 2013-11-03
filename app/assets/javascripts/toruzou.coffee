@@ -11,6 +11,13 @@ Toruzou.Configuration =
     "Person": "people"
     "Deal": "deals"
     "Activity": "activities"
+  # TODO refactoring
+  bundles:
+    actions:
+      "create": "added"
+      "update": "edited"
+      "destroy": "deleted"
+      "restore": "restored"
 
 Toruzou.linkTo = (relative) ->
   root = Toruzou.Configuration.root 

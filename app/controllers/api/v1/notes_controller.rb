@@ -5,9 +5,7 @@ module Api
       before_action :set_note, only: [:update, :destroy]
 
       def create
-        @note = Note.new(note_params)
-        @note.action = :added
-        @note.user = current_user
+        @note = Note.new(note_update_params)
         @note.subject = Organization.find params[:organization_id] if params[:organization_id].present?
         @note.subject = Person.find params[:person_id] if params[:person_id].present?
         @note.subject = Deal.find params[:deal_id] if params[:deal_id].present?
@@ -20,7 +18,7 @@ module Api
       end
 
       def update
-        if @note.update(note_params)
+        if @note.update(note_update_params)
           render json: @note
         else
           render json: @note, status: :unprocessable_entity
@@ -28,6 +26,7 @@ module Api
       end
 
       def destroy
+        @note.changed_by = current_user
         @note.destroy
         render json: @note
       end
@@ -35,11 +34,11 @@ module Api
       private
 
         def set_note
-          @note = Note.find(params[:id])
+          @note = Note.with_deleted.find(params[:id])
         end
 
-        def note_params
-          params.require(:note).permit(:message)
+        def note_update_params
+          params.require(:note).permit(:message).merge(:changed_by => current_user)
         end
 
     end

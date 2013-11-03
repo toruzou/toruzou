@@ -34,7 +34,9 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
     attachmentsUrl: ->
       _.result(@, "url") + "/attachments"
-      
+
+    updateSubject: ->
+      new Models.Person(@get "person")
 
   Models.Careers = class Careers extends Backbone.PageableCollection
 

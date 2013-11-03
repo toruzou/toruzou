@@ -37,6 +37,9 @@
 i.icon-inline-prefix {
     margin-right: 0.5em;
 }
+i.icon-inline-center {
+    margin: 0 0.25em;
+}
 
 a.help {
     margin-left: 0.25em;
@@ -110,7 +113,7 @@ textarea {
     }
     &::-webkit-input-placeholder {
         color: $color;
-}
+    }
 }
 
 .selectize-control {
@@ -284,6 +287,32 @@ textarea {
                 padding-right: 0.25em;
                 .note-actions {
                     padding: 0 0.5em;
+                }
+            }
+            ul.changesets {
+                list-style-position: inside;
+                margin-bottom: 0;
+                li {
+                    font-size: 90%;
+                    margin-left: 0.25em;
+                    margin-bottom: 1em;
+                    span.property {
+                        margin-right: 0.5em;
+                    }
+                    span.change {
+                        border: 1px solid $well-border-color;
+                        padding: 0.25em 0.5em;
+                        &.empty:after {
+                            content: "empty";
+                            color: #DDD;
+                        }
+                    }
+                    i {
+                        color: #999;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                 }
             }
         }

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131006142720) do
+ActiveRecord::Schema.define(version: 20131103063822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "activities", force: true do |t|
     t.string   "subject"
@@ -45,6 +44,26 @@ ActiveRecord::Schema.define(version: 20131006142720) do
   end
 
   add_index "attachments", ["attachable_id"], name: "index_attachments_on_attachable_id", using: :btree
+
+  create_table "audits", force: true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.text     "modifications"
+    t.string   "action"
+    t.string   "tag"
+    t.integer  "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "audits", ["action"], name: "index_audits_on_action", using: :btree
+  add_index "audits", ["auditable_id", "auditable_type", "version"], name: "auditable_version_idx", using: :btree
+  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
+  add_index "audits", ["tag"], name: "index_audits_on_tag", using: :btree
+  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "careers", force: true do |t|
     t.date     "from_date"
@@ -100,6 +119,13 @@ ActiveRecord::Schema.define(version: 20131006142720) do
   add_index "deals", ["pm_id"], name: "index_deals_on_pm_id", using: :btree
   add_index "deals", ["sales_id"], name: "index_deals_on_sales_id", using: :btree
 
+  create_table "notes", force: true do |t|
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.text     "message"
+    t.datetime "deleted_at"
+  end
+
   create_table "participants", force: true do |t|
     t.integer "activity_id"
     t.integer "participable_id"
@@ -110,18 +136,15 @@ ActiveRecord::Schema.define(version: 20131006142720) do
   add_index "participants", ["participable_id"], name: "index_participants_on_participable_id", using: :btree
 
   create_table "updates", force: true do |t|
-    t.string   "type"
-    t.integer  "user_id"
-    t.string   "subject_type"
-    t.integer  "subject_id"
-    t.string   "action"
-    t.text     "message"
-    t.hstore   "changesets",   array: true
+    t.integer  "audit_id"
+    t.integer  "receivable_id"
+    t.string   "receivable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
+  add_index "updates", ["audit_id"], name: "index_updates_on_audit_id", using: :btree
+  add_index "updates", ["receivable_id", "receivable_type"], name: "index_updates_on_receivable_id_and_receivable_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

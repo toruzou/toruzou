@@ -34,6 +34,7 @@ module Api
       # POST /attachments
       def create
         @attachment = build_attachment attachment_params[:file]
+        @attachment.changed_by = current_user
         # TODO refactoring
         @attachment.attachable = Organization.find attachment_params[:organization_id] if attachment_params[:organization_id].present?
         @attachment.attachable = Person.find attachment_params[:person_id] if attachment_params[:person_id].present?
@@ -58,6 +59,7 @@ module Api
 
       # DELETE /attachments/1
       def destroy
+        @attachment.changed_by = current_user
         @attachment.destroy
         render json: @attachment
       end
@@ -70,12 +72,11 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def attachment_params
-          # TODO refactoring
           params.permit(:file, :organization_id, :person_id, :career_id, :deal_id, :activity_id)
         end
 
         def attachment_update_params
-          params.permit(:comments)
+          params.permit(:comments).merge(:changed_by => current_user)
         end
 
     end

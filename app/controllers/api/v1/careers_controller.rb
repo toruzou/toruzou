@@ -30,7 +30,7 @@ module Api
 
       # POST /careers
       def create
-        @career = Career.new(career_params)
+        @career = Career.new(career_update_params)
         if @career.save
           render json: @career
         else
@@ -40,7 +40,7 @@ module Api
 
       # PATCH/PUT /careers/1
       def update
-        if @career.update(career_params)
+        if @career.update(career_update_params)
           render json: @career
         else
           render json: @career.errors ,status: :unprocessable_entity
@@ -49,6 +49,7 @@ module Api
 
       # DELETE /careers/1
       def destroy
+        @carrer.changed_by = current_user
         @career.destroy
         render json: @career
       end
@@ -60,8 +61,8 @@ module Api
         end
 
         # Only allow a trusted parameter "white list" through.
-        def career_params
-          params.require(:career).permit(:from_date, :to_date, :department, :title, :remarks, :person_id)
+        def career_update_params
+          params.require(:career).permit(:from_date, :to_date, :department, :title, :remarks, :person_id).merge(:changed_by => current_user)
         end
 
     end

@@ -7,16 +7,6 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     urlRoot: Models.endpoint "updates"
     modelName: "update"
 
-    defaults:
-      message: ""
-
-    schema:
-      message:
-        type: "TextArea"
-
-    subjectRoot: ->
-      "foo"
-
 
   Models.Updates = class Updates extends Backbone.PageableCollection
 

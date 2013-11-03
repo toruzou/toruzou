@@ -17,7 +17,8 @@ gem 'kaminari', '~> 0.14.1'
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'carrierwave', '~> 0.9.0'
 gem 'carrierwave-postgresql', '~> 0.1.1'
-gem 'paranoia', '~> 2.0.0'
+gem 'paranoia', '~> 2.0.1'
+gem 'auditable', github: "harleyttd/auditable", branch: "master"
 
 group :doc do
   gem 'yard'

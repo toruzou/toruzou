@@ -26,3 +26,19 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     newProperty.set property.get()
     property.delete()
     o
+
+  # TODO to Backbone
+  Models.displayPropertyName = (model, propertyName) ->
+    schema = model.schema
+    if schema
+      property = schema[propertyName]
+      return property.title if property and property.title
+    _.str.humanize propertyName
+
+  # TODO to Backbone
+  Models.format = (model, propertyName, value) ->
+    schema = model.schema
+    if schema
+      property = schema[propertyName]
+      return property.formatter value if property and property.formatter
+    value

@@ -7,6 +7,10 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
     urlRoot: -> if @subject then (_.result @subject, "url") + "/notes" else Models.endpoint "notes"
     modelName: "note"
 
+    constructor: (options) ->
+      super options
+      @subject = new Toruzou.Models[options.subject_type](options.subject) if options and options.subject and options.subject_type
+
     defaults:
       message: ""
 
@@ -17,7 +21,7 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
 
   Models.Notes = class Notes extends Backbone.PageableCollection
 
-    urlRoot: -> if @subject then (_.result @subject, "url") + "/notes" else Models.endpoint "notes"
+    url: -> if @subject then (_.result @subject, "url") + "/notes" else Models.endpoint "notes"
     model: Models.Note
 
     state:

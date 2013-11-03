@@ -1,33 +1,30 @@
 Toruzou.addInitializer ->
 
+  Handlebars.registerHelper "match", (v1, operator, v2, options) ->
+    switch operator
+      when "eq"
+        if v1 is v2 then options.fn @ else options.inverse @
+      when "ne"
+        if v1 isnt v2 then options.fn @ else options.inverse @
+      when "lt"
+        if v1 < v2 then options.fn @ else options.inverse @
+      when "le"
+        if v1 <= v2 then options.fn @ else options.inverse @
+      when "gt"
+        if v1 > v2 then options.fn @ else options.inverse @
+      when "ge"
+        if v1 >= v2 then options.fn @ else options.inverse @
+      else
+        options.inverse @
+
   Handlebars.registerHelper "relativeUrl", (relative, key) ->
     path = relative
     path += "/#{key}" if key
     Toruzou.linkTo path
 
-  # TODO duplicated, should refactor
-
-  Handlebars.registerHelper "amount", (value) ->
-    return "" unless value
-    values = value.toString().split "."
-    integral = values[0]
-    integral = integral.replace /\B(?=(\d{3})+(?!\d))/g, ","
-    decimal = if values[1] then ".#{values[1]}" else ""
-    integral + decimal
-
-  Handlebars.registerHelper "percent", (value) ->
-    return "" unless value
-    "#{value} %"
-
-  Handlebars.registerHelper "localDate", (value) ->
-    return "" unless value
-    if /\d{4}-\d{2}-\d{2}/.test(value) then value.replace(/-/g, "/") else ""
-
-  Handlebars.registerHelper "localDatetime", (value) ->
-    return "" unless value
-    if /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/.test(value)
-      value = value.replace(/-/g, "/")
-      value = value.replace(/T/, " ")
-      value = value.replace(/\..*$/, "")
-    else
-      ""
+  _.each [
+    "amount"
+    "percent"
+    "localDate"
+    "localDatetime"
+  ], (format) -> Handlebars.registerHelper format, (value) -> Toruzou.Common.Formatters[format] value

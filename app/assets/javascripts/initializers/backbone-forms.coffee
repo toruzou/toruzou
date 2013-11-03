@@ -4,7 +4,7 @@ Toruzou.addInitializer ->
 
     class FeedbackEditor extends Editor
 
-      initialize: (options) ->
+      constructor: (options) ->
         super options
         @on "blur", => @form.fields[@key].validate()
 
@@ -27,7 +27,7 @@ Toruzou.addInitializer ->
     decimalAllowed: true
     negativeAllowed: true
 
-    initialize: (options) ->
+    constructor: (options) ->
       super options
       _.bindAll @, "onFocus", "onBlur", "onKeyUp", "onKeyPress"
       @on "focus", @onFocus
@@ -162,7 +162,7 @@ Toruzou.addInitializer ->
 
   Backbone.Form.editors.Selectize = class SelectizeEditor extends Backbone.Form.editors.Select
 
-    initialize: (options) ->
+    constructor: (options) ->
       options.schema.options = @initializeOptions options.schema.options
       super options
 
@@ -244,7 +244,7 @@ Toruzou.addInitializer ->
 
   Backbone.Form.editors.Checkbox = class AwesomeCheckboxEditor extends Backbone.Form.editors.Checkbox
 
-    initialize: (options) ->
+    constructor: (options) ->
       super options
       @$el.on "change", (e) => @$el.focus()
 

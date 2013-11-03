@@ -9,15 +9,13 @@ module Api
       def index
         @updates = Update.all
         if params[:user_id]
-          subject_condition = Update.arel_table[:subject_type].eq("User").and(Update.arel_table[:subject_id].eq(params[:user_id]))
-          user_condition = Update.arel_table[:user_id].eq(params[:user_id])
-          @updates = @updates.where("(#{subject_condition.to_sql}) OR (#{user_condition.to_sql})")
+          @updates = @updates.where(:receivable_type => "User", :receivable_id => params[:user_id])
         elsif params[:organization_id].present?
-          @updates = @updates.where(:subject_type => "Contact", :subject_id => params[:organization_id])
+          @updates = @updates.where(:receivable_type => "Contact", :receivable_id => params[:organization_id])
         elsif params[:person_id].present?
-          @updates = @updates.where(:subject_type => "Contact", :subject_id => params[:person_id])
+          @updates = @updates.where(:receivable_type => "Contact", :receivable_id => params[:person_id])
         elsif params[:deal_id].present?
-          @updates = @updates.where(:subject_type => "Deal", :subject_id => params[:deal_id])
+          @updates = @updates.where(:receivable_type => "Deal", :receivable_id => params[:deal_id])
         end
         render json: to_pageable(@updates)
       end

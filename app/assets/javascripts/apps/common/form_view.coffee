@@ -51,7 +51,7 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
       options.messages = []
       if result and result.errors
         for property, errors of result.errors
-          title = @$el.find("#label-#{property}")?.text() or _.str.capitalize property
+          title = Toruzou.Models.displayPropertyName @model, property
           for error in errors
             options.messages.push "#{title} #{error}"
       @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error options

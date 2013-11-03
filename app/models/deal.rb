@@ -7,8 +7,9 @@ class Deal < ActiveRecord::Base
   belongs_to :sales, :class_name => "User"
   belongs_to :contact, :class_name => "Person"
   has_many :activities
-  has_many :attachments, :as => :attachable, :dependent => :delete_all
-  has_many :updates, :as => :subject, :dependent => :delete_all
+  has_many :attachments, :as => :attachable
+  has_many :updates, :as => :receivable
+  has_many :audits, :as => :auditable
 
   scope :in_organization, -> (organization_id) {
     where(:organization_id => organization_id)
@@ -59,5 +60,11 @@ class Deal < ActiveRecord::Base
     inclusion: { in: 0..(10 ** 11) },
     allow_nil:true,
     allow_blank: true
+
+  audit :name, :organization, :pm, :sales, :contact, :status, :amount, :accuracy, :start_date, :order_date, :accept_date
+
+  def update_destinations_for(audit)
+    [ self, self.organization ]
+  end
 
 end

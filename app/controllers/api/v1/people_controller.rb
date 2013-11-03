@@ -39,7 +39,7 @@ module Api
 
       # POST /people
       def create
-        @person = Person.new(person_params)
+        @person = Person.new(person_update_params)
         if @person.save
           render json: @person
         else
@@ -50,10 +50,11 @@ module Api
       # PATCH/PUT /people/1
       def update
         if params[:restore].present? and params[:restore] == "true"
+          @person.changed_by = current_user
           @person.restore!
           render json: @person
         else
-          if @person.update(person_params)
+          if @person.update(person_update_params)
             render json: @person
           else
             render json: @person.errors, status: :unprocessable_entity
@@ -63,6 +64,7 @@ module Api
 
       # DELETE /people/1
       def destroy
+        @person.changed_by = current_user
         @person.destroy
         render json: @person
       end
@@ -78,8 +80,8 @@ module Api
         end
 
         # Only allow a trusted parameter "white list" through.
-        def person_params
-          params.require(:person).permit(:name, :organization_id, :phone, :email, :address, :remarks, :owner_id)
+        def person_update_params
+          params.require(:person).permit(:name, :organization_id, :phone, :email, :address, :remarks, :owner_id).merge(:changed_by => current_user)
         end
 
     end

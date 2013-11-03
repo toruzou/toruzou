@@ -37,7 +37,7 @@ module Api
 
       # POST /organizations
       def create
-        @organization = Organization.new(organization_params)
+        @organization = Organization.new(organization_update_params)
         if @organization.save
           render json: @organization
         else
@@ -48,10 +48,11 @@ module Api
       # PATCH/PUT /organizations/1
       def update
         if params[:restore].present? and params[:restore] == "true"
+          @organization.changed_by = current_user
           @organization.restore!
           render json: @organization
         else
-          if @organization.update(organization_params)
+          if @organization.update(organization_update_params)
             render json: @organization
           else
             render json: @organization.errors ,status: :unprocessable_entity
@@ -61,6 +62,7 @@ module Api
 
       # DELETE /organizations/1
       def destroy
+        @organization.changed_by = current_user
         @organization.destroy
         render json: @organization
       end
@@ -72,8 +74,8 @@ module Api
         end
 
         # Only allow a trusted parameter "white list" through.
-        def organization_params
-          params.require(:organization).permit(:name, :abbreviation, :address, :remarks, :url, :owner_id)
+        def organization_update_params
+          params.require(:organization).permit(:name, :abbreviation, :address, :remarks, :url, :owner_id).merge(:changed_by => current_user)
         end
 
     end

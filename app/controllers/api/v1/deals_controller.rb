@@ -33,7 +33,7 @@ module Api
 
       # POST /deals
       def create
-        @deal = Deal.new(deal_params)
+        @deal = Deal.new(deal_update_params)
         if @deal.save
           render json: @deal
         else
@@ -47,7 +47,7 @@ module Api
           @deal.restore!
           render json: @deal
         else
-          if @deal.update(deal_params)
+          if @deal.update(deal_update_params)
             render json: @deal
           else
             render json: @deal.errors, status: :unprocessable_entity
@@ -57,6 +57,7 @@ module Api
 
       # DELETE /deals/1
       def destroy
+        @deal.changed_by = current_user
         @deal.destroy
         render json: @deal
       end
@@ -68,7 +69,7 @@ module Api
         end
 
         # Only allow a trusted parameter "white list" through.
-        def deal_params
+        def deal_update_params
           params.require(:deal).permit(
             :name,
             :organization_id,
@@ -81,7 +82,7 @@ module Api
             :amount,
             :accuracy,
             :status
-          )
+          ).merge(:changed_by => current_user)
         end
     end
   end

@@ -46,9 +46,8 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
 
     formatter: class extends Backgrid.Extension.MomentFormatter
       modelInUtc: false
-      modelFormat: "YYYY-MM-DD"
       displayInUtc: false
-      displayFormat: "YYYY/MM/DD"
+      displayFormat: Toruzou.Common.Formatters.LOCAL_DATE_FORMAT
       fromRaw: (rawData) ->
         super if _.str.isBlank(rawData) then null else rawData # workaround
 
@@ -57,9 +56,8 @@ Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
     className: "local-datetime-cell"
 
     modelInUTC: true
-    modelFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ"
     displayInUTC: false
-    displayFormat: "YYYY/MM/DD HH:mm:ss"
+    displayFormat: Toruzou.Common.Formatters.LOCAL_DATETIME_FORMAT
 
   class Backgrid.Extension.LinkCell extends Backgrid.Cell
 

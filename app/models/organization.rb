@@ -8,5 +8,11 @@ class Organization < Contact
   validates :abbreviation, length: { maximum: 20 }
   validates :address, length: { maximum: 200 }
   validates :url, length: { maximum: 100 }
+
+  audit :name, :owner, :address, :remarks, :abbreviation, :url, :deleted_at
   
+  def update_destinations_for(audit)
+    [ self ]
+  end
+
 end

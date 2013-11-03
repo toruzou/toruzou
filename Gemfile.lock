@@ -6,6 +6,15 @@ GIT
     font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
 
+GIT
+  remote: git://github.com/harleyttd/auditable.git
+  revision: 4fb3631ce1a9e9ea242d5a2ec4746e8259d54ebf
+  branch: master
+  specs:
+    auditable (0.1.5)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -128,7 +137,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.7)
     orm_adapter (0.4.0)
-    paranoia (2.0.0)
+    paranoia (2.0.1)
       activerecord (~> 4.0)
     pg (0.16.0)
     polyglot (0.3.3)
@@ -232,6 +241,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.8.1)
+  auditable!
   carrierwave (~> 0.9.0)
   carrierwave-postgresql (~> 0.1.1)
   coffee-rails (~> 4.0.0)
@@ -247,7 +257,7 @@ DEPENDENCIES
   handlebars_assets (>= 0.14.1)
   json_spec (= 1.1.1)
   kaminari (~> 0.14.1)
-  paranoia (~> 2.0.0)
+  paranoia (~> 2.0.1)
   pg
   pry
   pry-coolline

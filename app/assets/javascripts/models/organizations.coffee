@@ -34,6 +34,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         Models.Schema.User,
         title: "Owner"
         key: "owner"
+      owner:
+        formatter: (value) -> value?.name
+      deletedAt:
+        title: "Deleted Datetime"
+        formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
     createNote: ->
       note = new Models.Note()

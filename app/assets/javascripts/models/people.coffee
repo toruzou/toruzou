@@ -27,6 +27,8 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         Models.Schema.Organization,
         title: "Organization"
         key: "organization"
+      organization:
+        formatter: (value) -> value?.name
       phone:
         type: "Text"
         validators: [ /\d{2,4}-?\d{2,4}-?\d{4}/ ]
@@ -41,6 +43,11 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         Models.Schema.User,
         title: "Owner"
         key: "owner"
+      owner:
+        formatter: (value) -> value?.name
+      deletedAt:
+        title: "Deleted Datetime"
+        formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
     createNote: ->
       note = new Models.Note()
@@ -49,7 +56,6 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
       
     attachmentsUrl: ->
       _.result(@, "url") + "/attachments"
-
 
   Models.People = class People extends Backbone.PageableCollection
 

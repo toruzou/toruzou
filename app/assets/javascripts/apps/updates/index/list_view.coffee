@@ -24,12 +24,13 @@ Toruzou.module "Updates.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
 
     serializeData: ->
       data = super
-      data.subjectRoute = Toruzou.Configuration.routes[data.subjectType]
+      data.subjectRoute = Toruzou.Configuration.routes[data.auditable.subject_type]
+      data.action = Toruzou.Configuration.bundles.actions[data.action]
       data
 
     activateEditor: (e) ->
       e.preventDefault()
-      view = new Toruzou.Note.Common.FormView model: @model
+      view = new Toruzou.Note.Common.FormView model: @createNoteModel()
       view.on "editor:commit editor:cancel", @deactivateEditor
       @contentsRegion.show view
 
@@ -38,8 +39,38 @@ Toruzou.module "Updates.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
 
     deleteNote: (e) ->
       e.preventDefault()
-      @model.destroy success: => Toruzou.Note.Common.trigger "note:deleted" # TODO
+      @createNoteModel().destroy success: => Toruzou.Note.Common.trigger "note:deleted" # TODO
 
+    createNoteModel: ->
+      new Toruzou.Models.Note @model.get("auditable")
+
+
+  class Index.ChangeItemView extends Marionette.ItemView
+
+    template: "updates/change"
+
+    # TODO ugly, should refactor
+    # TODO Fix link of attachments, career etc
+    serializeData: ->
+      data = super
+      data.audit.action = Toruzou.Configuration.bundles.actions[data.audit.action]
+      klazz = Toruzou.Models[data.audit.auditable_type]
+      auditable = data.auditable = new klazz data.audit.auditable
+      subject = data.updateSubject = if auditable.updateSubject then _.result auditable, "updateSubject" else auditable
+      subjectType = data.subjectType = subject.constructor.name.toLowerCase()
+      subjectRoute = data.subjectRoute = Toruzou.Configuration.routes[subject.constructor.name]
+      subjectName = data.subjectName = subject.get "name"
+      auditableName = data.auditableName = data.audit.auditable_type.toLowerCase() if auditable.updateSubject
+      subjectId = data.subjectId = if subject then subject.id else auditable.id
+      changes = data.changes = {}
+      serializeChange = (key, change) -> Toruzou.Models.format auditable, key, change
+      for key, change of data.audit.changes
+        key = _.str.camelize key
+        changes[key] =
+          propertyName: Toruzou.Models.displayPropertyName auditable, key
+          before: serializeChange key, change[0]
+          after: serializeChange key, change[1]
+      data
 
   class Index.UpdateItemView extends Marionette.Layout
 
@@ -48,8 +79,17 @@ Toruzou.module "Updates.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
       updateRegion: ".update"
 
     onShow: ->
-      # TODO support other updates
-      @updateRegion.show new Index.NoteItemView model: new Toruzou.Models.Note @model.attributes
+      audit = new Backbone.Model(@model.get "audit")
+      view = undefined
+      switch audit.get("auditable_type")
+        when "Note"
+          view = new Index.NoteItemView model: audit
+        when "Activity"
+          # TODO
+          console.log "TODO: Activity"
+        else
+          view = new Index.ChangeItemView model: @model
+      @updateRegion.show view if view
 
 
   # FIXME should move endless scrolling handler to common layer
@@ -112,8 +152,8 @@ Toruzou.module "Updates.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
     refresh: ->
       @collection.getPage 1,
         fetch: true
-        success: => @updatesRegion.currentView.render()
-
+        success: => @updatesRegion.currentView.render() if @updatesRegion and @updatesRegion.currentView
+          
     close: ->
       return if @isClosed
       super

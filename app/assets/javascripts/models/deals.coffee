@@ -39,18 +39,26 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         Models.Schema.Organization,
         title: "Organization"
         key: "organization"
+      organization:
+        formatter: (value) -> value?.name
       pmId: $.extend true, {},
         Models.Schema.User,
         title: "Project Manager"
         key: "pm"
+      pm:
+        formatter: (value) -> value?.name
       salesId: $.extend true, {},
         Models.Schema.User,
         title: "Sales Person"
         key: "sales"
+      sales:
+        formatter: (value) -> value?.name
       contactId: $.extend true, {},
         Models.Schema.Person,
         title: "Contact Person"
         key: "contact"
+      contact:
+        formatter: (value) -> value?.name
       status:
         type: "Selectize"
         restore: (model) ->
@@ -62,18 +70,26 @@ Toruzou.module "Models", (Models, Toruzou, Backbone, Marionette, $, _) ->
         options: @::statuses
       amount:
         type: "PositiveAmount"
+        formatter: (value) -> Toruzou.Common.Formatters.amount value
       accuracy:
         type: "PositivePercentInteger"
+        formatter: (value) -> Toruzou.Common.Formatters.percent value
         validators: [
           (value, formValues) ->
             return { message: "Invalid accuracy" } if value and value > 100
         ]
       startDate:
         type: "Datepicker"
+        formatter: (value) -> Toruzou.Common.Formatters.localDate value
       orderDate:
         type: "Datepicker"
+        formatter: (value) -> Toruzou.Common.Formatters.localDate value
       acceptDate:
         type: "Datepicker"
+        formatter: (value) -> Toruzou.Common.Formatters.localDate value
+      deletedAt:
+        title: "Deleted Datetime"
+        formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
     createNote: ->
       note = new Models.Note()
