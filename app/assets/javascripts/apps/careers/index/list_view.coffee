@@ -18,7 +18,7 @@ class Index.ListView extends Marionette.Layout
   addCareer: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    career = new Toruzou.Model.Career personId: @person.get("id")
+    career = Toruzou.request "career:new", personId: @person.get("id")
     newView = new Toruzou.Careers.New.View model: career
     newView.on "career:saved", => @refresh()
     Toruzou.dialogRegion.show newView

@@ -42,7 +42,7 @@ class Index.NoteItemView extends Marionette.Layout
     @createNoteModel().destroy success: => Toruzou.Note.Common.trigger "note:deleted" # TODO
 
   createNoteModel: ->
-    new Toruzou.Model.Note @model.get("auditable")
+    Toruzou.request "note:new", @model.get("auditable")
 
 
 class Index.ChangeItemView extends Marionette.ItemView
@@ -63,11 +63,11 @@ class Index.ChangeItemView extends Marionette.ItemView
     auditableName = data.auditableName = data.audit.auditable_type.toLowerCase() if auditable.updateSubject
     subjectId = data.subjectId = if subject then subject.id else auditable.id
     changes = data.changes = {}
-    serializeChange = (key, change) -> Toruzou.Model.format auditable, key, change
+    serializeChange = (key, change) -> auditable.format key, change
     for key, change of data.audit.changes
       key = _.str.camelize key
       changes[key] =
-        propertyName: Toruzou.Model.displayPropertyName auditable, key
+        propertyName: auditable.displayNameOf key
         before: serializeChange key, change[0]
         after: serializeChange key, change[1]
     data

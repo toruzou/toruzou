@@ -18,7 +18,7 @@ class Index.ListView extends Marionette.Layout
   addPerson: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    person = new Toruzou.Model.Person()
+    person = Toruzou.request "person:new"
     person.set "organization", @organization if @organization
     newView = new Toruzou.People.New.View model: person
     newView.on "person:saved", => @refresh()

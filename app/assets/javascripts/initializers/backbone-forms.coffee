@@ -1,5 +1,18 @@
 Toruzou.addInitializer ->
 
+  # formatters
+  Backbone.Model::displayNameOf = (propertyName) ->
+    if @schema
+      property = @schema[propertyName]
+      return property.title if property and property.title
+    _.str.humanize propertyName
+
+  Backbone.Model::format = (propertyName, value) ->
+    if @schema
+      property = @schema[propertyName]
+      return property.formatter value if property and property.formatter
+    value
+
   wrapEditor = (Editor) ->
 
     class FeedbackEditor extends Editor

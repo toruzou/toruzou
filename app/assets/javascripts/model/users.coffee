@@ -83,19 +83,29 @@ Model.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
 
 
 API =
-  getUsers: (options) ->
-    users = new Model.Users()
-    _.extend users.queryParams, options
-    dfd = $.Deferred()
-    users.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createCredential: (options) ->
+    new Model.UserCredential options
+  createRegistration: (options) ->
+    new Model.UserRegistration options
+  createPasswordRecovery: (options) ->
+    new Model.UserPasswordRecovery options
+  createUser: (options) ->
+    new Model.User options
+  createUsers: (options) ->
+    collection = new Model.Users()
+    _.extend collection.queryParams, options
+    collection
   getUser: (id) ->
-    user = new Model.User id: id
-    dfd = $.Deferred()
-    user.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createUser id: id
+    model.fetch()
+  getUsers: (options) ->
+    collection = API.createUsers options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "users:fetch", (options) -> API.getUsers options
-Toruzou.reqres.setHandler "user:fetch", (id) -> API.getUser id
+Toruzou.reqres.setHandler "user:credential:new", API.createCredential
+Toruzou.reqres.setHandler "user:registration:new", API.createRegistration
+Toruzou.reqres.setHandler "user:recovery:new", API.createPasswordRecovery
+Toruzou.reqres.setHandler "user:new", API.createUser
+Toruzou.reqres.setHandler "users:new", API.createUsers
+Toruzou.reqres.setHandler "user:fetch", API.getUser
+Toruzou.reqres.setHandler "users:fetch", API.getUsers

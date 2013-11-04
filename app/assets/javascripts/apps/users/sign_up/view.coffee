@@ -6,6 +6,9 @@ class SignUp.View extends Toruzou.Common.FormView
   events:
     "submit form": "signUp"
   schema:
+    name:
+      editorAttrs:
+        placeholder: "Username"
     email:
       editorAttrs:
         placeholder: "Your email"
@@ -17,12 +20,13 @@ class SignUp.View extends Toruzou.Common.FormView
         placeholder: "Re-enter your password"
 
   constructor: ->
-    super model: new Toruzou.Model.UserRegistration()
+    model = Toruzou.request "user:registration:new"
+    super model: model
 
   signUp: (e) ->
     e.preventDefault()
     @commit
       success: (model, response) ->
-        Toruzou.curentUser = new Toruzou.Model.User response
+        Toruzou.curentUser = Toruzou.request "user:new", response
         Toruzou.trigger "authentication:signedIn"
         

@@ -10,12 +10,13 @@ class SignIn.View extends Toruzou.Common.FormView
       editorAttrs:
         placeholder: "Your username or email"
     password:
-      help: "<a href=\"retrieve_password\" class=\"help\">(Forgot password ?)</a>"
+      help: "<a href=\"users/retrieve_password\" class=\"help\">(Forgot password ?)</a>"
       editorAttrs:
         placeholder: "Your password"
 
   constructor: ->
-    super model: new Toruzou.Model.UserCredential()
+    model = Toruzou.request "user:credential:new"
+    super model: model
 
   signIn: (e) ->
     e.preventDefault()

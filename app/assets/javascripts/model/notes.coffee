@@ -30,19 +30,20 @@ Model.Notes = class Notes extends Backbone.PageableCollection
 
 
 API =
-  getNotes: (options) ->
-    notes = new Model.Notes()
-    _.extend notes.queryParams, options
-    dfd = $.Deferred()
-    notes.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createNote: (options) ->
+    new Model.Note options
+  createNotes: (options) ->
+    collection = new Model.Notes()
+    _.extend collection.queryParams, options
+    collection
   getNote: (id) ->
-    note = new Model.Note id: id
-    dfd = $.Deferred()
-    note.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createNote id: id
+    model.fetch()
+  getNotes: (options) ->
+    collection = API.createNotes options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "notes:fetch", (options) -> API.getNotes options
-Toruzou.reqres.setHandler "note:fetch", (id) -> API.getNote id
+Toruzou.reqres.setHandler "note:new", API.createNote
+Toruzou.reqres.setHandler "notes:new", API.createNotes
+Toruzou.reqres.setHandler "note:fetch", API.getNote
+Toruzou.reqres.setHandler "notes:fetch", API.getNotes

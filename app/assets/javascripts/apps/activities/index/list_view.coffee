@@ -22,7 +22,7 @@ class Index.ListView extends Marionette.Layout
   addActivity: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    activity = new Toruzou.Model.Activity()
+    activity = Toruzou.request "activity:new"
     activity.set "organization", @organization if @organization
     activity.set "deal", @deal if @deal
     activity.set "users", @users if @users

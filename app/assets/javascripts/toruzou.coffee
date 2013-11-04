@@ -5,6 +5,7 @@ Toruzou.Configuration =
   root: "/"
   api:
     version: "v1"
+  timeout: 5000
   # TODO commands
   routes:
     "User": "users"

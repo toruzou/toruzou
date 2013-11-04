@@ -68,19 +68,20 @@ Model.People = class People extends Backbone.PageableCollection
     
 
 API =
-  getPeople: (options) ->
-    people = new Model.People()
-    _.extend people.queryParams, options
-    dfd = $.Deferred()
-    people.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createPerson: (options) ->
+    new Model.Person options
+  createPeople: (options) ->
+    collection = new Model.People()
+    _.extend collection.queryParams, options
+    collection
   getPerson: (id) ->
-    person = new Model.Person id: id
-    dfd = $.Deferred()
-    person.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createPerson id: id
+    model.fetch()
+  getPeople: (options) ->
+    collection = API.createPeople options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "people:fetch", (options) -> API.getPeople options
-Toruzou.reqres.setHandler "person:fetch", (id) -> API.getPerson id
+Toruzou.reqres.setHandler "person:new", API.createPerson
+Toruzou.reqres.setHandler "people:new", API.createPeople
+Toruzou.reqres.setHandler "person:fetch", API.getPerson
+Toruzou.reqres.setHandler "people:fetch", API.getPeople

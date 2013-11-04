@@ -19,7 +19,7 @@ class Index.ListView extends Marionette.Layout
   addDeal: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    deal = new Toruzou.Model.Deal()
+    deal = Toruzou.request "deal:new"
     deal.set "organization", @organization if @organization
     deal.set "contact", @person if @person
     newView = new Toruzou.Deals.New.View model: deal

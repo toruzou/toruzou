@@ -46,18 +46,21 @@ Model.Deal = class Deal extends Backbone.Model
       title: "Project Manager"
       key: "pm"
     pm:
+      title: "Project Manager"
       formatter: (value) -> value?.name
     salesId: $.extend true, {},
       Model.Schema.User,
       title: "Sales Person"
       key: "sales"
     sales:
+      title: "Sales Person"
       formatter: (value) -> value?.name
     contactId: $.extend true, {},
       Model.Schema.Person,
       title: "Contact Person"
       key: "contact"
     contact:
+      title: "Contact Person"
       formatter: (value) -> value?.name
     status:
       type: "Selectize"
@@ -111,19 +114,20 @@ Model.Deals = class Deal extends Backbone.PageableCollection
 
 
 API =
-  getDeals: (options) ->
-    deals = new Model.Deals()
-    _.extend deals.queryParams, options
-    dfd = $.Deferred()
-    deals.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createDeal: (options) ->
+    new Model.Deal options
+  createDeals: (options) ->
+    collection = new Model.Deals()
+    _.extend collection.queryParams, options
+    collection
   getDeal: (id) ->
-    deal = new Model.Deal id: id
-    dfd = $.Deferred()
-    deal.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createDeal id: id
+    model.fetch()
+  getDeals: (options) ->
+    collection = API.createDeals options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "deals:fetch", (options) -> API.getDeals options
-Toruzou.reqres.setHandler "deal:fetch", (id) -> API.getDeal id
+Toruzou.reqres.setHandler "deal:new", API.createDeal
+Toruzou.reqres.setHandler "deals:new", API.createDeals
+Toruzou.reqres.setHandler "deal:fetch", API.getDeal
+Toruzou.reqres.setHandler "deals:fetch", API.getDeals

@@ -34,7 +34,4 @@ API =
   editPassword: ->
     console.log "edit-password"
 
-Toruzou.on "user:sectionChanged", (options) ->
-  Toruzou.navigate "users/#{options.id}/#{options.slug}"
-
 Toruzou.addInitializer -> new Users.Router controller: API

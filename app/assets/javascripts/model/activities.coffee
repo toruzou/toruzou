@@ -97,19 +97,20 @@ Model.Activities = class Activity extends Backbone.PageableCollection
     
 
 API =
-  getActivities: (options) ->
-    activities = new Model.Activities()
-    _.extend activities.queryParams, options
-    dfd = $.Deferred()
-    activities.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createActivity: (options) ->
+    new Model.Activity options
+  createActivities: (options) ->
+    collection = new Model.Activities()
+    _.extend collection.queryParams, options
+    collection
   getActivity: (id) ->
-    activity = new Model.Activity id: id
-    dfd = $.Deferred()
-    activity.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    activity = API.createActivity id: id
+    activity.fetch()
+  getActivities: (options) ->
+    collection = API.createActivities options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "activities:fetch", (options) -> API.getActivities options
-Toruzou.reqres.setHandler "activity:fetch", (id) -> API.getActivity id
+Toruzou.reqres.setHandler "activity:new", API.createActivity
+Toruzou.reqres.setHandler "activities:new", API.createActivities
+Toruzou.reqres.setHandler "activity:fetch", API.getActivity
+Toruzou.reqres.setHandler "activities:fetch", API.getActivities

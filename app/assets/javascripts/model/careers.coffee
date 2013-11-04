@@ -49,19 +49,20 @@ Model.Careers = class Careers extends Backbone.PageableCollection
 
 
 API =
-  getCareers: (options) ->
-    careers = new Model.Careers()
-    _.extend careers.queryParams, options
-    dfd = $.Deferred()
-    careers.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createCareer: (options) ->
+    new Model.Career options
+  createCareers: (options) ->
+    collection = new Model.Careers()
+    _.extend collection.queryParams, options
+    collection
   getCareer: (id) ->
-    career = new Model.Career id: id
-    dfd = $.Deferred()
-    career.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createCareer id: id
+    model.fetch()
+  getCareers: (options) ->
+    collection = API.createCareers options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "careers:fetch", (options) -> API.getCareers options
-Toruzou.reqres.setHandler "career:fetch", (id) -> API.getCareer id
+Toruzou.reqres.setHandler "career:new", API.createCareer
+Toruzou.reqres.setHandler "careers:new", API.createCareers
+Toruzou.reqres.setHandler "career:fetch", API.getCareer
+Toruzou.reqres.setHandler "careers:fetch", API.getCareers

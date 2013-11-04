@@ -20,19 +20,13 @@ Model.Updates = class Updates extends Backbone.PageableCollection
 
 
 API =
-  getUpdates: (options) ->
-    updates = new Model.Updates()
-    _.extend updates.queryParams, options
-    dfd = $.Deferred()
-    updates.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
   getUpdate: (id) ->
-    update = new Model.Update id: id
-    dfd = $.Deferred()
-    update.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = new Model.Update id: id
+    model.fetch()
+  getUpdates: (options) ->
+    collection = new Model.Updates()
+    _.extend collection.queryParams, options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "updates:fetch", (options) -> API.getUpdates options
-Toruzou.reqres.setHandler "update:fetch", (id) -> API.getUpdate id
+Toruzou.reqres.setHandler "update:fetch", API.getUpdate
+Toruzou.reqres.setHandler "updates:fetch", API.getUpdates

@@ -19,18 +19,16 @@ class Panel.ActivityView extends Marionette.ItemView
   showActivity: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    $.when(Toruzou.request "activity:fetch", @model.get "id").done (activity) =>
-      if activity
-        Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity
+    $.when(Toruzou.request "activity:fetch", @model.get "id").done (activity) ->
+      Toruzou.dialogRegion.show new Toruzou.Activities.Edit.View model: activity
 
   toggleDone: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    $.when(Toruzou.request "activity:fetch", @model.get "id").done (activity) =>
-      if activity
-        activity.save "done", activity.toggleDone(), success: (model) =>
-          Toruzou.Activities.trigger "activity:saved", model
-          @refresh model
+    $.when(Toruzou.request "activity:fetch", @model.get "id").then (activity) =>
+      activity.save("done": activity.toggleDone()).done (activity) =>
+        Toruzou.Activities.trigger "activity:saved", activity
+        @refresh activity
 
   refresh: (model) ->
     @model = model
@@ -45,11 +43,13 @@ class Panel.View extends Marionette.Layout
     nextActivityRegion: ".next-activity"
 
   onShow: ->
+    lastActivity = Toruzou.request "activity:new", @model?.get("lastActivity")
     @lastActivityRegion.show new Panel.ActivityView
       title: "Last Activity"
-      model: new Toruzou.Model.Activity @model?.get("lastActivity")
+      model: lastActivity
+    nextActivity = Toruzou.request "activity:new", @model?.get("nextActivity")
     @nextActivityRegion.show new Panel.ActivityView
       title: "Next Activity"
-      model: new Toruzou.Model.Activity @model?.get("nextActivity")
+      model: nextActivity
 
 

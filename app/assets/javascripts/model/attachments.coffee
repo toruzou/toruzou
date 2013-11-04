@@ -17,10 +17,8 @@ Model.Attachments = class Attachments extends Backbone.PageableCollection
 
 API =
   getAttachments: (options) ->
-    attachments = new Model.Attachments()
-    _.extend attachments.queryParams, options
-    dfd = $.Deferred()
-    attachments.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+    collection = new Model.Attachments()
+    _.extend collection.queryParams, options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "attachments:fetch", (options) -> API.getAttachments options
+Toruzou.reqres.setHandler "attachments:fetch", API.getAttachments

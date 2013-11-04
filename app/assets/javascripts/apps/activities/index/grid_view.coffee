@@ -120,13 +120,12 @@ class Index.GridView extends Toruzou.Common.GridView
   showActivity: (activity) ->
     return unless activity
     $.when(Toruzou.request "activity:fetch", activity.get "id").done (activity) =>
-      if activity
-        view = new Toruzou.Activities.Edit.View model: activity
-        view.on "item:closed", => @refresh()
-        Toruzou.dialogRegion.show view
+      view = new Toruzou.Activities.Edit.View model: activity
+      view.on "item:closed", => @refresh()
+      Toruzou.dialogRegion.show view
 
   toggleDone: (activity, done) ->
-    activity.save "done", done, success: (activity) => Toruzou.Activities.trigger "activity:saved", activity
+    activity.save("done": done).done (activity) -> Toruzou.Activities.trigger "activity:saved", activity
 
   refresh: ->
     @collection.fetch()

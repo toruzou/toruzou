@@ -60,19 +60,20 @@ Model.Organizations = class Organizations extends Backbone.PageableCollection
 
 
 API =
-  getOrganizations: (options) ->
-    organizations = new Model.Organizations()
-    _.extend organizations.queryParams, options
-    dfd = $.Deferred()
-    organizations.fetch success: (collection) -> dfd.resolve collection
-    dfd.promise()
+  createOrganization: (options) ->
+    new Model.Organization options
+  createOrganizations: (options) ->
+    collection = new Model.Organizations()
+    _.extend collection.queryParams, options
+    collection
   getOrganization: (id) ->
-    organization = new Model.Organization id: id
-    dfd = $.Deferred()
-    organization.fetch
-      success: (model) -> dfd.resolve model
-      error: (model) -> dfd.resolve undefined
-    dfd.promise()
+    model = API.createOrganization id: id
+    model.fetch()
+  getOrganizations: (options) ->
+    collection = API.createOrganizations options
+    collection.fetch()
 
-Toruzou.reqres.setHandler "organizations:fetch", (options) -> API.getOrganizations options
-Toruzou.reqres.setHandler "organization:fetch", (id) -> API.getOrganization id
+Toruzou.reqres.setHandler "organization:new", API.createOrganization
+Toruzou.reqres.setHandler "organizations:new", API.createOrganizations
+Toruzou.reqres.setHandler "organization:fetch", API.getOrganization
+Toruzou.reqres.setHandler "organizations:fetch", API.getOrganizations
