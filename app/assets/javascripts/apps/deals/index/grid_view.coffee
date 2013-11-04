@@ -8,7 +8,7 @@ class Index.GridView extends Toruzou.Common.GridView
       label: "Name"
       editable: false
       cell: class extends Backgrid.Extension.LinkCell
-        href: -> "deals/" + @model.get "id"
+        href: -> Toruzou.request "route:deals:show", @model.get "id"
     }
     {
       name: "organization"

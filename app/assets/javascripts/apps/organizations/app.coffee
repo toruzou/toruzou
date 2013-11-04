@@ -4,15 +4,12 @@ Organizations.Router = class OrganizationsRouter extends Toruzou.Common.Resource
   resource: "organizations"
   appRoutes:
     "": "list"
-    "/:id": "show"
-    "/:id/*slug": "showContents"
+    "/:id(/*slug)": "show"
 
 API =
   list: ->
     Organizations.Index.Controller.list()
-  show: (id) ->
-    Organizations.Show.Controller.show id
-  showContents: (id, slug) ->
+  show: (id, slug) ->
     Organizations.Show.Controller.show id, slug
 
 Toruzou.addInitializer -> new Organizations.Router controller: API

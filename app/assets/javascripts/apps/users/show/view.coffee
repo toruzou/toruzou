@@ -28,7 +28,7 @@ class Show.View extends Marionette.Layout
   show: (slug) ->
     return unless slug
     @switchActive slug
-    Toruzou.execute "navigate:users:showContents", @model.get("id"), slug
+    Toruzou.execute "navigate:users:show", @model.get("id"), slug
     switch slug
       when "updates"
         @showUpdates()

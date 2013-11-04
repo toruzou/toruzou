@@ -7,8 +7,7 @@ Users.Router = class UsersRouter extends Toruzou.Common.ResourceRouter
     "/sign_up": "signUp"
     "/retrieve_password": "retrievePassword"
     "": "list"
-    "/:id": "show"
-    "/:id/*slug": "showContents"
+    "/:id(/*slug)": "show"
     "/cancel": "cancelRegistration"
     "/edit": "edit"
     "/password/new": "newPassword"
@@ -23,9 +22,7 @@ API =
     Users.RetrievePassword.Controller.show()
   list: ->
     Users.Index.Controller.list()
-  show: (id) ->
-    Users.Show.Controller.show id
-  showContents: (id, slug) ->
+  show: (id, slug) ->
     Users.Show.Controller.show id, slug
   # TODO
   cancelRegistration: ->
