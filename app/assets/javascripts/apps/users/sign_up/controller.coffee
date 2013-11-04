@@ -1,7 +1,7 @@
-Toruzou.module "Users.SignUp", (SignUp, Toruzou, Backbone, Marionette, $, _) ->
+SignUp = Toruzou.module "Users.SignUp"
 
-  SignUp.Controller =
-    show: ->
-      layout = Toruzou.Common.UnauthenticatedLayout.show()
-      layout.mainRegion.show new SignUp.View()
-      
+SignUp.Controller =
+  show: ->
+    layout = Toruzou.Common.UnauthenticatedLayout.show()
+    layout.mainRegion.show new SignUp.View()
+    

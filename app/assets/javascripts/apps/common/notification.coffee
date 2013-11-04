@@ -1,19 +1,19 @@
-Toruzou.module "Common.Helpers", (Helpers, Toruzou, Backbone, Marionette, $, _) ->
+Helpers = Toruzou.module "Common.Helpers"
 
-  class Helpers.Notification
+class Helpers.Notification
 
-    @notification: (type, options) ->
-      JST["common/notification"]
-        type: type
-        title: options.title
-        message: options.message
-        messages: options.messages
+  @notification: (type, options) ->
+    JST["common/notification"]
+      type: type
+      title: options.title
+      message: options.message
+      messages: options.messages
 
-    @success: (options) ->
-      @notification "success", options
+  @success: (options) ->
+    @notification "success", options
 
-    @error: (options) ->
-      @notification "error", options
+  @error: (options) ->
+    @notification "error", options
 
-    @clear: (el) ->
-      el.find(".notification-#{type}").remove() for type in [ "success", "error" ]
+  @clear: (el) ->
+    el.find(".notification-#{type}").remove() for type in [ "success", "error" ]

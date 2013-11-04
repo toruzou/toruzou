@@ -1,6 +1,6 @@
-Toruzou.module "Common", (Common, Toruzou, Backbone, Marionette, $, _) ->
+Common = Toruzou.module "Common"
 
-  class Common.LoadingView extends Backbone.Marionette.ItemView
+class Common.LoadingView extends Backbone.Marionette.ItemView
 
-    template: "common/loading"
-    
+  template: "common/loading"
+  

@@ -1,9 +1,9 @@
-Toruzou.module "Organizations.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
+Index = Toruzou.module "Organizations.Index"
 
-  Index.Controller =
+Index.Controller =
+  
+  listOrganizations: ->
+    $.when(Toruzou.request "organizations:fetch").done (organizations) ->
+      layout = Toruzou.Common.ApplicationLayout.show()
+      layout.mainRegion.show(new Index.View collection: organizations)
     
-    listOrganizations: ->
-      $.when(Toruzou.request "organizations:fetch").done (organizations) ->
-        layout = Toruzou.Common.ApplicationLayout.show()
-        layout.mainRegion.show(new Index.View collection: organizations)
-      

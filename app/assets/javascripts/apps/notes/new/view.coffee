@@ -1,35 +1,35 @@
-Toruzou.module "Note.New", (New, Toruzou, Backbone, Marionette, $, _) ->
+New = Toruzou.module "Note.New"
 
-  class New.AddNoteView extends Marionette.ItemView
+class New.AddNoteView extends Marionette.ItemView
 
-    template: "notes/add"
-    events:
-      "click .add-note": "activateEditor"
+  template: "notes/add"
+  events:
+    "click .add-note": "activateEditor"
 
-    activateEditor: (e) ->
-      e.preventDefault()
-      @triggerMethod "editor:activate"
+  activateEditor: (e) ->
+    e.preventDefault()
+    @triggerMethod "editor:activate"
 
-  class New.View extends Marionette.Layout
+class New.View extends Marionette.Layout
 
-    template: "notes/editor"
-    regions:
-      editorRegion: ".editor-container"
+  template: "notes/editor"
+  regions:
+    editorRegion: ".editor-container"
 
-    constructor: (options) ->
-      super options
-      _.bindAll @, "activateEditor", "deactivateEditor"
+  constructor: (options) ->
+    super options
+    _.bindAll @, "activateEditor", "deactivateEditor"
 
-    onShow: ->
-      @deactivateEditor()
+  onShow: ->
+    @deactivateEditor()
 
-    activateEditor: ->
-      view = new Toruzou.Note.Common.FormView model: @model.createNote()
-      view.on "editor:commit editor:cancel", @deactivateEditor
-      @editorRegion.show view
+  activateEditor: ->
+    view = new Toruzou.Note.Common.FormView model: @model.createNote()
+    view.on "editor:commit editor:cancel", @deactivateEditor
+    @editorRegion.show view
 
-    deactivateEditor: ->
-      view = new New.AddNoteView()
-      view.on "editor:activate", @activateEditor
-      @editorRegion.show view
-      
+  deactivateEditor: ->
+    view = new New.AddNoteView()
+    view.on "editor:activate", @activateEditor
+    @editorRegion.show view
+    

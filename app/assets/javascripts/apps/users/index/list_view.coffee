@@ -1,17 +1,17 @@
-Toruzou.module "Users.Index", (Index, Toruzou, Backbone, Marionette, $, _) ->
+Index = Toruzou.module "Users.Index"
 
-  class Index.ListView extends Marionette.Layout
+class Index.ListView extends Marionette.Layout
 
-    template: "users/list"
-    regions:
-      gridRegion: "#grid-container"
+  template: "users/list"
+  regions:
+    gridRegion: "#grid-container"
 
-    constructor: (options) ->
-      super options
-      @organization = options?.organization
+  constructor: (options) ->
+    super options
+    @organization = options?.organization
 
-    onShow: ->
-      @gridRegion.show new Index.GridView collection: @collection
+  onShow: ->
+    @gridRegion.show new Index.GridView collection: @collection
 
-    refresh: ->
-      @collection.fetch()
+  refresh: ->
+    @collection.fetch()

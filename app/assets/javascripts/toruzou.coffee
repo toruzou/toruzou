@@ -5,6 +5,7 @@ Toruzou.Configuration =
   root: "/"
   api:
     version: "v1"
+  # TODO commands
   routes:
     "User": "users"
     "Organization": "organizations"
