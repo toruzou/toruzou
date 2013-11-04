@@ -18,7 +18,7 @@ class Index.ListView extends Marionette.Layout
   addOrganization: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    organization = new Toruzou.Models.Organization()
+    organization = new Toruzou.Model.Organization()
     organization.set "owner", @owner if @owner
     newView = new Toruzou.Organizations.New.View model: organization
     newView.on "organization:saved", => @refresh()

@@ -8,7 +8,7 @@ class Attachments.GridView extends Toruzou.Common.GridView
       label: "Name"
       editable: false
       cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> Toruzou.Models.endpoint("attachments/" + @model.get("id"))
+        href: (rawValue) -> Toruzou.Model.endpoint("attachments/" + @model.get("id"))
         renderLink: -> super.attr("data-bypass", "")
     }
     {

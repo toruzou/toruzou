@@ -1,18 +1,18 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
-Models.User = class User extends Backbone.Model
+Model.User = class User extends Backbone.Model
 
-  urlRoot: Models.endpoint "users"
+  urlRoot: Model.endpoint "users"
 
   createNote: ->
-    note = new Models.Note()
+    note = new Model.Note()
     note.subject = @
     note
 
-Models.Users = class Users extends Backbone.PageableCollection
+Model.Users = class Users extends Backbone.PageableCollection
 
-  url: Models.endpoint "users"
-  model: Models.User
+  url: Model.endpoint "users"
+  model: Model.User
 
   state:
     sortKey: "name"
@@ -20,9 +20,9 @@ Models.Users = class Users extends Backbone.PageableCollection
 
 # TODO Refine validators (character length etc.)
 
-Models.UserCredential = class UserCredential extends Backbone.Model
+Model.UserCredential = class UserCredential extends Backbone.Model
 
-  url: Models.endpoint "users/sign_in"
+  url: Model.endpoint "users/sign_in"
   modelName: "user"
 
   defaults:
@@ -39,9 +39,9 @@ Models.UserCredential = class UserCredential extends Backbone.Model
       validators: [ "required" ]
 
 
-Models.UserRegistration = class UserRegistration extends Backbone.Model
+Model.UserRegistration = class UserRegistration extends Backbone.Model
 
-  url: Models.endpoint "users"
+  url: Model.endpoint "users"
   modelName: "user"
 
   defaults:
@@ -68,9 +68,9 @@ Models.UserRegistration = class UserRegistration extends Backbone.Model
       ]
 
 
-Models.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
+Model.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
 
-  url: Models.endpoint "users/password"
+  url: Model.endpoint "users/password"
   modelName: "user"
 
   defaults:
@@ -84,13 +84,13 @@ Models.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
 
 API =
   getUsers: (options) ->
-    users = new Models.Users()
+    users = new Model.Users()
     _.extend users.queryParams, options
     dfd = $.Deferred()
     users.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getUser: (id) ->
-    user = new Models.User id: id
+    user = new Model.User id: id
     dfd = $.Deferred()
     user.fetch
       success: (model) -> dfd.resolve model

@@ -1,17 +1,17 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Update = class Update extends Backbone.Model
+Model.Update = class Update extends Backbone.Model
 
-  urlRoot: Models.endpoint "updates"
+  urlRoot: Model.endpoint "updates"
   modelName: "update"
 
 
-Models.Updates = class Updates extends Backbone.PageableCollection
+Model.Updates = class Updates extends Backbone.PageableCollection
 
-  url: Models.endpoint "updates"
-  model: Models.Update
+  url: Model.endpoint "updates"
+  model: Model.Update
   mode: "infinite"
 
   state:
@@ -21,13 +21,13 @@ Models.Updates = class Updates extends Backbone.PageableCollection
 
 API =
   getUpdates: (options) ->
-    updates = new Models.Updates()
+    updates = new Model.Updates()
     _.extend updates.queryParams, options
     dfd = $.Deferred()
     updates.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getUpdate: (id) ->
-    update = new Models.Update id: id
+    update = new Model.Update id: id
     dfd = $.Deferred()
     update.fetch
       success: (model) -> dfd.resolve model

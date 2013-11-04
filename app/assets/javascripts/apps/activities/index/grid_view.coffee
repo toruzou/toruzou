@@ -7,7 +7,7 @@ class ActionCell extends Backgrid.Cell
   render: ->
     @$el.empty()
     rawValue = @model.get @column.get("name")
-    @$el.append Toruzou.Models.Activity::renderAction rawValue if rawValue
+    @$el.append Toruzou.Model.Activity::renderAction rawValue if rawValue
     @delegateEvents()
 
 class Index.GridView extends Toruzou.Common.GridView

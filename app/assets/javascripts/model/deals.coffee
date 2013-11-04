@@ -1,10 +1,10 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Deal = class Deal extends Backbone.Model
+Model.Deal = class Deal extends Backbone.Model
 
-  urlRoot: Models.endpoint "deals"
+  urlRoot: Model.endpoint "deals"
   modelName: "deal"
   statuses: [
     "Plan"
@@ -36,25 +36,25 @@ Models.Deal = class Deal extends Backbone.Model
       type: "Text"
       validators: [ "required" ]
     organizationId: $.extend true, {},
-      Models.Schema.Organization,
+      Model.Schema.Organization,
       title: "Organization"
       key: "organization"
     organization:
       formatter: (value) -> value?.name
     pmId: $.extend true, {},
-      Models.Schema.User,
+      Model.Schema.User,
       title: "Project Manager"
       key: "pm"
     pm:
       formatter: (value) -> value?.name
     salesId: $.extend true, {},
-      Models.Schema.User,
+      Model.Schema.User,
       title: "Sales Person"
       key: "sales"
     sales:
       formatter: (value) -> value?.name
     contactId: $.extend true, {},
-      Models.Schema.Person,
+      Model.Schema.Person,
       title: "Contact Person"
       key: "contact"
     contact:
@@ -92,7 +92,7 @@ Models.Deal = class Deal extends Backbone.Model
       formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
   createNote: ->
-    note = new Models.Note()
+    note = new Model.Note()
     note.subject = @
     note
     
@@ -100,10 +100,10 @@ Models.Deal = class Deal extends Backbone.Model
     _.result(@, "url") + "/attachments"
     
 
-Models.Deals = class Deal extends Backbone.PageableCollection
+Model.Deals = class Deal extends Backbone.PageableCollection
 
-  url: Models.endpoint "deals"
-  model: Models.Deal
+  url: Model.endpoint "deals"
+  model: Model.Deal
 
   state:
     sortKey: "name"
@@ -112,13 +112,13 @@ Models.Deals = class Deal extends Backbone.PageableCollection
 
 API =
   getDeals: (options) ->
-    deals = new Models.Deals()
+    deals = new Model.Deals()
     _.extend deals.queryParams, options
     dfd = $.Deferred()
     deals.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getDeal: (id) ->
-    deal = new Models.Deal id: id
+    deal = new Model.Deal id: id
     dfd = $.Deferred()
     deal.fetch
       success: (model) -> dfd.resolve model

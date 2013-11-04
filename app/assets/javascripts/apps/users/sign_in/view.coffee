@@ -15,11 +15,11 @@ class SignIn.View extends Toruzou.Common.FormView
         placeholder: "Your password"
 
   constructor: ->
-    super model: new Toruzou.Models.UserCredential()
+    super model: new Toruzou.Model.UserCredential()
 
   signIn: (e) ->
     e.preventDefault()
     @commit
       success: (model, response) ->
-        Toruzou.currentUser = new Toruzou.Models.User response
+        Toruzou.currentUser = new Toruzou.Model.User response
         Toruzou.trigger "authentication:signedIn"

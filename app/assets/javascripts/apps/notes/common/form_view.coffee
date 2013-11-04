@@ -14,7 +14,7 @@ class Common.FormView extends Toruzou.Common.FormView
         placeholder: "Add a note"
 
   constructor: (options = {}) ->
-    options.model or= new Toruzou.Models.Note()
+    options.model or= new Toruzou.Model.Note()
     super options
 
   onShow: ->

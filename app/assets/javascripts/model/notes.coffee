@@ -1,15 +1,15 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Note = class Note extends Backbone.Model
+Model.Note = class Note extends Backbone.Model
 
-  urlRoot: -> if @subject then (_.result @subject, "url") + "/notes" else Models.endpoint "notes"
+  urlRoot: -> if @subject then (_.result @subject, "url") + "/notes" else Model.endpoint "notes"
   modelName: "note"
 
   constructor: (options) ->
     super options
-    @subject = new Toruzou.Models[options.subject_type](options.subject) if options and options.subject and options.subject_type
+    @subject = new Toruzou.Model[options.subject_type](options.subject) if options and options.subject and options.subject_type
 
   defaults:
     message: ""
@@ -19,10 +19,10 @@ Models.Note = class Note extends Backbone.Model
       type: "TextArea"
 
 
-Models.Notes = class Notes extends Backbone.PageableCollection
+Model.Notes = class Notes extends Backbone.PageableCollection
 
-  url: -> if @subject then (_.result @subject, "url") + "/notes" else Models.endpoint "notes"
-  model: Models.Note
+  url: -> if @subject then (_.result @subject, "url") + "/notes" else Model.endpoint "notes"
+  model: Model.Note
 
   state:
     sortKey: "updated_at"
@@ -31,13 +31,13 @@ Models.Notes = class Notes extends Backbone.PageableCollection
 
 API =
   getNotes: (options) ->
-    notes = new Models.Notes()
+    notes = new Model.Notes()
     _.extend notes.queryParams, options
     dfd = $.Deferred()
     notes.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getNote: (id) ->
-    note = new Models.Note id: id
+    note = new Model.Note id: id
     dfd = $.Deferred()
     note.fetch
       success: (model) -> dfd.resolve model

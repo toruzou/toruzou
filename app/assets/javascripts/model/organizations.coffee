@@ -1,10 +1,10 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Organization = class Organization extends Backbone.Model
+Model.Organization = class Organization extends Backbone.Model
 
-  urlRoot: Models.endpoint "organizations"
+  urlRoot: Model.endpoint "organizations"
   modelName: "organization"
 
   defaults:
@@ -31,7 +31,7 @@ Models.Organization = class Organization extends Backbone.Model
       type: "Text"
       validators: [ "url" ]
     ownerId: $.extend true, {},
-      Models.Schema.User,
+      Model.Schema.User,
       title: "Owner"
       key: "owner"
     owner:
@@ -41,7 +41,7 @@ Models.Organization = class Organization extends Backbone.Model
       formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
   createNote: ->
-    note = new Models.Note()
+    note = new Model.Note()
     note.subject = @
     note
 
@@ -49,10 +49,10 @@ Models.Organization = class Organization extends Backbone.Model
     _.result(@, "url") + "/attachments"
 
 
-Models.Organizations = class Organizations extends Backbone.PageableCollection
+Model.Organizations = class Organizations extends Backbone.PageableCollection
 
-  url: Models.endpoint "organizations"
-  model: Models.Organization
+  url: Model.endpoint "organizations"
+  model: Model.Organization
 
   state:
     sortKey: "name"
@@ -61,13 +61,13 @@ Models.Organizations = class Organizations extends Backbone.PageableCollection
 
 API =
   getOrganizations: (options) ->
-    organizations = new Models.Organizations()
+    organizations = new Model.Organizations()
     _.extend organizations.queryParams, options
     dfd = $.Deferred()
     organizations.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getOrganization: (id) ->
-    organization = new Models.Organization id: id
+    organization = new Model.Organization id: id
     dfd = $.Deferred()
     organization.fetch
       success: (model) -> dfd.resolve model

@@ -1,9 +1,9 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
-Models.endpoint = (path) -> "/api/#{Toruzou.Configuration.api.version}/#{path}"
+Model.endpoint = (path) -> "/api/#{Toruzou.Configuration.api.version}/#{path}"
 
 # TODO to Backbone
-Models.displayPropertyName = (model, propertyName) ->
+Model.displayPropertyName = (model, propertyName) ->
   schema = model.schema
   if schema
     property = schema[propertyName]
@@ -11,7 +11,7 @@ Models.displayPropertyName = (model, propertyName) ->
   _.str.humanize propertyName
 
 # TODO to Backbone
-Models.format = (model, propertyName, value) ->
+Model.format = (model, propertyName, value) ->
   schema = model.schema
   if schema
     property = schema[propertyName]

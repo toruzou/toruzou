@@ -1,10 +1,10 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Person = class Person extends Backbone.Model
+Model.Person = class Person extends Backbone.Model
 
-  urlRoot: Models.endpoint "people"
+  urlRoot: Model.endpoint "people"
   modelName: "person"
 
   defaults:
@@ -24,7 +24,7 @@ Models.Person = class Person extends Backbone.Model
       type: "Text"
       validators: [ "required" ]
     organizationId: $.extend true, {},
-      Models.Schema.Organization,
+      Model.Schema.Organization,
       title: "Organization"
       key: "organization"
     organization:
@@ -40,7 +40,7 @@ Models.Person = class Person extends Backbone.Model
     remarks:
       type: "TextArea"
     ownerId: $.extend true, {},
-      Models.Schema.User,
+      Model.Schema.User,
       title: "Owner"
       key: "owner"
     owner:
@@ -50,17 +50,17 @@ Models.Person = class Person extends Backbone.Model
       formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
   createNote: ->
-    note = new Models.Note()
+    note = new Model.Note()
     note.subject = @
     note
     
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
 
-Models.People = class People extends Backbone.PageableCollection
+Model.People = class People extends Backbone.PageableCollection
 
-  url: Models.endpoint "people"
-  model: Models.Person
+  url: Model.endpoint "people"
+  model: Model.Person
 
   state:
     sortKey: "name"
@@ -69,13 +69,13 @@ Models.People = class People extends Backbone.PageableCollection
 
 API =
   getPeople: (options) ->
-    people = new Models.People()
+    people = new Model.People()
     _.extend people.queryParams, options
     dfd = $.Deferred()
     people.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getPerson: (id) ->
-    person = new Models.Person id: id
+    person = new Model.Person id: id
     dfd = $.Deferred()
     person.fetch
       success: (model) -> dfd.resolve model

@@ -17,12 +17,12 @@ class SignUp.View extends Toruzou.Common.FormView
         placeholder: "Re-enter your password"
 
   constructor: ->
-    super model: new Toruzou.Models.UserRegistration()
+    super model: new Toruzou.Model.UserRegistration()
 
   signUp: (e) ->
     e.preventDefault()
     @commit
       success: (model, response) ->
-        Toruzou.curentUser = new Toruzou.Models.User response
+        Toruzou.curentUser = new Toruzou.Model.User response
         Toruzou.trigger "authentication:signedIn"
         

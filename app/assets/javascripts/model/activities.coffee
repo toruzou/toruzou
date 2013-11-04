@@ -1,10 +1,10 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Models.Activity = class Activity extends Backbone.Model
+Model.Activity = class Activity extends Backbone.Model
 
-  urlRoot: Models.endpoint "activities"
+  urlRoot: Model.endpoint "activities"
   modelName: "activity"
   actions: [
     "Meeting"
@@ -57,19 +57,19 @@ Models.Activity = class Activity extends Backbone.Model
     date:
       type: "Datepicker"
     organizationId: $.extend true, {},
-      Models.Schema.Organization,
+      Model.Schema.Organization,
       title: "Organization"
       key: "organization"
     dealId: $.extend true, {},
-      Models.Schema.Deal,
+      Model.Schema.Deal,
       title: "Deal"
       key: "deal"
     usersIds: $.extend true, {},
-      Models.Schema.Users,
+      Model.Schema.Users,
       title: "Users"
       key: "users"
     peopleIds: $.extend true, {},
-      Models.Schema.People,
+      Model.Schema.People,
       title: "Contacts"
       key: "people"
     note:
@@ -86,10 +86,10 @@ Models.Activity = class Activity extends Backbone.Model
     done
 
 
-Models.Activities = class Activity extends Backbone.PageableCollection
+Model.Activities = class Activity extends Backbone.PageableCollection
 
-  url: Models.endpoint "activities"
-  model: Models.Activity
+  url: Model.endpoint "activities"
+  model: Model.Activity
 
   state:
     sortKey: "date"
@@ -98,13 +98,13 @@ Models.Activities = class Activity extends Backbone.PageableCollection
 
 API =
   getActivities: (options) ->
-    activities = new Models.Activities()
+    activities = new Model.Activities()
     _.extend activities.queryParams, options
     dfd = $.Deferred()
     activities.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getActivity: (id) ->
-    activity = new Models.Activity id: id
+    activity = new Model.Activity id: id
     dfd = $.Deferred()
     activity.fetch
       success: (model) -> dfd.resolve model

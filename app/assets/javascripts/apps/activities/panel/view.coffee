@@ -47,9 +47,9 @@ class Panel.View extends Marionette.Layout
   onShow: ->
     @lastActivityRegion.show new Panel.ActivityView
       title: "Last Activity"
-      model: new Toruzou.Models.Activity @model?.get("lastActivity")
+      model: new Toruzou.Model.Activity @model?.get("lastActivity")
     @nextActivityRegion.show new Panel.ActivityView
       title: "Next Activity"
-      model: new Toruzou.Models.Activity @model?.get("nextActivity")
+      model: new Toruzou.Model.Activity @model?.get("nextActivity")
 
 

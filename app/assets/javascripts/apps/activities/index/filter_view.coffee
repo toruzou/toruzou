@@ -31,9 +31,9 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
         placeholder: "Filter by Subject"
     actions:
       type: "Selectize"
-      options: Toruzou.Models.Activity::actions
+      options: Toruzou.Model.Activity::actions
       selectize:
-        maxItems: Toruzou.Models.Activity::actions.length
+        maxItems: Toruzou.Model.Activity::actions.length
       editorAttrs:
         placeholder: "Filter by Actions"
     dealName:

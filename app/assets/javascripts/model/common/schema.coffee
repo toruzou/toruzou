@@ -1,15 +1,15 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 restoreModel = (attributes, Model) -> if attributes instanceof Backbone.Model then attributes else new Model attributes
 
-Models.Schema =
+Model.Schema =
 
   User:
     type: "Selectize"
     restore: (model) ->
       attributes = model.get @key
       if attributes
-        model = restoreModel attributes, Models.User
+        model = restoreModel attributes, Model.User
         {
           value: model.get "id"
           data: model.serialize()
@@ -28,7 +28,7 @@ Models.Schema =
     restore: (model) ->
       users = model.get @key
       return [] unless users
-      users = _.map users, (attributes) -> restoreModel attributes, Models.Person
+      users = _.map users, (attributes) -> restoreModel attributes, Model.Person
       {
         value: _.map users, (user) -> user.get "id"
         data: _.map users, (user) -> user.serialize()
@@ -40,7 +40,7 @@ Models.Schema =
       searchField: "name"
       create: (input, callback) ->
         return callback() unless input.length
-        user = new Toruzou.Models.User()
+        user = new Toruzou.Model.User()
         user.save "name", input, success: (user) => callback user.serialize()
         undefined
       load: (query, callback) ->
@@ -52,7 +52,7 @@ Models.Schema =
     restore: (model) ->
       attributes = model.get @key
       if attributes
-        model = restoreModel attributes, Models.Organization
+        model = restoreModel attributes, Model.Organization
         {
           value: model.get "id"
           data: model.serialize()
@@ -63,7 +63,7 @@ Models.Schema =
       searchField: "name"
       create: (input, callback) ->
         return callback() unless input.length
-        organization = new Toruzou.Models.Organization()
+        organization = new Toruzou.Model.Organization()
         organization.save "name", input, success: (organization) => callback organization.serialize()
         undefined
       load: (query, callback) ->
@@ -75,7 +75,7 @@ Models.Schema =
     restore: (model) ->
       attributes = model.get @key
       if attributes
-        model = restoreModel attributes, Models.Deal
+        model = restoreModel attributes, Model.Deal
         {
           value: model.get "id"
           data: model.serialize()
@@ -86,7 +86,7 @@ Models.Schema =
       searchField: "name"
       create: (input, callback) ->
         return callback() unless input.length
-        deal = new Toruzou.Models.Deal()
+        deal = new Toruzou.Model.Deal()
         deal.save "name", input, success: (deal) => callback deal.serialize()
         undefined
       load: (query, callback) ->
@@ -98,7 +98,7 @@ Models.Schema =
     restore: (model) ->
       attributes = model.get @key
       if attributes
-        model = restoreModel attributes, Models.Person
+        model = restoreModel attributes, Model.Person
         {
           value: model.get "id"
           data: model.serialize()
@@ -109,7 +109,7 @@ Models.Schema =
       searchField: "name"
       create: (input, callback) ->
         return callback() unless input.length
-        person = new Toruzou.Models.Person()
+        person = new Toruzou.Model.Person()
         person.save "name", input, success: (person) => callback person.serialize()
         undefined
       load: (query, callback) ->
@@ -121,7 +121,7 @@ Models.Schema =
     restore: (model) ->
       people = model.get @key
       return [] unless people
-      people = _.map people, (attributes) -> restoreModel attributes, Models.Person
+      people = _.map people, (attributes) -> restoreModel attributes, Model.Person
       {
         value: _.map people, (person) -> person.get "id"
         data: _.map people, (person) -> person.serialize()
@@ -133,11 +133,11 @@ Models.Schema =
       searchField: "name"
       create: (input, callback) ->
         return callback() unless input.length
-        person = new Models.Person()
+        person = new Model.Person()
         person.save "name", input, success: (person) => callback person.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length
         $.when(Toruzou.request "people:fetch", name: query).done (people) -> callback _.map(people.models, (person) -> person.serialize())
 
-# Object.freeze? Models.Schema
+# Object.freeze? Model.Schema

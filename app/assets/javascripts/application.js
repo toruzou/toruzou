@@ -31,9 +31,9 @@
 //= require ./vendor/jquery.fseditor/jquery.fseditor
 //= require ./vendor/jquery.selection/src/jquery.selection
 //= require toruzou
-//= require_tree ./models/common
+//= require_tree ./model/common
 //= require_tree ./apps/common
 //= require_tree ./initializers
 //= require_tree ./templates
-//= require_tree ./models
+//= require_tree ./model
 //= require_tree ./apps

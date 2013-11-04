@@ -11,7 +11,7 @@ class RetrievePassword.View extends Toruzou.Common.FormView
         placeholder: "Your email"
 
   constructor: ->
-    super model: new Toruzou.Models.UserPasswordRecovery()
+    super model: new Toruzou.Model.UserPasswordRecovery()
 
   retrievePassword: (e) ->
     e.preventDefault()

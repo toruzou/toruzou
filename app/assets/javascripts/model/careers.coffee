@@ -1,13 +1,13 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
 required = (name, value, formValues) ->
   if (_.str.isBlank formValues["fromDate"]) and (_.str.isBlank formValues["toDate"])
     type: name
     message: "From Date or To Date is required"
 
-Models.Career = class Career extends Backbone.Model
+Model.Career = class Career extends Backbone.Model
 
-  urlRoot: Models.endpoint "careers"
+  urlRoot: Model.endpoint "careers"
   modelName: "career"
 
   defaults:
@@ -36,12 +36,12 @@ Models.Career = class Career extends Backbone.Model
     _.result(@, "url") + "/attachments"
 
   updateSubject: ->
-    new Models.Person(@get "person")
+    new Model.Person(@get "person")
 
-Models.Careers = class Careers extends Backbone.PageableCollection
+Model.Careers = class Careers extends Backbone.PageableCollection
 
-  url: Models.endpoint "careers"
-  model: Models.Career
+  url: Model.endpoint "careers"
+  model: Model.Career
 
   state:
     sortKey: "from_date"
@@ -50,13 +50,13 @@ Models.Careers = class Careers extends Backbone.PageableCollection
 
 API =
   getCareers: (options) ->
-    careers = new Models.Careers()
+    careers = new Model.Careers()
     _.extend careers.queryParams, options
     dfd = $.Deferred()
     careers.fetch success: (collection) -> dfd.resolve collection
     dfd.promise()
   getCareer: (id) ->
-    career = new Models.Career id: id
+    career = new Model.Career id: id
     dfd = $.Deferred()
     career.fetch
       success: (model) -> dfd.resolve model

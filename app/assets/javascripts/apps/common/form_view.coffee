@@ -51,7 +51,7 @@ class Common.FormView extends Marionette.ItemView
     options.messages = []
     if result and result.errors
       for property, errors of result.errors
-        title = Toruzou.Models.displayPropertyName @model, property
+        title = Toruzou.Model.displayPropertyName @model, property
         for error in errors
           options.messages.push "#{title} #{error}"
     @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error options

@@ -1,14 +1,14 @@
-Models = Toruzou.module "Models"
+Model = Toruzou.module "Model"
 
-Models.Attachment = class Attachment extends Backbone.Model
+Model.Attachment = class Attachment extends Backbone.Model
 
-  urlRoot: Models.endpoint "attachments"
+  urlRoot: Model.endpoint "attachments"
 
 
-Models.Attachments = class Attachments extends Backbone.PageableCollection
+Model.Attachments = class Attachments extends Backbone.PageableCollection
 
-  url: Models.endpoint "attachments"
-  model: Models.Attachment
+  url: Model.endpoint "attachments"
+  model: Model.Attachment
 
   state:
     sortKey: "updated_at"
@@ -17,7 +17,7 @@ Models.Attachments = class Attachments extends Backbone.PageableCollection
 
 API =
   getAttachments: (options) ->
-    attachments = new Models.Attachments()
+    attachments = new Model.Attachments()
     _.extend attachments.queryParams, options
     dfd = $.Deferred()
     attachments.fetch success: (collection) -> dfd.resolve collection
