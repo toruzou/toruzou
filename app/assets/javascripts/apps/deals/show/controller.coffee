@@ -2,7 +2,7 @@ Show = Toruzou.module "Deals.Show"
 
 Show.Controller =
   
-  showDeal: (id, slug) ->
+  show: (id, slug) ->
     $.when(Toruzou.request "deal:fetch", id).done (deal) ->
       layout = Toruzou.Common.ApplicationLayout.show()
       view = new Show.View model: deal

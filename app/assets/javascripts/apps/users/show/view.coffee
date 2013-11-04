@@ -27,8 +27,8 @@ class Show.View extends Marionette.Layout
 
   show: (slug) ->
     return unless slug
-    _.each @$el.find("section"), (section) -> $(section).removeClass "active"
-    @$el.find("##{slug}").addClass "active"
+    @switchActive slug
+    Toruzou.execute "navigate:users:showContents", @model.get("id"), slug
     switch slug
       when "updates"
         @showUpdates()
@@ -38,7 +38,10 @@ class Show.View extends Marionette.Layout
         @showOrganizations()
       when "deals"
         @showDeals()
-    Toruzou.trigger "user:sectionChanged", id: @model.get("id"), slug: slug
+
+  switchActive: (slug) ->
+    _.each @$el.find("section"), (section) -> $(section).removeClass "active"
+    @$el.find("##{slug}").addClass "active"
 
   showUpdates: ->
     $.when(Toruzou.request "updates:fetch", user_id: @model.get "id").done (updates) =>

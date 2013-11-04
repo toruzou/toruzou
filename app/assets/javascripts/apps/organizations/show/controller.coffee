@@ -2,7 +2,7 @@ Show = Toruzou.module "Organizations.Show"
 
 Show.Controller =
   
-  showOrganization: (id, slug) ->
+  show: (id, slug) ->
     $.when(Toruzou.request "organization:fetch", id).done (organization) ->
       layout = Toruzou.Common.ApplicationLayout.show()
       view = new Show.View model: organization

@@ -1,7 +1,5 @@
 class Activity < ActiveRecord::Base
 
-  include Updatable
-
   acts_as_paranoid
 
   belongs_to :organization
@@ -73,5 +71,7 @@ class Activity < ActiveRecord::Base
     allow_blank: false
 
   validates :date, presence: true
+
+  audit :subject, :action, :date, :note, :done, :organization, :deal, :users, :people
   
 end

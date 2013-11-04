@@ -24,7 +24,7 @@ class Index.NoteItemView extends Marionette.Layout
 
   serializeData: ->
     data = super
-    data.subjectRoute = Toruzou.Configuration.routes[data.auditable.subject_type]
+    data.subjectRoute = "#{Toruzou.Configuration.routes[data.auditable.subject_type]}:show"
     data.action = Toruzou.Configuration.bundles.actions[data.action]
     data
 
@@ -58,7 +58,7 @@ class Index.ChangeItemView extends Marionette.ItemView
     auditable = data.auditable = new klazz data.audit.auditable
     subject = data.updateSubject = if auditable.updateSubject then _.result auditable, "updateSubject" else auditable
     subjectType = data.subjectType = subject.constructor.name.toLowerCase()
-    subjectRoute = data.subjectRoute = Toruzou.Configuration.routes[subject.constructor.name]
+    subjectRoute = data.subjectRoute = "#{Toruzou.Configuration.routes[subject.constructor.name]}:show"
     subjectName = data.subjectName = subject.get "name"
     auditableName = data.auditableName = data.audit.auditable_type.toLowerCase() if auditable.updateSubject
     subjectId = data.subjectId = if subject then subject.id else auditable.id

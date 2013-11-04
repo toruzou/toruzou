@@ -1,5 +1,5 @@
 <div class="note-editor">
-  <header><a href="{{relativeUrl "users" user.id}}">{{user.name}}</a> {{action}} a note to <a href="{{relativeUrl subjectRoute auditable.subject.id}}">{{auditable.subject.name}}</a></header>
+  <header><a href="{{linkTo "users:show" user.id}}">{{user.name}}</a> {{action}} a note to <a href="{{linkTo subjectRoute auditable.subject.id}}">{{auditable.subject.name}}</a></header>
   <section class="contents"></section>
   <footer>
     <span class="datetime">at {{localDatetime updated_at}}</span>

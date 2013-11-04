@@ -1,22 +1,18 @@
 People = Toruzou.module "People"
 
-People.Router = class PeopleRouter extends Marionette.AppRouter
+People.Router = class PeopleRouter extends Toruzou.Common.ResourceRouter
+  resource: "people"
   appRoutes:
-    "people": "listPeople"
-    "people/:id": "showPerson"
-    "people/:id/*slug": "showPerson"
+    "": "list"
+    "/:id": "show"
+    "/:id/*slug": "showContents"
 
 API =
-  listPeople: ->
-    People.Index.Controller.listPeople()
-  showPerson: (id, slug) ->
-    People.Show.Controller.showPerson id, slug
-
-Toruzou.on "people:list", ->
-  Toruzou.navigate "people"
-  API.listPeople()
-
-Toruzou.on "person:sectionChanged", (options) ->
-  Toruzou.navigate "people/#{options.id}/#{options.slug}"
+  list: ->
+    People.Index.Controller.list()
+  show: (id) ->
+    People.Show.Controller.show id
+  showContents: (id, slug) ->
+    People.Show.Controller.show id, slug
 
 Toruzou.addInitializer -> new People.Router controller: API

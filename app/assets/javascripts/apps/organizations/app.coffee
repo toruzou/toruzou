@@ -1,27 +1,18 @@
 Organizations = Toruzou.module "Organizations"
 
-Organizations.Router = class OrganizationsRouter extends Marionette.AppRouter
+Organizations.Router = class OrganizationsRouter extends Toruzou.Common.ResourceRouter
+  resource: "organizations"
   appRoutes:
-    "organizations": "listOrganizations"
-    "organizations/:id": "showOrganization"
-    "organizations/:id/*slug": "showOrganization"
+    "": "list"
+    "/:id": "show"
+    "/:id/*slug": "showContents"
 
 API =
-  listOrganizations: ->
-    Organizations.Index.Controller.listOrganizations()
-  showOrganization: (id, slug) ->
-    Organizations.Show.Controller.showOrganization id, slug
-
-# TODO Remove following code
-Toruzou.on "authentication:signedIn", ->
-  Toruzou.navigate "organizations"
-  API.listOrganizations()
-
-Toruzou.on "organizations:list", ->
-  Toruzou.navigate "organizations"
-  API.listOrganizations()
-
-Toruzou.on "organization:sectionChanged", (options) ->
-  Toruzou.navigate "organizations/#{options.id}/#{options.slug}"
+  list: ->
+    Organizations.Index.Controller.list()
+  show: (id) ->
+    Organizations.Show.Controller.show id
+  showContents: (id, slug) ->
+    Organizations.Show.Controller.show id, slug
 
 Toruzou.addInitializer -> new Organizations.Router controller: API

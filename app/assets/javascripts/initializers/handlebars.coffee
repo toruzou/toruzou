@@ -17,10 +17,11 @@ Toruzou.addInitializer ->
       else
         options.inverse @
 
-  Handlebars.registerHelper "relativeUrl", (relative, key) ->
-    path = relative
-    path += "/#{key}" if key
-    Toruzou.linkTo path
+  Handlebars.registerHelper "linkTo", (path, params...) ->
+    # TODO This is not necessary, temporary workaround
+    handlerName = "route:#{path}"
+    return "/#" unless Toruzou.reqres.hasHandler handlerName
+    Toruzou.request handlerName, params...
 
   _.each [
     "amount"

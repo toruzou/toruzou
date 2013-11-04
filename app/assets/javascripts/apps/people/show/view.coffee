@@ -30,8 +30,8 @@ class Show.View extends Marionette.Layout
 
   show: (slug) ->
     return unless slug
-    _.each @$el.find("section"), (section) -> $(section).removeClass "active"
-    @$el.find("##{slug}").addClass "active"
+    @switchActive slug
+    Toruzou.execute "navigate:people:showContents", @model.get("id"), slug
     switch slug
       when "updates"
         @showUpdates()
@@ -43,7 +43,10 @@ class Show.View extends Marionette.Layout
         @showDeals()
       when "files"
         @showFiles()
-    Toruzou.trigger "person:sectionChanged", id: @model.get("id"), slug: slug
+
+  switchActive: (slug) ->
+    _.each @$el.find("section"), (section) -> $(section).removeClass "active"
+    @$el.find("##{slug}").addClass "active"
 
   showUpdates: ->
     $.when(Toruzou.request "updates:fetch", person_id: @model.get "id").done (updates) =>
@@ -83,14 +86,14 @@ class Show.View extends Marionette.Layout
   delete: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    @model.destroy success: (model, response) -> Toruzou.trigger "people:list"
+    @model.destroy success: (model, response) -> Toruzou.execute "show:people:list"
 
   restore: (e) ->
     e.preventDefault()
     e.stopPropagation()
     @model.save @model.attributes,
       url: _.result(@model, "url") + "?restore=true"
-      success: (model, response) -> Toruzou.trigger "people:list"
+      success: (model, response) -> Toruzou.execute "show:people:list"
 
   refresh: (model) ->
     slug = @$el.find("section.active").attr "id"

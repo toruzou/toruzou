@@ -23,25 +23,25 @@
     {{#if organization}}
     <div class="property">
       <span class="label">Organization</span>
-      <span class="value"><a href="{{relativeUrl "organizations" organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
+      <span class="value"><a href="{{linkTo "organizations:show" organization.id}}">{{organization.name}}{{#if organization.abbreviation}} ({{organization.abbreviation}}){{/if}}</a></span>
     </div>
     {{/if}}
     {{#if contact}}
     <div class="property">
       <span class="label">Contact Person</span>
-      <span class="value"><a href="{{relativeUrl "people" contact.id}}">{{contact.name}}</a></span>
+      <span class="value"><a href="{{linkTo "people:show" contact.id}}">{{contact.name}}</a></span>
     </div>
     {{/if}}
     {{#if pm}}
     <div class="property">
       <span class="label">Project Manager</span>
-      <span class="value"><a href="{{relativeUrl "users" pm.id}}">{{pm.name}}</a></span>
+      <span class="value"><a href="{{linkTo "users:show" pm.id}}">{{pm.name}}</a></span>
     </div>
     {{/if}}
     {{#if sales}}
     <div class="property">
       <span class="label">Sales Person</span>
-      <span class="value"><a href="{{relativeUrl "users" sales.id}}">{{sales.name}}</a></span>
+      <span class="value"><a href="{{linkTo "users:show" sales.id}}">{{sales.name}}</a></span>
     </div>
     {{/if}}
     {{#if amount}}

@@ -25,7 +25,7 @@ class Bootstrap.Launcher
   launchApplication: ->
     @launch Toruzou.Configuration.root
     if Backbone.history.fragment is ""
-      Toruzou.trigger "users:signIn"
+      Toruzou.execute "show:users:signIn"
 
   launch: (root) ->
     @handleAnchors root
@@ -42,4 +42,5 @@ class Bootstrap.Launcher
         e.preventDefault()
         Backbone.history.navigate href.attr, true
 
+Toruzou.on "authentication:signedIn", -> Toruzou.execute "show:deals:list"
 Toruzou.addInitializer -> new Bootstrap.Launcher()

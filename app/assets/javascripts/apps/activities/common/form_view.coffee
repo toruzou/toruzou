@@ -87,7 +87,6 @@ class Common.EditFormView extends Marionette.Layout
         @showForm()
       when "files"
         @showFiles()
-    Toruzou.trigger "activity:sectionChanged", id: @model.get("id"), slug: slug
 
   showForm: ->
     formView = new Common.FormView(_.omit @options, "title")

@@ -16,7 +16,7 @@ class Index.GridView extends Toruzou.Common.GridView
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("organizations/" + rawValue["id"]) else null
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:organizations:show", rawValue["id"] else null
     }
     {
       name: "contact"
@@ -24,7 +24,7 @@ class Index.GridView extends Toruzou.Common.GridView
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("people/" + rawValue["id"]) else null
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:people:show", rawValue["id"] else null
     }
     {
       name: "pm"
@@ -32,7 +32,7 @@ class Index.GridView extends Toruzou.Common.GridView
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:users:show", rawValue["id"] else null
     }
     {
       name: "sales"
@@ -40,7 +40,7 @@ class Index.GridView extends Toruzou.Common.GridView
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.linkTo("users/" + rawValue["id"]) else null
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:users:show", rawValue["id"] else null
     }
     {
       name: "status"

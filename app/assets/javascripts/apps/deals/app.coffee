@@ -1,22 +1,18 @@
 Deals = Toruzou.module "Deals"
 
-Deals.Router = class DealsRouter extends Marionette.AppRouter
+Deals.Router = class DealsRouter extends Toruzou.Common.ResourceRouter
+  resource: "deals"
   appRoutes:
-    "deals": "listDeals"
-    "deals/:id": "showDeal"
-    "deals/:id/*slug": "showDeal"
+    "": "list"
+    "/:id": "show"
+    "/:id/*slug": "showContents"
 
 API =
-  listDeals: ->
-    Deals.Index.Controller.listDeals()
-  showDeal: (id, slug) ->
-    Deals.Show.Controller.showDeal id, slug
-
-Toruzou.on "deals:list", ->
-  Toruzou.navigate "deals"
-  API.listDeals()
-
-Toruzou.on "deal:sectionChanged", (options) ->
-  Toruzou.navigate "deals/#{options.id}/#{options.slug}"
+  list: ->
+    Deals.Index.Controller.list()
+  show: (id) ->
+    Deals.Show.Controller.show id
+  showContents: (id, slug) ->
+    Deals.Show.Controller.show id, slug
 
 Toruzou.addInitializer -> new Deals.Router controller: API

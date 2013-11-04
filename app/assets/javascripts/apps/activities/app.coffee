@@ -1,15 +1,12 @@
 Activities = Toruzou.module "Activities"
 
-Activities.Router = class ActivitiesRouter extends Marionette.AppRouter
+Activities.Router = class ActivitiesRouter extends Toruzou.Common.ResourceRouter
+  resource: "activities"
   appRoutes:
-    "activities": "listActivities"
+    "": "list"
 
 API =
-  listActivities: ->
-    Activities.Index.Controller.listActivities()
-
-Toruzou.on "activities:list", ->
-  Toruzou.navigate "activities"
-  API.listActivities()
+  list: ->
+    Activities.Index.Controller.list()
 
 Toruzou.addInitializer -> new Activities.Router controller: API

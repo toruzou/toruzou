@@ -2,7 +2,7 @@ Show = Toruzou.module "Users.Show"
 
 Show.Controller =
   
-  showUser: (id, slug) ->
+  show: (id, slug) ->
     $.when(Toruzou.request "user:fetch", id).done (user) ->
       layout = Toruzou.Common.ApplicationLayout.show()
       view = new Show.View model: user
