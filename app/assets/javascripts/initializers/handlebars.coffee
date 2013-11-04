@@ -21,6 +21,7 @@ Toruzou.addInitializer ->
     # TODO This is not necessary, temporary workaround
     handlerName = "route:#{path}"
     return "/#" unless Toruzou.reqres.hasHandler handlerName
+    params.pop()
     Toruzou.request handlerName, params...
 
   _.each [
