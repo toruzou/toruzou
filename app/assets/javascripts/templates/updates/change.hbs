@@ -1,12 +1,12 @@
 <div class="changelog">
-  <header><a href="{{linkTo "users:show" audit.user.id}}">{{audit.user.name}}</a> {{audit.action}} {{#unless auditableName}}{{subjectType}}{{/unless}} <a href="{{linkTo subjectRoute subjectId}}">{{subjectName}}</a>{{#if auditableName}} 's {{auditableName}}{{/if}}</header>
-  {{#match audit.action "ne" "destroy"}}
+  <header><a href="{{linkTo "users:show" audit.user.id}}">{{audit.user.name}}</a> {{action}} {{{subjectHeader}}}</header>
+  {{#match action "ne" "destroy"}}
     <section class="contents">
       <ul class="changesets">
       {{#each changes}}
         <li>
           <span class="property">{{propertyName}}</span>
-          {{#match ../audit.action "ne" "added"}}
+          {{#match ../action "ne" "added"}}
           <span class="change{{#unless before}} empty{{/unless}}">{{before}}</span>
           <i class="icon-arrow-right icon-inline-center"></i>
           {{/match}}

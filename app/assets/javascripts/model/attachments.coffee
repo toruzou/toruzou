@@ -22,3 +22,6 @@ API =
     collection.fetch()
 
 Toruzou.reqres.setHandler "attachments:fetch", API.getAttachments
+Toruzou.reqres.setHandler "linkTo:attachment:download", (name, id) ->
+  model = new Model.Attachment id: id
+  "<a href=\"#{_.result model, "url"}\" data-bypass>#{name}</a>"

@@ -8,7 +8,7 @@ class Career < ActiveRecord::Base
   after_destroy :destroy_updates
 
   def update_destinations_for(audit)
-    [ self.person ]
+    self.person.update_destinations_for(audit)
   end
 
   def destroy_updates

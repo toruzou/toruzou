@@ -13,11 +13,15 @@ class Common.ResourceRouter extends Marionette.AppRouter
 
   bindHandlers: (resourceRoute, name) ->
     @bindRouteHandler resourceRoute, name
+    @bindLinkToHandler resourceRoute, name
     @bindNavigateHandler resourceRoute, name
     @bindShowHandler resourceRoute, name
 
   bindRouteHandler: (resourceRoute, name) ->
     Toruzou.reqres.setHandler "route:#{@resource}:#{name}", (params...) => @routeFor(resourceRoute, params...)
+
+  bindLinkToHandler: (resourceRoute, name) ->
+    Toruzou.reqres.setHandler "linkTo:#{@resource}:#{name}", (name, params...) => "<a href=\"#{@routeFor(resourceRoute, params...)}\">#{name}</a>"
 
   bindNavigateHandler: (resourceRoute, name) ->
     Toruzou.commands.setHandler "navigate:#{@resource}:#{name}", (params...) => Toruzou.navigate @routeFor(resourceRoute, params...)

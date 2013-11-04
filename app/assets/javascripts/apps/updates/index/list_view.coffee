@@ -50,18 +50,11 @@ class Index.ChangeItemView extends Marionette.ItemView
   template: "updates/change"
 
   # TODO ugly, should refactor
-  # TODO Fix link of attachments, career etc
   serializeData: ->
     data = super
-    data.audit.action = Toruzou.Configuration.bundles.actions[data.audit.action]
-    klazz = Toruzou.Model[data.audit.auditable_type]
-    auditable = data.auditable = new klazz data.audit.auditable
-    subject = data.updateSubject = if auditable.updateSubject then _.result auditable, "updateSubject" else auditable
-    subjectType = data.subjectType = subject.constructor.name.toLowerCase()
-    subjectRoute = data.subjectRoute = "#{Toruzou.Configuration.routes[subject.constructor.name]}:show"
-    subjectName = data.subjectName = subject.get "name"
-    auditableName = data.auditableName = data.audit.auditable_type.toLowerCase() if auditable.updateSubject
-    subjectId = data.subjectId = if subject then subject.id else auditable.id
+    data.action = Toruzou.Configuration.bundles.actions[data.audit.action]
+    auditable = data.auditable = new Toruzou.Model[data.audit.auditable_type] data.audit.auditable
+    data.subjectHeader = @createSubjectHeader auditable, data.audit.action
     changes = data.changes = {}
     serializeChange = (key, change) -> auditable.format key, change
     for key, change of data.audit.changes
@@ -71,6 +64,39 @@ class Index.ChangeItemView extends Marionette.ItemView
         before: serializeChange key, change[0]
         after: serializeChange key, change[1]
     data
+
+  # TODO ugly
+  createSubjectHeader: (auditable, action) ->
+    switch auditable.constructor.name
+      when "Deal"
+        header = Toruzou.request "linkTo:deals:show", auditable.get("name"), auditable.get("id")
+        organization = auditable.get "organization"
+        header += " with " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
+        "a deal " + header
+      when "Person"
+        header = Toruzou.request "linkTo:people:show", auditable.get("name"), auditable.get("id")
+        organization = auditable.get "organization"
+        header += " of " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
+        "a person " + header
+      when "Organization"
+        header = Toruzou.request "linkTo:organizations:show", auditable.get("name"), auditable.get("id")
+        "an organization " + header
+      when "User"
+        header = Toruzou.request "linkTo:users:show", auditable.get("name"), auditable.get("id")
+        "a user " + header
+      when "Career"
+        person = auditable.get "person"
+        header = Toruzou.request "linkTo:people:show", person.name, person.id
+        header + "'s career"
+      when "Attachment"
+        header = Toruzou.request "linkTo:attachment:download", auditable.get("name"), auditable.get("id")
+        header = "an attachment " + header
+        attachable = new Toruzou.Model[auditable.get "attachable_type"] auditable.get "attachable"
+        route = Toruzou.Configuration.routes[attachable.constructor.name]
+        link = Toruzou.request "linkTo:#{route}:show", attachable.get("name"), attachable.get("id")
+        header += " to " + link
+      else
+        throw new Error "Unexpected auditable"
 
 class Index.UpdateItemView extends Marionette.Layout
 

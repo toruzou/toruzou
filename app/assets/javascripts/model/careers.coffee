@@ -35,9 +35,6 @@ Model.Career = class Career extends Backbone.Model
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
 
-  updateSubject: ->
-    new Model.Person(@get "person")
-
 Model.Careers = class Careers extends Backbone.PageableCollection
 
   url: Model.endpoint "careers"

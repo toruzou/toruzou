@@ -8,7 +8,7 @@ class Attachment < ActiveRecord::Base
   after_destroy :destroy_updates
 
   def update_destinations_for(audit)
-    [ self.attachable ]
+    self.attachable.update_destinations_for(audit)
   end
 
   def destroy_updates
