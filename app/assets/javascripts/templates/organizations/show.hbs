@@ -29,7 +29,7 @@
     {{#if owner}}
     <div class="property">
       <span class="label">Owner</span>
-      <span class="value"><a href="{{linkTo "users:show" owner.id}}">{{owner.name}}</a></span>
+      <span class="value">{{{linkTo owner.name "users:show" owner.id}}}</span>
     </div>
     {{/if}}
     {{#if remarks}}

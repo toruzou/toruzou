@@ -17,12 +17,9 @@ Toruzou.addInitializer ->
       else
         options.inverse @
 
-  Handlebars.registerHelper "linkTo", (path, params...) ->
-    # TODO This is not necessary, temporary workaround
-    handlerName = "route:#{path}"
-    return "/#" unless Toruzou.reqres.hasHandler handlerName
+  Handlebars.registerHelper "linkTo", (name, path, params...) ->
     params.pop()
-    Toruzou.request handlerName, params...
+    Toruzou.request "linkTo:#{path}", name, params...
 
   _.each [
     "amount"

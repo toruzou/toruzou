@@ -9,7 +9,7 @@
 <ul class="users inline-list">
   {{#if users}}
   {{#each users}}
-  <li class="user"><a href="{{linkTo "users:show" id}}">{{name}}</a></li>
+  <li class="user">{{{linkTo name "users:show" id}}}</li>
   {{/each}}
   {{else}}
   <li class="alert">No one is assigned</li>

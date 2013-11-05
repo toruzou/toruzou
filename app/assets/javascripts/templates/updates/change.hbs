@@ -1,5 +1,5 @@
 <div class="changelog">
-  <header><a href="{{linkTo "users:show" audit.user.id}}">{{audit.user.name}}</a> {{action}} {{{subjectHeader}}}</header>
+  <header>{{{linkTo audit.user.name "users:show" audit.user.id}}} {{action}} {{{subjectHeader}}}</header>
   {{#match action "ne" "destroy"}}
     <section class="contents">
       <ul class="changesets">
