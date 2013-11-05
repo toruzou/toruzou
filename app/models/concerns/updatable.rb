@@ -7,6 +7,7 @@ module Updatable
   end
 
   def save_updates
+    return if self.latest_diff.empty?
     auditable = self.auditable
     if auditable.respond_to?(:filter_update_events_for)
       return unless auditable.filter_update_events_for(self)
