@@ -28,7 +28,7 @@ class Common.ResourceRouter extends Marionette.AppRouter
 
   bindShowHandler: (resourceRoute, name) ->
     Toruzou.commands.setHandler "show:#{@resource}:#{name}", (params...) =>
-      Toruzou.navigate @routeFor(resourceRoute)
+      Toruzou.navigate @routeFor(resourceRoute, params...)
       @_getController()?[name]?(params...)
 
   routeFor: (resourceRoute, params...) ->
