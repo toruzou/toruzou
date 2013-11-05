@@ -33,7 +33,7 @@ module Api
 
       # POST /activities
       def create
-        @activity = Activity.new(activity_params)
+        @activity = Activity.new(activity_update_params)
         @activity.users = User.find(users_params[:users_ids] ||= [])
         @activity.people = Person.find(people_params[:people_ids] ||= [])
         if @activity.save
@@ -46,10 +46,11 @@ module Api
       # PATCH/PUT /activities/1
       def update
         if params[:restore].present? and params[:restore] == "true"
+          @activity.changed_by = current_user
           @activity.restore!
           render json: @activity
         else
-          @activity.assign_attributes(activity_params)
+          @activity.assign_attributes(activity_update_params)
           @activity.users.clear
           @activity.users = User.find(users_params[:users_ids] ||= [])
           @activity.people.clear
@@ -64,6 +65,7 @@ module Api
 
       # DELETE /activities/1
       def destroy
+        @activity.changed_by = current_user
         @activity.destroy
         render json: @activity
       end
@@ -75,7 +77,7 @@ module Api
         end
 
         # Only allow a trusted parameter "white list" through.
-        def activity_params
+        def activity_update_params
           params.require(:activity).permit(
             :subject,
             :action,
@@ -84,7 +86,7 @@ module Api
             :done,
             :organization_id,
             :deal_id
-          )
+          ).merge(:changed_by => current_user)
         end
 
         def users_params

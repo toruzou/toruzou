@@ -71,7 +71,7 @@ class Index.ChangeItemView extends Marionette.ItemView
       when "Deal"
         header = Toruzou.request "linkTo:deals:show", auditable.get("name"), auditable.get("id")
         organization = auditable.get "organization"
-        header += " with " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
+        header += " of " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
         "a deal " + header
       when "Person"
         header = Toruzou.request "linkTo:people:show", auditable.get("name"), auditable.get("id")
@@ -95,6 +95,17 @@ class Index.ChangeItemView extends Marionette.ItemView
         route = Toruzou.Configuration.routes[attachable.constructor.name]
         link = Toruzou.request "linkTo:#{route}:show", attachable.get("name"), attachable.get("id")
         header += " to " + link
+      when "Activity"
+        # TODO activity link
+        header = auditable.get "subject"
+        header = " an activity " + header
+        deal = auditable.get "deal"
+        header += " to " + Toruzou.request "linkTo:deals:show", deal.name, deal.id if deal
+        organization = auditable.get "organization"
+        header += " #{if deal then "of" else "to"} " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
+        people = auditable.get "people"
+        header += " with " + (_.map people, (person) -> Toruzou.request "linkTo:people:show", person.name, person.id).join ", " if people
+        header 
       else
         throw new Error "Unexpected auditable"
 
@@ -110,9 +121,6 @@ class Index.UpdateItemView extends Marionette.Layout
     switch audit.get("auditable_type")
       when "Note"
         view = new Index.NoteItemView model: audit
-      when "Activity"
-        # TODO
-        console.log "TODO: Activity"
       else
         view = new Index.ChangeItemView model: @model
     @updateRegion.show view if view

@@ -4,10 +4,10 @@ class Activity < ActiveRecord::Base
 
   belongs_to :organization
   belongs_to :deal
-  has_many :participants, :dependent => :destroy
-  has_many :users, :through => :participants, :source => :participable, :source_type => 'User', :dependent => :delete_all
-  has_many :people, :through => :participants, :source => :participable, :source_type => 'Contact', :dependent => :delete_all
-  has_many :attachments, :as => :attachable, :dependent => :delete_all
+  has_many :participants
+  has_many :users, :through => :participants, :source => :participable, :source_type => 'User'
+  has_many :people, :through => :participants, :source => :participable, :source_type => 'Contact'
+  has_many :attachments, :as => :attachable
   has_many :audits, :as => :auditable
 
   scope :in_organization, -> (organization_id) {
@@ -73,5 +73,13 @@ class Activity < ActiveRecord::Base
   validates :date, presence: true
 
   audit :subject, :action, :date, :note, :done, :organization, :deal, :users, :people
+
+  def update_destinations_for(audit)
+    destinations = []
+    destinations += self.organization.update_destinations_for(audit) if self.organization.present?
+    destinations += self.deal.update_destinations_for(audit) if self.deal.present?
+    self.people.each { |person| destinations += person.update_destinations_for(audit) } if self.people.present?
+    destinations
+  end
   
 end

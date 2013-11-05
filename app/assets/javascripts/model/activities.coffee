@@ -56,22 +56,31 @@ Model.Activity = class Activity extends Backbone.Model
           option: (item, escape) => "<div>#{Activity::renderAction item.text}</div>"
     date:
       type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
     organizationId: $.extend true, {},
       Model.Schema.Organization,
       title: "Organization"
       key: "organization"
+    organization:
+      formatter: (value) -> value?.name
     dealId: $.extend true, {},
       Model.Schema.Deal,
       title: "Deal"
       key: "deal"
+    deal:
+      formatter: (value) -> value?.name
     usersIds: $.extend true, {},
       Model.Schema.Users,
       title: "Users"
       key: "users"
+    users:
+      formatter: (value) -> (_.pluck value, "name").join ", "
     peopleIds: $.extend true, {},
       Model.Schema.People,
       title: "Contacts"
       key: "people"
+    people:
+      formatter: (value) -> (_.pluck value, "name").join ", "
     note:
       type: "TextArea"
     done:

@@ -61,7 +61,7 @@ class Deal < ActiveRecord::Base
     allow_nil:true,
     allow_blank: true
 
-  audit :name, :organization, :pm, :sales, :contact, :status, :amount, :accuracy, :start_date, :order_date, :accept_date
+  audit :name, :organization, :pm, :sales, :contact, :status, :amount, :accuracy, :start_date, :order_date, :accept_date, :deleted_at
 
   def update_destinations_for(audit)
     [ self, self.organization ]
