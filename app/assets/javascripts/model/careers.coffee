@@ -21,9 +21,11 @@ Model.Career = class Career extends Backbone.Model
   schema:
     fromDate:
       type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
       validators: [ _.partial required, "fromDate" ]
     toDate:
       type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
       validators: [ _.partial required, "toDate" ]
     department:
       type: "Text"
