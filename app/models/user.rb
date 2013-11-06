@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  include Followable
+
   has_many :participants, :as => :participable, :dependent => :destroy
   has_many :activities, :as => :participable, :through => :participants
   has_many :updates, :as => :receivable

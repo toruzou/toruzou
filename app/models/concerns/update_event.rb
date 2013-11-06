@@ -1,12 +1,12 @@
-module Updatable
+module UpdateEvent
 
   extend ActiveSupport::Concern
 
   included do
-    after_create :save_updates
+    after_create :publish
   end
 
-  def save_updates
+  def publish
     return if self.latest_diff.empty?
     auditable = self.auditable
     if auditable.respond_to?(:filter_update_events_for)
@@ -15,13 +15,17 @@ module Updatable
     destinations = []
     destinations << self.changed_by if self.changed_by.present?
     destinations += auditable.update_destinations_for(self) if auditable.respond_to?(:update_destinations_for)
-    destinations.compact.uniq.each do |receivable|
+    destinations = destinations.compact.uniq
+    destinations.each do |receivable|
       Update.new(:audit => self, :receivable => receivable).save!
     end
-  end
-
-  def update_destinations_for(audit)
-    [ audit.changed_by ]
+    destinations.each do |receivable|
+      if receivable.respond_to?(:followers)
+        receivable.followers.compact.uniq.each do |follower|
+          Notification.new(:audit => self, :user => follower).save!
+        end
+      end
+    end
   end
 
 end

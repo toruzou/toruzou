@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103063822) do
+ActiveRecord::Schema.define(version: 20131106150336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,12 +119,31 @@ ActiveRecord::Schema.define(version: 20131103063822) do
   add_index "deals", ["pm_id"], name: "index_deals_on_pm_id", using: :btree
   add_index "deals", ["sales_id"], name: "index_deals_on_sales_id", using: :btree
 
+  create_table "followings", force: true do |t|
+    t.integer "user_id"
+    t.integer "followable_id"
+    t.string  "followable_type"
+  end
+
+  add_index "followings", ["followable_id"], name: "index_followings_on_followable_id", using: :btree
+  add_index "followings", ["user_id"], name: "index_followings_on_user_id", using: :btree
+
   create_table "notes", force: true do |t|
     t.integer  "subject_id"
     t.string   "subject_type"
     t.text     "message"
     t.datetime "deleted_at"
   end
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "audit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["audit_id"], name: "index_notifications_on_audit_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "participants", force: true do |t|
     t.integer "activity_id"

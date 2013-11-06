@@ -13,7 +13,7 @@ ActiveSupport.on_load(:active_record) do
   end
   module Auditable
     class Audit
-      include Updatable
+      include UpdateEvent
       def auditable
         klazz = self.auditable_type.split(/::/).inject(Object) { |c, n| c.const_get(n) }
         klazz.unscoped { super }

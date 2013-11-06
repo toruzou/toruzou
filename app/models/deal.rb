@@ -1,6 +1,7 @@
 class Deal < ActiveRecord::Base
 
   acts_as_paranoid
+  include Followable
 
   belongs_to :organization
   belongs_to :pm, :class_name => "User"

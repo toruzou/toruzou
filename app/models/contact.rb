@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
 
   acts_as_paranoid
+  include Followable
 
   belongs_to :owner, :class_name => "User"
   has_many :attachments, :as => :attachable
