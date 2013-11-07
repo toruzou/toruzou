@@ -1,5 +1,5 @@
 class PersonSerializer < ActivityAwareSerializer
-  attributes :id, :name, :organization, :organization_id, :phone, :email, :address, :remarks, :career, :owner, :owner_id, :deleted_at
+  attributes :id, :name, :organization, :organization_id, :phone, :email, :address, :remarks, :career, :owner, :owner_id, :deleted_at, :following
   def organization_id
     object.organization.nil? ? nil : object.organization.id
   end
@@ -8,5 +8,8 @@ class PersonSerializer < ActivityAwareSerializer
   end
   def career
     object.latest_career
+  end
+  def following
+    object.followed_by?(scope.current_user)
   end
 end

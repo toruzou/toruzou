@@ -72,8 +72,16 @@ API =
   getOrganizations: (options) ->
     collection = API.createOrganizations options
     collection.fetch()
+  follow: (id) ->
+    model = API.createOrganization id: id
+    model.save url: "#{_.result model, "url"}/following"
+  unfollow: (id) ->
+    model = API.createOrganization id: id
+    model.destroy url: "#{_.result model, "url"}/following"
 
 Toruzou.reqres.setHandler "organization:new", API.createOrganization
 Toruzou.reqres.setHandler "organizations:new", API.createOrganizations
 Toruzou.reqres.setHandler "organization:fetch", API.getOrganization
 Toruzou.reqres.setHandler "organizations:fetch", API.getOrganizations
+Toruzou.reqres.setHandler "organization:follow", API.follow
+Toruzou.reqres.setHandler "organization:unfollow", API.unfollow

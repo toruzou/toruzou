@@ -39,6 +39,9 @@ Toruzou.addInitializer ->
       options = attributes or {} if _.isUndefined options
       dfd = $.Deferred()
       options.success = _.wrap options.success, (success, model, response, options) ->
+        if method is "destroy"
+          attributes = model.parse response, options
+          model.set attributes if attributes
         success model, response, options if success
         dfd.resolve model, response, options
       options.error = _.wrap options.error, (error, model, response, options) ->

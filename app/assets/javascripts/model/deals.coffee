@@ -126,8 +126,16 @@ API =
   getDeals: (options) ->
     collection = API.createDeals options
     collection.fetch()
+  follow: (id) ->
+    model = API.createDeal id: id
+    model.save url: "#{_.result model, "url"}/following"
+  unfollow: (id) ->
+    model = API.createDeal id: id
+    model.destroy url: "#{_.result model, "url"}/following"
 
 Toruzou.reqres.setHandler "deal:new", API.createDeal
 Toruzou.reqres.setHandler "deals:new", API.createDeals
 Toruzou.reqres.setHandler "deal:fetch", API.getDeal
 Toruzou.reqres.setHandler "deals:fetch", API.getDeals
+Toruzou.reqres.setHandler "deal:follow", API.follow
+Toruzou.reqres.setHandler "deal:unfollow", API.unfollow

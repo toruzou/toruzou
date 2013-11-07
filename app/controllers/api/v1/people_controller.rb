@@ -5,7 +5,7 @@ module Api
 
       include Pageable
 
-      before_action :set_person, only: [:show, :edit, :update, :destroy]
+      before_action :set_person, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
 
       # GET /people
       def index
@@ -66,6 +66,16 @@ module Api
       def destroy
         @person.changed_by = current_user
         @person.destroy
+        render json: @person
+      end
+
+      def follow
+        @person.follow_by(current_user)
+        render json: @person
+      end
+
+      def unfollow
+        @person.unfollow_by(current_user)
         render json: @person
       end
 

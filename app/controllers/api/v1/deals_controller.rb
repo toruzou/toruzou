@@ -4,7 +4,7 @@ module Api
 
       include Pageable
 
-      before_action :set_deal, only: [:show, :edit, :update, :destroy]
+      before_action :set_deal, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
 
       # GET /deals
       def index
@@ -59,6 +59,16 @@ module Api
       def destroy
         @deal.changed_by = current_user
         @deal.destroy
+        render json: @deal
+      end
+
+      def follow
+        @deal.follow_by(current_user)
+        render json: @deal
+      end
+
+      def unfollow
+        @deal.unfollow_by(current_user)
         render json: @deal
       end
 

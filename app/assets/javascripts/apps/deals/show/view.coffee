@@ -12,6 +12,8 @@ class Show.View extends Marionette.Layout
     "click #edit-button": "edit"
     "click #delete-button": "delete"
     "click #restore-button": "restore"
+    "click #follow-button": "follow"
+    "click #unfollow-button": "unfollow"
     "click [data-section-title]": "sectionChanged"
 
   constructor: (options) ->
@@ -21,6 +23,16 @@ class Show.View extends Marionette.Layout
         @model = deal
         @showActivitiesPanel()
     Toruzou.Activities.on "activity:saved activity:deleted", @activitiesHandler
+
+  follow: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    Toruzou.request("deal:follow", @model.get "id").done (model) => @refresh model
+
+  unfollow: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    Toruzou.request("deal:unfollow", @model.get "id").done (model) => @refresh model
 
   sectionChanged: (e) ->
     $section = $(e.target).closest("section")

@@ -101,6 +101,12 @@ API =
   getUsers: (options) ->
     collection = API.createUsers options
     collection.fetch()
+  follow: (id) ->
+    model = API.createUser id: id
+    model.save url: "#{_.result model, "url"}/following"
+  unfollow: (id) ->
+    model = API.createUser id: id
+    model.destroy url: "#{_.result model, "url"}/following"
 
 Toruzou.reqres.setHandler "user:credential:new", API.createCredential
 Toruzou.reqres.setHandler "user:registration:new", API.createRegistration
@@ -109,3 +115,5 @@ Toruzou.reqres.setHandler "user:new", API.createUser
 Toruzou.reqres.setHandler "users:new", API.createUsers
 Toruzou.reqres.setHandler "user:fetch", API.getUser
 Toruzou.reqres.setHandler "users:fetch", API.getUsers
+Toruzou.reqres.setHandler "user:follow", API.follow
+Toruzou.reqres.setHandler "user:unfollow", API.unfollow

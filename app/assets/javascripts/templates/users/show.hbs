@@ -2,6 +2,11 @@
   <div class="large-12 columns">
     <div class="description-container">
       <h4><i class="icon-user-md icon-inline-prefix"></i>{{name}}</h4>
+      {{#unless following}}
+      <a href="#" id="follow-button" class="small button primary">Follow</a>
+      {{else}}
+      <a href="#" id="unfollow-button" class="small button secondary">Unfollow</a>
+      {{/unless}}
     </div>
   </div>
 </div>

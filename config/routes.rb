@@ -12,22 +12,38 @@ Toruzou::Application.routes.draw do
       resources :updates
       resources :attachments
       resources :users do
+        member do
+          put "following" => "users#follow"
+          delete "following" => "users#unfollow"
+        end
         resources :notes
       end
       resources :organizations do
+        member do
+          put "following" => "organizations#follow"
+          delete "following" => "organizations#unfollow"
+        end
         resources :notes
         resources :attachments
       end
       resources :people do
+        member do
+          put "following" => "people#follow"
+          delete "following" => "people#unfollow"
+        end
         resources :notes
         resources :attachments
         resources :careers
       end
-      resources :activities do
+      resources :deals do
+        member do
+          put "following" => "deals#follow"
+          delete "following" => "deals#unfollow"
+        end
+        resources :notes
         resources :attachments
       end
-      resources :deals do
-        resources :notes
+      resources :activities do
         resources :attachments
       end
       resources :careers do

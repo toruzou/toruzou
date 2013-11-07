@@ -4,7 +4,7 @@ module Api
 
       include Pageable
 
-      before_action :set_deal, only: [:show]
+      before_action :set_user, only: [:show, :follow, :unfollow]
 
       def index
         @users = User.all
@@ -17,9 +17,19 @@ module Api
         render json: @user
       end
 
+      def follow
+        @user.follow_by(current_user)
+        render json: @user
+      end
+
+      def unfollow
+        @user.unfollow_by(current_user)
+        render json: @user
+      end
+
       private
 
-        def set_deal
+        def set_user
           @user = User.find(params[:id])
         end
 

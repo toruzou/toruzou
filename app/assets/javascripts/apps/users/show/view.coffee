@@ -11,6 +11,8 @@ class Show.View extends Marionette.Layout
     dealsRegion: "#deals [data-section-content]"
     filesRegion: "#files [data-section-content]"
   events:
+    "click #follow-button": "follow"
+    "click #unfollow-button": "unfollow"
     "click [data-section-title]": "sectionChanged"
 
   constructor: (options) ->
@@ -20,6 +22,24 @@ class Show.View extends Marionette.Layout
         @model = user
         @showActivitiesPanel()
     Toruzou.Activities.on "activity:saved activity:deleted", @activitiesHandler
+
+  follow: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    Toruzou.request("user:follow", @model.get "id").done (model) => @refresh model
+
+  unfollow: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    Toruzou.request("user:unfollow", @model.get "id").done (model) => @refresh model
+
+  refresh: (model) ->
+    slug = @$el.find("section.active").attr "id"
+    @model = model
+    console.log "render", model
+    @render()
+    @show slug
+    @showActivitiesPanel()
 
   sectionChanged: (e) ->
     $section = $(e.target).closest("section")

@@ -80,8 +80,16 @@ API =
   getPeople: (options) ->
     collection = API.createPeople options
     collection.fetch()
+  follow: (id) ->
+    model = API.createPerson id: id
+    model.save url: "#{_.result model, "url"}/following"
+  unfollow: (id) ->
+    model = API.createPerson id: id
+    model.destroy url: "#{_.result model, "url"}/following"
 
 Toruzou.reqres.setHandler "person:new", API.createPerson
 Toruzou.reqres.setHandler "people:new", API.createPeople
 Toruzou.reqres.setHandler "person:fetch", API.getPerson
 Toruzou.reqres.setHandler "people:fetch", API.getPeople
+Toruzou.reqres.setHandler "person:follow", API.follow
+Toruzou.reqres.setHandler "person:unfollow", API.unfollow

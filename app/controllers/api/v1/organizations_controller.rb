@@ -5,7 +5,7 @@ module Api
 
       include Pageable
 
-      before_action :set_organization, only: [:show, :edit, :update, :destroy]
+      before_action :set_organization, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
 
       # GET /organizations
       def index
@@ -64,6 +64,16 @@ module Api
       def destroy
         @organization.changed_by = current_user
         @organization.destroy
+        render json: @organization
+      end
+
+      def follow
+        @organization.follow_by(current_user)
+        render json: @organization
+      end
+
+      def unfollow
+        @organization.unfollow_by(current_user)
         render json: @organization
       end
 
