@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106150336) do
+ActiveRecord::Schema.define(version: 20131108025547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,16 +135,6 @@ ActiveRecord::Schema.define(version: 20131106150336) do
     t.datetime "deleted_at"
   end
 
-  create_table "notifications", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "audit_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notifications", ["audit_id"], name: "index_notifications_on_audit_id", using: :btree
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
-
   create_table "participants", force: true do |t|
     t.integer "activity_id"
     t.integer "participable_id"
@@ -160,6 +150,7 @@ ActiveRecord::Schema.define(version: 20131106150336) do
     t.string   "receivable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   add_index "updates", ["audit_id"], name: "index_updates_on_audit_id", using: :btree

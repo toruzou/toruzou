@@ -1,32 +1,51 @@
 Model = Toruzou.module "Model"
 
-# TODO Refine validators (character length etc.)
-
-Model.Update = class Update extends Backbone.Model
-
-  urlRoot: Model.endpoint "updates"
-  modelName: "update"
-
-
 Model.Updates = class Updates extends Backbone.PageableCollection
 
-  url: Model.endpoint "updates"
-  model: Model.Update
   mode: "infinite"
 
   state:
     sortKey: "updated_at"
     order: 1
 
+Model.Changelog = class Changelog extends Backbone.Model
+
+  urlRoot: Model.endpoint "changelogs"
+  modelName: "changelog"
+
+Model.Changelogs = class Changelogs extends Model.Updates
+
+  url: Model.endpoint "changelogs"
+  model: Model.Changelog
+
+Model.Notification = class Notification extends Backbone.Model
+
+  urlRoot: Model.endpoint "notifications"
+  modelName: "notification"
+
+Model.Notifications = class Notifications extends Model.Updates
+
+  url: Model.endpoint "notifications"
+  model: Model.Notification
+
 
 API =
-  getUpdate: (id) ->
-    model = new Model.Update id: id
+  getChangelog: (id) ->
+    model = new Model.Changelog id: id
     model.fetch()
-  getUpdates: (options) ->
-    collection = new Model.Updates()
+  getChangelogs: (options) ->
+    collection = new Model.Changelogs()
+    _.extend collection.queryParams, options
+    collection.fetch()
+  getNotification: (id) ->
+    model = new Model.Notification id: id
+    model.fetch()
+  getNotifications: (options) ->
+    collection = new Model.Notifications()
     _.extend collection.queryParams, options
     collection.fetch()
 
-Toruzou.reqres.setHandler "update:fetch", API.getUpdate
-Toruzou.reqres.setHandler "updates:fetch", API.getUpdates
+Toruzou.reqres.setHandler "changelog:fetch", API.getChangelog
+Toruzou.reqres.setHandler "changelogs:fetch", API.getChangelogs
+Toruzou.reqres.setHandler "notification:fetch", API.getNotification
+Toruzou.reqres.setHandler "notifications:fetch", API.getNotifications

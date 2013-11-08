@@ -61,8 +61,8 @@ class Show.View extends Marionette.Layout
     @$el.find("##{slug}").addClass "active"
 
   showUpdates: ->
-    $.when(Toruzou.request "updates:fetch", organization_id: @model.get "id").done (updates) =>
-      @updatesRegion.show new Toruzou.Updates.Index.ListView collection: updates, model: @model
+    $.when(Toruzou.request "changelogs:fetch", organization_id: @model.get "id").done (changelogs) =>
+      @updatesRegion.show new Toruzou.Updates.Index.ListView collection: changelogs, model: @model
 
   showActivities: ->
     $.when(Toruzou.request "activities:fetch", organization_id: @model.get "id").done (activities) =>

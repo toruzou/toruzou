@@ -1,0 +1,2 @@
+class ChangelogSerializer < UpdateSerializer
+end

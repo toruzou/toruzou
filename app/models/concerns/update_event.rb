@@ -17,12 +17,12 @@ module UpdateEvent
     destinations += auditable.update_destinations_for(self) if auditable.respond_to?(:update_destinations_for)
     destinations = destinations.compact.uniq
     destinations.each do |receivable|
-      Update.new(:audit => self, :receivable => receivable).save!
+      Changelog.new(:audit => self, :receivable => receivable).save!
     end
     destinations.each do |receivable|
       if receivable.respond_to?(:followers)
         receivable.followers.compact.uniq.each do |follower|
-          Notification.new(:audit => self, :user => follower).save!
+          Notification.new(:audit => self, :receivable => follower).save!
         end
       end
     end
