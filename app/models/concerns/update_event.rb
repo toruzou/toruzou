@@ -19,12 +19,13 @@ module UpdateEvent
     destinations.each do |receivable|
       Changelog.new(:audit => self, :receivable => receivable).save!
     end
-    destinations.each do |receivable|
-      if receivable.respond_to?(:followers)
-        receivable.followers.compact.uniq.each do |follower|
-          Notification.new(:audit => self, :receivable => follower).save!
-        end
+    followers = destinations.inject([]) do |followers, receivable|
+      if receivable.respond_to?(:followers) 
+        followers += receivable.followers
       end
+    end.compact.uniq
+    followers.each do |follower|
+      Notification.new(:audit => self, :receivable => follower).save!
     end
   end
 

@@ -62,7 +62,7 @@ class Show.View extends Marionette.Layout
 
   showUpdates: ->
     $.when(Toruzou.request "changelogs:fetch", organization_id: @model.get "id").done (changelogs) =>
-      @updatesRegion.show new Toruzou.Updates.Index.ListView collection: changelogs, model: @model
+      @updatesRegion.show new Toruzou.Changelogs.Index.ListView collection: changelogs, model: @model
 
   showActivities: ->
     $.when(Toruzou.request "activities:fetch", organization_id: @model.get "id").done (activities) =>

@@ -20,23 +20,23 @@ class Common.FormView extends Marionette.ItemView
   updateModel: ->
     @form.commit()
 
-  commit: (options) ->
-    options = options or= {}
+  commit: (options = {}) ->
+    dfd = $.Deferred()
     Toruzou.Common.Helpers.Notification.clear @$el
-    inputs = @$el.find("[type=\"submit\"]:enabled")
-    unless options.error
-      options.error = (model, response, options) =>
-        @onRequestError response if (response.status + "").match /^4\d{2}$/
-    options.complete = _.wrap options.complete, (complete, xhr, status) ->
-      inputs.removeAttr "disabled"
-      complete xhr, status if complete
-    inputs.attr "disabled", "disabled"
-    errors = @updateModel()
+    submits = @$el.find("[type=\"submit\"]:enabled")
+    errors = @form.commit()
     if errors
-      errors
+      dfd.reject errors
     else
       attributes = options.attributes or null
-      @model.save attributes, options
+      @model.save(attributes, options)
+        .done (model, response, options) ->
+          dfd.resolve model, response, options
+        .fail (model, response, options) =>
+          @onRequestError response if (response.status + "").match /^4\d{2}$/
+          dfd.reject model, response, options
+    dfd.promise().always ->
+      submits.removeAttr "disabled"
 
   onRequestError: (response) ->
     result = Toruzou.Common.Helpers.parseJSON response

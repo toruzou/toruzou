@@ -42,5 +42,5 @@ class Bootstrap.Launcher
         e.preventDefault()
         Backbone.history.navigate href.attr, true
 
-Toruzou.on "authentication:signedIn", -> Toruzou.execute "show:deals:list"
+Toruzou.on "authentication:signedIn", -> Toruzou.execute "show:timeline:list"
 Toruzou.addInitializer -> new Bootstrap.Launcher()

@@ -20,7 +20,8 @@ class SignIn.View extends Toruzou.Common.FormView
 
   signIn: (e) ->
     e.preventDefault()
-    @commit
-      success: (model, response) ->
-        Toruzou.currentUser = new Toruzou.Model.User response
-        Toruzou.trigger "authentication:signedIn"
+    @commit().done => @signInToRoute()
+
+  signInToRoute: ->
+    route = if @options.route then "#{@options.route}" else "timeline"
+    Toruzou.navigate route, trigger: true

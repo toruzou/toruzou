@@ -166,30 +166,3 @@ class Index.CollectionView extends Marionette.CollectionView
     return if @isClosed
     super
     $(window).off "scroll", @scrollHandler
-
-class Index.ListView extends Marionette.Layout
-
-  template: "updates/list"
-  regions:
-    noteEditorRegion: ".note-editor"
-    updatesRegion: ".updates-container"
-
-  constructor: (options) ->
-    super options
-    @handler = _.bind @refresh, @
-    Toruzou.Note.Common.on "note:saved note:deleted", @handler
-
-  onShow: ->
-    @noteEditorRegion.show new Toruzou.Note.New.View model: @model
-    @updatesRegion.show new Index.CollectionView collection: @collection
-
-  refresh: ->
-    @collection.getPage 1,
-      fetch: true
-      success: => @updatesRegion.currentView.render() if @updatesRegion and @updatesRegion.currentView
-        
-  close: ->
-    return if @isClosed
-    super
-    Toruzou.Note.Common.off "note:saved", @handler
-

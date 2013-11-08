@@ -1,5 +1,9 @@
 Model = Toruzou.module "Model"
 
+Model.Session = class Session extends Backbone.Model
+
+  urlRoot: Model.endpoint "session"
+
 Model.User = class User extends Backbone.Model
 
   urlRoot: Model.endpoint "users"
@@ -95,6 +99,8 @@ API =
     collection = new Model.Users()
     _.extend collection.queryParams, options
     collection
+  getSession: ->
+    new Model.Session().fetch()
   getUser: (id) ->
     model = API.createUser id: id
     model.fetch()
@@ -117,3 +123,4 @@ Toruzou.reqres.setHandler "user:fetch", API.getUser
 Toruzou.reqres.setHandler "users:fetch", API.getUsers
 Toruzou.reqres.setHandler "user:follow", API.follow
 Toruzou.reqres.setHandler "user:unfollow", API.unfollow
+Toruzou.reqres.setHandler "session:fetch", API.getSession

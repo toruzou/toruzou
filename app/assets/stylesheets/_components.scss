@@ -332,6 +332,16 @@ textarea {
     }
 }
 
+.timeline-header {
+    margin-bottom: 0.75em;
+}
+#notifications-container {
+    .column,
+    .columns {
+        padding-left: 0;
+    }
+}
+
 div[data-fields] {
     label {
         display: block;
@@ -355,6 +365,10 @@ div[data-fields] {
         background: $body-bg;
         border: none;
     }
+}
+
+.sidebar-container {
+    @extend .filter-container;
 }
 
 .field {
