@@ -39,5 +39,6 @@ class Common.ResourceRouter extends Marionette.AppRouter
       else
         param = encodeURIComponent param
       route = route.replace /(?:\:|\*)[^\/]+/, param
-    route = route.replace /\*.*$/, ""
+    route = route.replace /\(/, ""
+    route = route.replace /(?:\:|\*).*$/, ""
     route
