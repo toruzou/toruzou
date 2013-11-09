@@ -17,6 +17,10 @@ Toruzou.addInitializer ->
       else
         options.inverse @
 
+  Handlebars.registerHelper "route", (path, params...) ->
+    params.pop()
+    Toruzou.request "route:#{path}", params...
+
   Handlebars.registerHelper "linkTo", (name, path, params...) ->
     params.pop()
     Toruzou.request "linkTo:#{path}", name, params...
