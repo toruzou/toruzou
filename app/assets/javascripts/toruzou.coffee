@@ -21,9 +21,12 @@ Toruzou.Configuration =
       "destroy": "deleted"
       "restore": "restored"
 
-Toruzou.linkTo = (relative) ->
+Toruzou.linkTo = (relative = "") ->
   root = Toruzou.Configuration.root 
   "#{root}#{relative}"
+
+Toruzou.location = (relative = "") ->
+  window.location = "#{location.protocol}//#{location.host}#{Toruzou.linkTo relative}"
 
 Toruzou.navigate = (route, options) ->
   options or= {}

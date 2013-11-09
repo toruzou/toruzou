@@ -43,6 +43,13 @@ Model.UserCredential = class UserCredential extends Backbone.Model
       validators: [ "required" ]
 
 
+Model.SignOut = class SignOut extends Backbone.Model
+
+  url: Model.endpoint "users/sign_out"
+
+  isNew: -> false
+
+
 Model.UserRegistration = class UserRegistration extends Backbone.Model
 
   url: Model.endpoint "users"
@@ -101,6 +108,8 @@ API =
     collection
   getSession: ->
     new Model.Session().fetch()
+  signOut: ->
+    new Model.SignOut().destroy()
   getUser: (id) ->
     model = API.createUser id: id
     model.fetch()
@@ -124,3 +133,4 @@ Toruzou.reqres.setHandler "users:fetch", API.getUsers
 Toruzou.reqres.setHandler "user:follow", API.follow
 Toruzou.reqres.setHandler "user:unfollow", API.unfollow
 Toruzou.reqres.setHandler "session:fetch", API.getSession
+Toruzou.reqres.setHandler "signOut", API.signOut

@@ -156,6 +156,17 @@ textarea {
   padding: 0;
 }
 
+.top-bar {
+    .top-bar-section {
+        .has-form {
+            padding: 0;
+        }
+        .icon-button {
+            font-size: 1.25em;
+        }
+    }
+}
+
 .description-container {
     margin-top: 0.5em;
     margin-bottom: 0.5em;

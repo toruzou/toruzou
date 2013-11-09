@@ -16,6 +16,13 @@ class UnauthenticatedLayout extends Marionette.Layout
 class TopbarView extends Marionette.ItemView
 
   template: "layouts/topbar"
+  events:
+    "click #signOut-button": "signOut"
+
+  signOut: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    $.when(Toruzou.request "signOut").done -> Toruzou.location ""
 
 
 class ApplicationLayout extends Marionette.Layout

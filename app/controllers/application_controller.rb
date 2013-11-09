@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   serialization_scope :view_context
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session, :if => Proc.new { |c| c.request.format == 'application/json' }
   before_action :authenticate_user!
   before_action :configure_devise_parameters, if: :devise_controller?
 
