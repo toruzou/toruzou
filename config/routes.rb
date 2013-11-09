@@ -8,6 +8,7 @@ Toruzou::Application.routes.draw do
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
+      get "session" => "users#sessionInfo"
       resources :notes
       resources :changelogs
       resources :notifications

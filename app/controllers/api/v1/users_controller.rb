@@ -13,6 +13,10 @@ module Api
         render json: to_pageable(@users)
       end
 
+      def sessionInfo
+        render json: current_user, serializer: SessionSerializer
+      end
+
       def show
         render json: @user
       end

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :participants, :as => :participable, :dependent => :destroy
   has_many :activities, :as => :participable, :through => :participants
   has_many :updates, :as => :receivable
+  has_many :my_followings, ->(user) { where user_id: user.id }, class_name: "Following"
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
