@@ -1,6 +1,6 @@
 Organizations = Toruzou.module "Organizations"
 
-Organizations.Router = class OrganizationsRouter extends Toruzou.Common.ResourceRouter
+class Organizations.Router extends Toruzou.Common.ResourceRouter
   resource: "organizations"
   appRoutes:
     "": "list"

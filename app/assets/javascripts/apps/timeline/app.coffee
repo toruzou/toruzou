@@ -1,6 +1,6 @@
 Timeline = Toruzou.module "Timeline"
 
-Timeline.Router = class TimelineRouter extends Toruzou.Common.ResourceRouter
+class Timeline.Router extends Toruzou.Common.ResourceRouter
   resource: "timeline"
   appRoutes:
     "": "list"

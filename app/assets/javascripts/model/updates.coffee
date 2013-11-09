@@ -1,6 +1,6 @@
 Model = Toruzou.module "Model"
 
-Model.Updates = class Updates extends Backbone.PageableCollection
+class Model.Updates extends Backbone.PageableCollection
 
   mode: "infinite"
 
@@ -8,22 +8,22 @@ Model.Updates = class Updates extends Backbone.PageableCollection
     sortKey: "updated_at"
     order: 1
 
-Model.Changelog = class Changelog extends Backbone.Model
+class Model.Changelog extends Backbone.Model
 
   urlRoot: Model.endpoint "changelogs"
   modelName: "changelog"
 
-Model.Changelogs = class Changelogs extends Model.Updates
+class Model.Changelogs extends Model.Updates
 
   url: Model.endpoint "changelogs"
   model: Model.Changelog
 
-Model.Notification = class Notification extends Backbone.Model
+class Model.Notification extends Backbone.Model
 
   urlRoot: Model.endpoint "notifications"
   modelName: "notification"
 
-Model.Notifications = class Notifications extends Model.Updates
+class Model.Notifications extends Model.Updates
 
   url: Model.endpoint "notifications"
   model: Model.Notification

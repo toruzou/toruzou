@@ -2,7 +2,7 @@ Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Model.Person = class Person extends Backbone.Model
+class Model.Person extends Backbone.Model
 
   urlRoot: Model.endpoint "people"
   modelName: "person"
@@ -57,7 +57,7 @@ Model.Person = class Person extends Backbone.Model
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
 
-Model.People = class People extends Backbone.PageableCollection
+class Model.People extends Backbone.PageableCollection
 
   url: Model.endpoint "people"
   model: Model.Person

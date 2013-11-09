@@ -2,7 +2,7 @@ Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Model.Deal = class Deal extends Backbone.Model
+class Model.Deal extends Backbone.Model
 
   urlRoot: Model.endpoint "deals"
   modelName: "deal"
@@ -103,7 +103,7 @@ Model.Deal = class Deal extends Backbone.Model
     _.result(@, "url") + "/attachments"
     
 
-Model.Deals = class Deal extends Backbone.PageableCollection
+class Model.Deals extends Backbone.PageableCollection
 
   url: Model.endpoint "deals"
   model: Model.Deal

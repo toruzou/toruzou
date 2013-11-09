@@ -1,10 +1,10 @@
 Model = Toruzou.module "Model"
 
-Model.Session = class Session extends Backbone.Model
+class Model.Session extends Backbone.Model
 
   urlRoot: Model.endpoint "session"
 
-Model.User = class User extends Backbone.Model
+class Model.User extends Backbone.Model
 
   urlRoot: Model.endpoint "users"
 
@@ -13,7 +13,7 @@ Model.User = class User extends Backbone.Model
     note.subject = @
     note
 
-Model.Users = class Users extends Backbone.PageableCollection
+class Model.Users extends Backbone.PageableCollection
 
   url: Model.endpoint "users"
   model: Model.User
@@ -24,7 +24,7 @@ Model.Users = class Users extends Backbone.PageableCollection
 
 # TODO Refine validators (character length etc.)
 
-Model.UserCredential = class UserCredential extends Backbone.Model
+class Model.UserCredential extends Backbone.Model
 
   url: Model.endpoint "users/sign_in"
   modelName: "user"
@@ -43,14 +43,14 @@ Model.UserCredential = class UserCredential extends Backbone.Model
       validators: [ "required" ]
 
 
-Model.SignOut = class SignOut extends Backbone.Model
+class Model.SignOut extends Backbone.Model
 
   url: Model.endpoint "users/sign_out"
 
   isNew: -> false
 
 
-Model.UserRegistration = class UserRegistration extends Backbone.Model
+class Model.UserRegistration extends Backbone.Model
 
   url: Model.endpoint "users"
   modelName: "user"
@@ -79,7 +79,7 @@ Model.UserRegistration = class UserRegistration extends Backbone.Model
       ]
 
 
-Model.UserPasswordRecovery = class UserPasswordRecovery extends Backbone.Model
+class Model.UserPasswordRecovery extends Backbone.Model
 
   url: Model.endpoint "users/password"
   modelName: "user"

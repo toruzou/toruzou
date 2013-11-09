@@ -2,7 +2,7 @@ Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Model.Activity = class Activity extends Backbone.Model
+class Model.Activity extends Backbone.Model
 
   urlRoot: Model.endpoint "activities"
   modelName: "activity"
@@ -95,7 +95,7 @@ Model.Activity = class Activity extends Backbone.Model
     done
 
 
-Model.Activities = class Activity extends Backbone.PageableCollection
+class Model.Activities extends Backbone.PageableCollection
 
   url: Model.endpoint "activities"
   model: Model.Activity

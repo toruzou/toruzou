@@ -1,6 +1,6 @@
 Activities = Toruzou.module "Activities"
 
-Activities.Router = class ActivitiesRouter extends Toruzou.Common.ResourceRouter
+class Activities.Router extends Toruzou.Common.ResourceRouter
   resource: "activities"
   appRoutes:
     "": "list"

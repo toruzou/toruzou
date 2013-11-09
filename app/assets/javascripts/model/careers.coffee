@@ -5,7 +5,7 @@ required = (name, value, formValues) ->
     type: name
     message: "From Date or To Date is required"
 
-Model.Career = class Career extends Backbone.Model
+class Model.Career extends Backbone.Model
 
   urlRoot: Model.endpoint "careers"
   modelName: "career"
@@ -37,7 +37,7 @@ Model.Career = class Career extends Backbone.Model
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
 
-Model.Careers = class Careers extends Backbone.PageableCollection
+class Model.Careers extends Backbone.PageableCollection
 
   url: Model.endpoint "careers"
   model: Model.Career

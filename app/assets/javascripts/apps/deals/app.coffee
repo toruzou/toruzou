@@ -1,6 +1,6 @@
 Deals = Toruzou.module "Deals"
 
-Deals.Router = class DealsRouter extends Toruzou.Common.ResourceRouter
+class Deals.Router extends Toruzou.Common.ResourceRouter
   resource: "deals"
   appRoutes:
     "": "list"

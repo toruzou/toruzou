@@ -1,6 +1,6 @@
 People = Toruzou.module "People"
 
-People.Router = class PeopleRouter extends Toruzou.Common.ResourceRouter
+class People.Router extends Toruzou.Common.ResourceRouter
   resource: "people"
   appRoutes:
     "": "list"

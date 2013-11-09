@@ -2,7 +2,7 @@ Model = Toruzou.module "Model"
 
 # TODO Refine validators (character length etc.)
 
-Model.Note = class Note extends Backbone.Model
+class Model.Note extends Backbone.Model
 
   urlRoot: -> if @subject then (_.result @subject, "url") + "/notes" else Model.endpoint "notes"
   modelName: "note"
@@ -19,7 +19,7 @@ Model.Note = class Note extends Backbone.Model
       type: "TextArea"
 
 
-Model.Notes = class Notes extends Backbone.PageableCollection
+class Model.Notes extends Backbone.PageableCollection
 
   url: -> if @subject then (_.result @subject, "url") + "/notes" else Model.endpoint "notes"
   model: Model.Note

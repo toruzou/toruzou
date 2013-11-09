@@ -1,11 +1,11 @@
 Model = Toruzou.module "Model"
 
-Model.Attachment = class Attachment extends Backbone.Model
+class Model.Attachment extends Backbone.Model
 
   urlRoot: Model.endpoint "attachments"
 
 
-Model.Attachments = class Attachments extends Backbone.PageableCollection
+class Model.Attachments extends Backbone.PageableCollection
 
   url: Model.endpoint "attachments"
   model: Model.Attachment

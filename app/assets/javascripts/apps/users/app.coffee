@@ -1,6 +1,6 @@
 Users = Toruzou.module "Users"
 
-Users.Router = class UsersRouter extends Toruzou.Common.ResourceRouter
+class Users.Router extends Toruzou.Common.ResourceRouter
   resource: "users"
   appRoutes:
     "/sign_in": "signIn"
