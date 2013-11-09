@@ -71,8 +71,6 @@ class Bootstrap.Launcher
 
   launchApplication: ->
     @launch Toruzou.Configuration.root
-    if Backbone.history.fragment is ""
-      Toruzou.execute "show:users:signIn"
 
   launch: (root) ->
     @handleAnchors root
@@ -90,7 +88,7 @@ class Bootstrap.Launcher
         Backbone.history.navigate href.attr, true
 
 Toruzou.on "authentication:signedIn", (route) ->
-  route or= Toruzou.request "route:timeline:list"
+  route or= Toruzou.request "route::index"
   route = route.slice(1) if _.str.startsWith route, "/"
   Toruzou.location route
 

@@ -1,12 +1,12 @@
 Timeline = Toruzou.module "Timeline"
 
 class Timeline.Router extends Toruzou.Common.ResourceRouter
-  resource: "timeline"
+  resource: ""
   appRoutes:
-    "": "list"
+    "": "index"
 
 API =
-  list: ->
+  index: ->
     Timeline.Index.Controller.list()
 
 Toruzou.addInitializer -> new Timeline.Router controller: API
