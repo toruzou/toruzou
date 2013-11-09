@@ -12,7 +12,7 @@
     "backgrid": "~0.2.6",
     "handlebars": "~1.0.0",
     "momentjs": "~2.2.1",
-    "selectize": "~0.7.7",
+    "selectize": "~0.8.2",
     "pickadate": "~3.2.1",
     "dropzone": "~3.7.1"
   }
