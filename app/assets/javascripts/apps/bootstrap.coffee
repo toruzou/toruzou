@@ -1,5 +1,26 @@
 Bootstrap = Toruzou.module "Bootstrap"
 
+unauthorizedHandler = (xhr, status, e) ->
+  if xhr and xhr.status is 401
+    execute "error:unauthorized", xhr, status, e
+
+forbiddenHandler = (xhr, status, e) ->
+  if xhr and xhr.status is 403
+    execute "error:forbidden", xhr, status, e
+
+notFoundHandler = (xhr, status, e) ->
+  if xhr and xhr.status is 404
+    execute "error:notFound", xhr, status, e
+
+unknownErrorHandler = (xhr, status, e) ->
+  if xhr and xhr.status is 500
+    execute "error:unknown", xhr, status, e
+
+execute = (event, xhr, status, e) ->
+  message = response: Toruzou.Common.Helpers.parseJSON xhr
+  message.route = Toruzou.getCurrentRoute()
+  Toruzou.execute event, message
+
 class Bootstrap.Launcher
 
   constructor: ->
@@ -10,7 +31,7 @@ class Bootstrap.Launcher
   initializeApplication: ->
     @setupRegions()
     @setupLayouts()
-    @setupLoadingView()
+    @setupSync()
 
   setupRegions: ->
     Toruzou.addRegions
@@ -25,15 +46,21 @@ class Bootstrap.Launcher
         when "application"
           Toruzou.execute "layout:application:header:show"
           Toruzou.mainRegion.$el.removeClass "full-screen"
-        when "unauthenticated"
+        else
           Toruzou.execute "layout:application:header:hide"
           Toruzou.mainRegion.$el.addClass "full-screen"
-        else
-          throw new Error "unexpected layout: #{layout}"
 
-  setupLoadingView: ->
+  setupSync: ->
     sync = Backbone.sync
     Backbone.sync = (method, model, options) ->
+      errorHandlers = [
+        options.unauthorized or unauthorizedHandler
+        options.forbidden or forbiddenHandler
+        options.notFound or notFoundHandler
+        options.unknownError or unknownErrorHandler
+      ]
+      errorHandlers.unshift options.error if options.error
+      options.error = (xhr, status, e) -> handler(xhr, status, e) for handler in errorHandlers
       options.beforeSend = _.wrap options.beforeSend, (beforeSend, xhr) ->
         Toruzou.loadingRegion.show new Toruzou.Common.LoadingView()
         beforeSend @, xhr if beforeSend

@@ -21,6 +21,9 @@ Toruzou.Configuration =
       "destroy": "deleted"
       "restore": "restored"
 
+Toruzou.getCurrentRoute = ->
+  Backbone.history.fragment
+
 Toruzou.linkTo = (relative = "") ->
   root = Toruzou.Configuration.root 
   "#{root}#{relative}"
