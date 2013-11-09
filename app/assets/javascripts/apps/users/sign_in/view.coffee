@@ -14,17 +14,13 @@ class SignIn.FormView extends Toruzou.Common.FormView
       editorAttrs:
         placeholder: "Your password"
 
-  constructor: ->
-    model = Toruzou.request "user:credential:new"
-    super model: model
+  constructor: (options = {}) ->
+    options.model = Toruzou.request "user:credential:new"
+    super options
 
   signIn: (e) ->
     e.preventDefault()
-    @commit().done => @signInToRoute()
-
-  signInToRoute: ->
-    Toruzou.trigger "authentication:signedIn", @options.route
-
+    @commit().done => Toruzou.trigger "authentication:signedIn"
 
 class SignIn.View extends Toruzou.Users.Common.UnauthenticatedLayout
 

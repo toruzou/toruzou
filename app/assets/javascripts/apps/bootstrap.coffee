@@ -87,8 +87,8 @@ class Bootstrap.Launcher
         e.preventDefault()
         Backbone.history.navigate href.attr, true
 
-Toruzou.on "authentication:signedIn", (route) ->
-  route or= Toruzou.request "route::index"
+Toruzou.on "authentication:signedIn", ->
+  route = Toruzou.request "route::index"
   route = route.slice(1) if _.str.startsWith route, "/"
   Toruzou.location route
 

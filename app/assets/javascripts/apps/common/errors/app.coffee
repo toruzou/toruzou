@@ -9,8 +9,8 @@ API = Errors.API =
 
   unauthorized: (message) ->
     signInRoute = Toruzou.request "route:users:signIn"
-    route = if message.route then strip(message.route) else signInRoute
-    if Toruzou.getCurrentRoute() isnt signInRoute
+    route = if message.route then message.route else signInRoute
+    if strip(Toruzou.getCurrentRoute()) isnt strip(signInRoute)
       Toruzou.execute "show:users:signIn", message.route
 
   forbidden: (message) ->

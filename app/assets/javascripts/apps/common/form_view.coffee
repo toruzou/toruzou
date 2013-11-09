@@ -35,8 +35,7 @@ class Common.FormView extends Marionette.ItemView
         .fail (model, response, options) =>
           @onRequestError response if (response.status + "").match /^4\d{2}$/
           dfd.reject model, response, options
-    dfd.promise().always ->
-      submits.removeAttr "disabled"
+    dfd.promise().always -> submits.removeAttr "disabled"
 
   onRequestError: (response) ->
     result = Toruzou.Common.Helpers.parseJSON response
