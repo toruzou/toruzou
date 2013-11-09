@@ -4,6 +4,6 @@ Index.Controller =
   
   list: ->
     $.when(Toruzou.request "notifications:fetch").done (notifications) ->
-      layout = Toruzou.Common.ApplicationLayout.show()
-      layout.mainRegion.show new Index.View collection: notifications
+      Toruzou.mainRegion.show new Index.View collection: notifications
+      Toruzou.execute "set:layout", "application"
     

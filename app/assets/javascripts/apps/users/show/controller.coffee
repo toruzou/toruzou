@@ -4,9 +4,9 @@ Show.Controller =
   
   show: (id, slug) ->
     $.when(Toruzou.request "user:fetch", id).done (user) ->
-      layout = Toruzou.Common.ApplicationLayout.show()
       view = new Show.View model: user
-      layout.mainRegion.show view
+      Toruzou.mainRegion.show view
+      Toruzou.execute "set:layout", "application"
       if slug
         view.show slug
       else

@@ -4,6 +4,6 @@ Index.Controller =
   
   list: ->
     $.when(Toruzou.request "users:fetch").done (users) ->
-      layout = Toruzou.Common.ApplicationLayout.show()
-      layout.mainRegion.show(new Index.View collection: users)
+      Toruzou.mainRegion.show(new Index.View collection: users)
+      Toruzou.execute "set:layout", "application"
     

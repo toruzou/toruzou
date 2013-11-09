@@ -1,6 +1,6 @@
 RetrievePassword = Toruzou.module "Users.RetrievePassword"
 
-class RetrievePassword.View extends Toruzou.Common.FormView
+class RetrievePassword.FormView extends Toruzou.Common.FormView
 
   template: "users/retrieve_password"
   events:
@@ -23,3 +23,8 @@ class RetrievePassword.View extends Toruzou.Common.FormView
       error: (model, response) =>
         @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error
           message: "The email you entered did not match an email in our database."
+
+class RetrievePassword.View extends Toruzou.Users.Common.UnauthenticatedLayout
+
+  onShow: ->
+    @contentsRegion.show new RetrievePassword.FormView()

@@ -8,10 +8,30 @@ class Bootstrap.Launcher
       @launchApplication()
 
   initializeApplication: ->
+    @setupRegions()
+    @setupLayouts()
+    @setupLoadingView()
+
+  setupRegions: ->
     Toruzou.addRegions
-      mainRegion: "#application"
+      headerRegion: "#header-region"
+      mainRegion: "#main-region"
       loadingRegion: "#loading-region"
       dialogRegion: Toruzou.Common.DialogRegion.extend el: "#dialog-region"
+
+  setupLayouts: ->
+    Toruzou.commands.setHandler "set:layout", (layout) ->
+      switch layout
+        when "application"
+          Toruzou.execute "layout:application:header:show"
+          Toruzou.mainRegion.$el.removeClass "full-screen"
+        when "unauthenticated"
+          Toruzou.execute "layout:application:header:hide"
+          Toruzou.mainRegion.$el.addClass "full-screen"
+        else
+          throw new Error "unexpected layout: #{layout}"
+
+  setupLoadingView: ->
     sync = Backbone.sync
     Backbone.sync = (method, model, options) ->
       options.beforeSend = _.wrap options.beforeSend, (beforeSend, xhr) ->

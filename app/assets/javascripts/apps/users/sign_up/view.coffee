@@ -1,6 +1,6 @@
 SignUp = Toruzou.module "Users.SignUp"
 
-class SignUp.View extends Toruzou.Common.FormView
+class SignUp.FormView extends Toruzou.Common.FormView
 
   template: "users/sign_up"
   events:
@@ -30,3 +30,7 @@ class SignUp.View extends Toruzou.Common.FormView
         Toruzou.curentUser = Toruzou.request "user:new", response
         Toruzou.trigger "authentication:signedIn"
         
+class SignUp.View extends Toruzou.Users.Common.UnauthenticatedLayout
+
+  onShow: ->
+    @contentsRegion.show new SignUp.FormView()

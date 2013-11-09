@@ -1,6 +1,6 @@
 SignIn = Toruzou.module "Users.SignIn"
 
-class SignIn.View extends Toruzou.Common.FormView
+class SignIn.FormView extends Toruzou.Common.FormView
 
   template: "users/sign_in"
   events:
@@ -24,3 +24,9 @@ class SignIn.View extends Toruzou.Common.FormView
 
   signInToRoute: ->
     Toruzou.trigger "authentication:signedIn", @options.route
+
+
+class SignIn.View extends Toruzou.Users.Common.UnauthenticatedLayout
+
+  onShow: ->
+    @contentsRegion.show new SignIn.FormView()

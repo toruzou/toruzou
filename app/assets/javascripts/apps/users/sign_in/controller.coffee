@@ -2,6 +2,6 @@ SignIn = Toruzou.module "Users.SignIn"
 
 SignIn.Controller =
   show: ->
-    layout = Toruzou.Common.UnauthenticatedLayout.show()
-    layout.mainRegion.show new SignIn.View()
+    Toruzou.mainRegion.show new SignIn.View()
+    Toruzou.execute "set:layout", "unauthenticated"
     
