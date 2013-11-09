@@ -13,6 +13,14 @@ class Model.Deal extends Backbone.Model
     "Won"
     "Lost"
   ]
+  accuracies: _.map [
+    "0"
+    "25"
+    "50"
+    "75"
+    "90"
+    "100"
+  ], (accuracy) -> { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
 
   defaults:
     name: ""
@@ -75,12 +83,15 @@ class Model.Deal extends Backbone.Model
       type: "PositiveAmount"
       formatter: (value) -> Toruzou.Common.Formatters.amount value
     accuracy:
-      type: "PositivePercentInteger"
+      type: "Selectize"
+      restore: (model) ->
+        accuracy = model.get "accuracy"
+        {
+          value: accuracy
+          data: { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
+        }
+      options: @::accuracies
       formatter: (value) -> Toruzou.Common.Formatters.percent value
-      validators: [
-        (value, formValues) ->
-          return { message: "Invalid accuracy" } if value and value > 100
-      ]
     startDate:
       type: "Datepicker"
       formatter: (value) -> Toruzou.Common.Formatters.localDate value
