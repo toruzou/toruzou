@@ -4,7 +4,7 @@ module Api
 
       include Pageable
 
-      before_action :set_user, only: [:show, :follow, :unfollow]
+      before_action :set_user, only: [:show, :followings, :follow, :unfollow]
 
       def index
         @users = User.all
@@ -13,12 +13,13 @@ module Api
         render json: to_pageable(@users)
       end
 
-      def sessionInfo
-        render json: current_user, serializer: SessionSerializer
-      end
-
       def show
         render json: @user
+      end
+
+      def followings
+        @followings = Following.of(@user)
+        render json: to_pageable(@followings)
       end
 
       def follow

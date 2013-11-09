@@ -33,6 +33,17 @@
 //= require toruzou
 //= require_tree ./model/common
 //= require_tree ./apps/common
+//= require_tree ./apps/attachments
+//= require_tree ./apps/careers/common
+//= require_tree ./apps/careers
+//= require_tree ./apps/followings
+//= require_tree ./apps/updates
+//= require_tree ./apps/activities/common
+//= require_tree ./apps/deals/common
+//= require_tree ./apps/notes/common
+//= require_tree ./apps/organizations/common
+//= require_tree ./apps/people/common
+//= require_tree ./apps/users/common
 //= require_tree ./initializers
 //= require_tree ./templates
 //= require_tree ./model

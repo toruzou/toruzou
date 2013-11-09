@@ -1,8 +1,16 @@
 Model = Toruzou.module "Model"
 
-class Model.Session extends Backbone.Model
+class Model.Account extends Backbone.Model
 
-  urlRoot: Model.endpoint "session"
+  url: Model.endpoint "account"
+
+class Model.Following extends Backbone.Model
+
+class Model.Followings extends Backbone.PageableCollection
+
+  state:
+    sortKey: "updated_at"
+    order: 1
 
 class Model.User extends Backbone.Model
 
@@ -12,6 +20,11 @@ class Model.User extends Backbone.Model
     note = new Model.Note()
     note.subject = @
     note
+
+  followings: ->
+    followings = new Model.Followings()
+    followings.url = Model.endpoint "users/#{@get "id"}/followings"
+    followings
 
 class Model.Users extends Backbone.PageableCollection
 
@@ -106,22 +119,27 @@ API =
     collection = new Model.Users()
     _.extend collection.queryParams, options
     collection
-  getSession: ->
-    new Model.Session().fetch()
-  signOut: ->
-    new Model.SignOut().destroy()
   getUser: (id) ->
     model = API.createUser id: id
     model.fetch()
   getUsers: (options) ->
     collection = API.createUsers options
     collection.fetch()
+  getFollowings: (id) ->
+    model = API.createUser id: id
+    model.followings().fetch url: "#{_.result model, "url"}/followings"
+  getAccount: ->
+    new Model.Account().fetch()
+  signOut: ->
+    new Model.SignOut().destroy()
   follow: (id) ->
     model = API.createUser id: id
     model.save url: "#{_.result model, "url"}/following"
   unfollow: (id) ->
     model = API.createUser id: id
-    model.destroy url: "#{_.result model, "url"}/following"
+    model.destro
+
+    # TODO 専用の Followings コレクションを作って state をつくる
 
 Toruzou.reqres.setHandler "user:credential:new", API.createCredential
 Toruzou.reqres.setHandler "user:registration:new", API.createRegistration
@@ -130,7 +148,8 @@ Toruzou.reqres.setHandler "user:new", API.createUser
 Toruzou.reqres.setHandler "users:new", API.createUsers
 Toruzou.reqres.setHandler "user:fetch", API.getUser
 Toruzou.reqres.setHandler "users:fetch", API.getUsers
+Toruzou.reqres.setHandler "user:followings:fetch", API.getFollowings
 Toruzou.reqres.setHandler "user:follow", API.follow
 Toruzou.reqres.setHandler "user:unfollow", API.unfollow
-Toruzou.reqres.setHandler "session:fetch", API.getSession
+Toruzou.reqres.setHandler "account:fetch", API.getAccount
 Toruzou.reqres.setHandler "signOut", API.signOut

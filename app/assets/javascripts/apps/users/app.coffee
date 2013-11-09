@@ -6,12 +6,9 @@ class Users.Router extends Toruzou.Common.ResourceRouter
     "/sign_in": "signIn"
     "/sign_up": "signUp"
     "/retrieve_password": "retrievePassword"
+    "/account(/*slug)": "account"
     "": "list"
     "/:id(/*slug)": "show"
-    "/cancel": "cancelRegistration"
-    "/edit": "edit"
-    "/password/new": "newPassword"
-    "/password/edit": "editPassword"
 
 API =
   signIn: ->
@@ -24,14 +21,7 @@ API =
     Users.Index.Controller.list()
   show: (id, slug) ->
     Users.Show.Controller.show id, slug
-  # TODO
-  cancelRegistration: ->
-    console.log "cancel-registration"
-  edit: ->
-    console.log "edit"
-  newPassword: ->
-    console.log "new-password"
-  editPassword: ->
-    console.log "edit-password"
+  account: (slug) ->
+    Users.Account.Controller.show slug
 
 Toruzou.addInitializer -> new Users.Router controller: API

@@ -53,7 +53,7 @@ class Index.ChangeItemView extends Marionette.ItemView
   serializeData: ->
     data = super
     data.action = Toruzou.Configuration.bundles.actions[data.audit.action]
-    auditable = data.auditable = new Toruzou.Model[data.audit.auditable_type] data.audit.auditable
+    auditable = data.auditable = new Toruzou.Model[data.audit.auditable.class_name] data.audit.auditable
     data.subjectHeader = @createSubjectHeader auditable, data.audit.action
     changes = data.changes = {}
     serializeChange = (key, change) -> auditable.format key, change
@@ -117,8 +117,9 @@ class Index.UpdateItemView extends Marionette.Layout
 
   onShow: ->
     audit = new Backbone.Model(@model.get "audit")
+    auditable = audit.get "auditable"
     view = undefined
-    switch audit.get("auditable_type")
+    switch auditable.class_name
       when "Note"
         view = new Index.NoteItemView model: audit
       else

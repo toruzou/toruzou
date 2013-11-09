@@ -49,11 +49,15 @@ class Common.FormView extends Marionette.ItemView
     options = {}
     options.title = "Unable to process the request"
     options.messages = []
-    if result and result.errors
-      for property, errors of result.errors
-        title = @model.displayNameOf property
-        for error in errors
-          options.messages.push "#{title} #{error}"
+    addMessage = (property, errors) =>
+      title = @model.displayNameOf property
+      for error in errors
+        options.messages.push "#{title} #{error}"
+    if result
+      if result.errors
+        addMessage property, errors for property, errors of result.errors
+      else
+        addMessage property, errors for property, errors of result
     @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error options
 
   render: ->

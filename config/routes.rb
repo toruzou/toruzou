@@ -8,13 +8,17 @@ Toruzou::Application.routes.draw do
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
-      get "session" => "users#sessionInfo"
+      get "account" => "account#show"
+      put "account" => "account#update"
+      get "account/followings" => "account#followings"
+      put "account/password" => "account#change_password"
       resources :notes
       resources :changelogs
       resources :notifications
       resources :attachments
       resources :users do
         member do
+          get "followings" => "users#followings"
           put "following" => "users#follow"
           delete "following" => "users#unfollow"
         end
