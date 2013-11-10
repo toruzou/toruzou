@@ -16,4 +16,5 @@
 /tmp
 /vendor/bundle
 /vendor/assets/components
+/public/uploads
 TODO.md
