@@ -11,6 +11,11 @@ class Show.View extends Marionette.Layout
     "click #restore-button": "restore"
     "click [data-section-title]": "sectionChanged"
 
+  serializeData: ->
+    data = super
+    data.icon = Toruzou.Model.Activity::renderIcon(data.action) if data.action
+    data
+
   sectionChanged: (e) ->
     $section = $(e.target).closest("section")
     @show $section.attr "id"

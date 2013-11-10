@@ -2,7 +2,7 @@
   <div class="large-12 columns">
     <!-- FIXME Should be a responsive layout -->
     <div class="description-container">
-      <h4><i class="icon-calendar icon-inline-prefix"></i>{{name}}</h4>
+      <h4>{{{icon}}}{{name}}</h4>
       {{#if deletedAt}}
       <a href="#" id="restore-button" class="small button primary">Restore</a>
       {{else}}
@@ -14,12 +14,6 @@
 </div>
 <div class="row collapse properties-container">
   <div class="large-12 columns">
-    {{#if action}}
-    <div class="property">
-      <span class="label">Status</span>
-      <span class="value">{{action}}</span>
-    </div>
-    {{/if}}
     {{#if date}}
     <div class="property">
       <span class="label">Date</span>

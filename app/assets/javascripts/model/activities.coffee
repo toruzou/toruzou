@@ -34,8 +34,10 @@ class Model.Activity extends Backbone.Model
     peopleIds: []
 
   # TODO ugly, should be moved to view layer
+  renderIcon: (action) ->
+    "<i class='icon-#{Activity::icons[action]} icon-inline-prefix'></i>"
   renderAction: (action) ->
-    "<i class='icon-#{Activity::icons[action]} icon-inline-prefix'></i>#{_.escape action}"
+    @renderIcon(action) + _.escape action
 
   createNote: ->
     note = new Model.Note()
