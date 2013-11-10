@@ -20,6 +20,10 @@ class Deal < ActiveRecord::Base
     where("lower(deals.name) LIKE ?", "%#{q.downcase}%")
   }
 
+  scope :match_category, -> (q) {
+    where(category: q)
+  }
+
   scope :match_status, -> (q) {
     where(status: q)
   }
@@ -49,6 +53,16 @@ class Deal < ActiveRecord::Base
   validates :name, presence: true
 
   # TODO decide valid combination of status and accuracy.
+  validates :category,
+    inclusion: [
+      "Maintenance",
+      "Enhancement",
+      "Chance",
+      "Must",
+      "Challenge"
+    ],
+    allow_nil: true,
+    allow_blank: true
   validates :status,
     inclusion: [
       "Plan",

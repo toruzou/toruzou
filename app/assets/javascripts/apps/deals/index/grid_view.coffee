@@ -11,6 +11,12 @@ class Index.GridView extends Toruzou.Common.GridView
         href: -> Toruzou.request "route:deals:show", @model.get "id"
     }
     {
+      name: "category"
+      label: "Category"
+      editable: false
+      cell: "string"
+    }
+    {
       name: "organization"
       label: "Organization"
       editable: false

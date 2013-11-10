@@ -16,6 +16,13 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
       type: "Text"
       editorAttrs:
         placeholder: "Filter by Name"
+    categories:
+      type: "Selectize"
+      options: Toruzou.Model.Deal::categories
+      selectize:
+        maxItems: Toruzou.Model.Deal::categories.length
+      editorAttrs:
+        placeholder: "Filter by Categories"
     organizationName:
       title: "Organization"
       type: "Text"

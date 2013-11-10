@@ -6,6 +6,13 @@ class Model.Deal extends Backbone.Model
 
   urlRoot: Model.endpoint "deals"
   modelName: "deal"
+  categories: [
+    "Maintenance"
+    "Enhancement"
+    "Chance"
+    "Must"
+    "Challenge"
+  ]
   statuses: [
     "Plan"
     "Quotation submitted"
@@ -44,6 +51,15 @@ class Model.Deal extends Backbone.Model
     name:
       type: "Text"
       validators: [ "required" ]
+    category:
+      type: "Selectize"
+      restore: (model) ->
+        category = model.get "category"
+        {
+          value: category
+          data: category
+        }
+      options: @::categories
     organizationId: $.extend true, {},
       Model.Schema.Organization,
       title: "Organization"
