@@ -212,14 +212,19 @@ textarea {
                 background-color: #666;
             }
         }
+        a {
+            margin-right: 0.25em;
+        }
         .value {
             display: block;
             margin-bottom: 1em;
-            a {
-                margin-right: 0.25em;
-            }
         }
     }
+}
+
+.text {
+    white-space: pre;
+    word-wrap: break-word;
 }
 
 .activity-panel {
@@ -306,13 +311,15 @@ textarea {
                 li {
                     font-size: 90%;
                     margin-left: 0.25em;
-                    margin-bottom: 1em;
+                    margin-bottom: 0.5em;
                     span.property {
                         margin-right: 0.5em;
                     }
                     span.change {
                         border: 1px solid $well-border-color;
                         padding: 0.25em 0.5em;
+                        margin: 0 0.25em;
+                        line-height: 2;
                         &.empty:after {
                             content: "empty";
                             color: #DDD;

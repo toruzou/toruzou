@@ -233,26 +233,15 @@ Toruzou.addInitializer ->
         @$el.pickadate pickadateOptions
       @
 
-  Backbone.Form.editors.TextArea = class FSTextAreaEditor extends Backbone.Form.editors.TextArea
+  Backbone.Form.editors.TextArea = class AutoSizeEditor extends Backbone.Form.editors.TextArea
 
     render: ->
       super
-      delayed =>
-        @$el.fseditor()
-        $div = @$el.parent()
-        @$editor = $div.find "[contenteditable]"
-        @$editor.html @value
-        $div.find("a.fs-icon").attr("data-bypass", "")
+      delayed => @$el.autosize()
       @
 
-    setValue: (value) ->
-      @$editor?.html value
-
-    getValue: ->
-      @$editor?.html()
-
     remove: ->
-      @$el.fseditor("destroy")
+      @$el.trigger "autosize.destroy"
       super
 
   Backbone.Form.editors.Checkbox = class AwesomeCheckboxEditor extends Backbone.Form.editors.Checkbox

@@ -89,6 +89,7 @@ class Model.Activity extends Backbone.Model
     people:
       formatter: (value) -> (_.pluck value, "name").join ", "
     note:
+      title: "Summary"
       type: "TextArea"
     done:
       type: "Checkbox"

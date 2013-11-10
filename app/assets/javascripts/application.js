@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery/jquery
+//= require jquery-autosize/jquery.autosize
 //= require momentjs/moment
 //= require foundation
 //= require handlebars/handlebars.runtime
@@ -28,7 +29,6 @@
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
 //= require dropzone/downloads/dropzone
-//= require ./vendor/jquery.fseditor/jquery.fseditor
 //= require ./vendor/jquery.selection/src/jquery.selection
 //= require toruzou
 //= require_tree ./model/common
