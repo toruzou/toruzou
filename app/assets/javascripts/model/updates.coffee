@@ -5,6 +5,7 @@ class Model.Updates extends Backbone.PageableCollection
   mode: "infinite"
 
   state:
+    pageSize: 10
     sortKey: "updated_at"
     order: 1
 
