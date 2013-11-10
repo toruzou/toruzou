@@ -26,6 +26,7 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
 
   schema:
     name:
+      title: "Subject"
       type: "Text"
       editorAttrs:
         placeholder: "Filter by Subject"
