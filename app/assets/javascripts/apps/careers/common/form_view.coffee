@@ -25,12 +25,12 @@ class Common.FormView extends Toruzou.Common.FormView
 
   constructor: (options) ->
     super options
-    @title = _.result options, "title"
+    @headerTitle = _.result options, "headerTitle"
     @dialog = options.dialog
 
   serializeData: ->
     data = super
-    data["title"] = @title if @title
+    data["headerTitle"] = @headerTitle if @headerTitle
     data
 
   save: (e) ->
@@ -62,7 +62,7 @@ class Common.EditFormView extends Marionette.Layout
 
   serializeData: ->
     data = super
-    data["title"] = @options.title
+    data["headerTitle"] = @options.headerTitle
     data
     
   sectionChanged: (e) ->
@@ -80,7 +80,7 @@ class Common.EditFormView extends Marionette.Layout
         @showFiles()
 
   showForm: ->
-    formView = new Common.FormView(_.omit @options, "title")
+    formView = new Common.FormView(_.omit @options, "headerTitle")
     formView.on "form:closed", => @close()
     @formRegion.show formView
 

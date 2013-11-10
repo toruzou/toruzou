@@ -1,8 +1,8 @@
 <div class="row">
   <div class="large-12 columns">
     <form>
-      <fieldset{{#unless title}} class="no-margin"{{/unless}}>
-        {{#if title}}<legend>{{title}}</legend>{{/if}}
+      <fieldset{{#unless headerTitle}} class="no-margin"{{/unless}}>
+        {{#if headerTitle}}<legend><i class="icon-calendar icon-inline-prefix"></i>{{headerTitle}}</legend>{{/if}}
         <div class="row">
           <div class="large-6 columns" data-fields="fromDate"></div>
           <div class="large-6 columns" data-fields="toDate"></div>
