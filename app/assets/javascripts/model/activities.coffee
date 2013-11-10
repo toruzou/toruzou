@@ -92,6 +92,7 @@ class Model.Activity extends Backbone.Model
       title: "Summary"
       type: "TextArea"
     done:
+      title: "Complete"
       type: "Checkbox"
     deletedAt:
       title: "Deleted Datetime"

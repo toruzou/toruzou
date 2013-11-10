@@ -58,6 +58,10 @@
       <span class="value text">{{note}}</span>
     </div>
     {{/if}}
+    <div class="property">
+      <span class="label">Status</span>
+      <span class="value">{{#if done}}Complete{{else}}Incomplete{{/if}}</span>
+    </div>
     {{#if deletedAt}}
     <div class="property">
       <span class="label">Deleted Datetime</span>
