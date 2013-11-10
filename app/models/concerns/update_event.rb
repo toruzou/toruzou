@@ -7,6 +7,7 @@ module UpdateEvent
   end
 
   def publish
+    return unless self.auditable.present?
     return if self.latest_diff.empty?
     auditable = self.auditable
     if auditable.respond_to?(:filter_update_events_for)
