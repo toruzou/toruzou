@@ -20,9 +20,10 @@ module UpdateEvent
       Changelog.new(:audit => self, :receivable => receivable).save!
     end
     followers = destinations.inject([]) do |followers, receivable|
-      if receivable.respond_to?(:followers) 
-        followers += receivable.followers
+      if receivable.respond_to?(:followers)
+        followers += receivable.followers unless receivable.followers.empty?
       end
+      followers
     end.compact.uniq
     followers.each do |follower|
       Notification.new(:audit => self, :receivable => follower).save!
