@@ -92,6 +92,9 @@ class Model.Activity extends Backbone.Model
       type: "TextArea"
     done:
       type: "Checkbox"
+    deletedAt:
+      title: "Deleted Datetime"
+      formatter: (value) -> Toruzou.Common.Formatters.localDatetime value
 
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
