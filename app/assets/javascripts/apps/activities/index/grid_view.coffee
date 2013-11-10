@@ -56,6 +56,7 @@ class Index.GridView extends Toruzou.Common.GridView
     {
       name: "users"
       label: "Users"
+      sortable: false
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
@@ -64,6 +65,7 @@ class Index.GridView extends Toruzou.Common.GridView
     {
       name: "people"
       label: "Contacts"
+      sortable: false
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
