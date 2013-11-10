@@ -6,18 +6,30 @@ module Pageable
 
   def to_pageable_relation(relation, options={})
     if params[:page].present?
+      # FIXME workaround, should be cached !
+      clazz = relation.name.constantize
+      @belongs_to_attributes ||= clazz.reflect_on_all_associations(:belongs_to).map { |a| a.name.to_s }
       relation = relation.page(params[:page])
       relation = relation.per(params[:per_page]) if params[:per_page].present?
-      orders = []
-      if params[:sort_by].present?
-        order = params[:sort_by]
-        order = "#{order} #{params[:order]}" if params[:order].present?
-        orders << order
-      end
-      orders << options[:order] if options[:order].present?
-      relation = relation.order orders.join(", ")
+      relation = apply_order(relation)
     end
     relation
+  end
+
+  def apply_order(relation)
+    if params[:sort_by].present?
+      order = to_order_key params[:sort_by]
+      order = "#{order} #{params[:order]}" if params[:order].present?
+      relation = relation.order order
+    end
+    relation
+  end
+
+  def to_order_key(key)
+    if @belongs_to_attributes.include? key
+      key = "#{key}_id"
+    end
+    key
   end
 
   def to_pageable_collection(collection)
