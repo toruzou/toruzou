@@ -8,7 +8,7 @@
       {{else}}
       <a href="#" id="delete-button" class="small button alert">Delete</a>
       {{/if}}
-      <a href="#" id="edit-button" class="small button">Edit</a>
+      <a href="{{route "deals:edit" id}}" id="edit-button" class="small button">Edit</a>
       {{#unless following}}
       <a href="#" id="follow-button" class="small button primary">Follow</a>
       {{else}}

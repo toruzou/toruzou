@@ -9,7 +9,6 @@ class Show.View extends Marionette.Layout
     activitiesRegion: "#activities [data-section-content]"
     filesRegion: "#files [data-section-content]"
   events:
-    "click #edit-button": "edit"
     "click #delete-button": "delete"
     "click #restore-button": "restore"
     "click #follow-button": "follow"
@@ -74,13 +73,6 @@ class Show.View extends Marionette.Layout
   onShow: ->
     @showActivitiesPanel()
     
-  edit: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    editView = new Toruzou.Deals.Edit.View model: @model
-    editView.on "deal:saved", (model) => @refresh model
-    Toruzou.dialogRegion.show editView
-
   delete: (e) ->
     e.preventDefault()
     e.stopPropagation()

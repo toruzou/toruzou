@@ -7,3 +7,6 @@ class New.View extends Toruzou.Deals.Common.FormView
     options.title or= "New Deal"
     options.model or= Toruzou.request "deal:new"
     super options
+
+  cancel: (e) ->
+    window.history.back()

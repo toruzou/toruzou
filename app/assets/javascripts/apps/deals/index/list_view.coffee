@@ -22,9 +22,7 @@ class Index.ListView extends Marionette.Layout
     deal = Toruzou.request "deal:new"
     deal.set "organization", @organization if @organization
     deal.set "contact", @person if @person
-    newView = new Toruzou.Deals.New.View model: deal
-    newView.on "deal:saved", => @refresh()
-    Toruzou.dialogRegion.show newView
+    Toruzou.execute "show:deals:create", deal
 
   refresh: ->
     @collection.fetch()
