@@ -50,7 +50,14 @@ class Deal < ActiveRecord::Base
 
   # TODO decide valid combination of status and accuracy.
   validates :status,
-    inclusion: [ 'Plan', 'Proposal', 'In Negotiation', 'Won', 'Lost' ],
+    inclusion: [
+      "Plan",
+      "Quotation submitted",
+      "Waiting order form",
+      "Order form received",
+      "Waiting inspection document",
+      "Inspection document received"
+    ],
     allow_nil: true,
     allow_blank: true
   validates :accuracy,

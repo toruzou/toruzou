@@ -8,10 +8,11 @@ class Model.Deal extends Backbone.Model
   modelName: "deal"
   statuses: [
     "Plan"
-    "Proposal"
-    "In Negotiation"
-    "Won"
-    "Lost"
+    "Quotation submitted"
+    "Waiting order form"
+    "Order form received"
+    "Waiting inspection document"
+    "Inspection document received"
   ]
   accuracies: _.map [
     "0"
