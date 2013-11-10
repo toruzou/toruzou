@@ -19,7 +19,7 @@ class Model.Activity extends Backbone.Model
     "Task": "ticket"
 
   defaults:
-    subject: ""
+    name: ""
     action: ""
     date: ""
     note: ""
@@ -38,7 +38,7 @@ class Model.Activity extends Backbone.Model
     "<i class='icon-#{Activity::icons[action]} icon-inline-prefix'></i>#{_.escape action}"
 
   schema:
-    subject:
+    name:
       type: "Text"
       validators: [ "required" ]
     action:

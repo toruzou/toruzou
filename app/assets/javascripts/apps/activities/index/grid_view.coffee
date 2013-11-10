@@ -25,7 +25,7 @@ class Index.GridView extends Toruzou.Common.GridView
       cell: ActionCell
     }
     {
-      name: "subject"
+      name: "name"
       label: "Subject"
       editable: false
       cell: class extends Backgrid.Extension.LinkCell

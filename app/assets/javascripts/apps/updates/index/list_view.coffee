@@ -97,7 +97,7 @@ class Index.ChangeItemView extends Marionette.ItemView
         header += " to " + link
       when "Activity"
         # TODO activity link
-        header = auditable.get "subject"
+        header = auditable.get "name"
         header = " an activity " + header
         deal = auditable.get "deal"
         header += " to " + Toruzou.request "linkTo:deals:show", deal.name, deal.id if deal

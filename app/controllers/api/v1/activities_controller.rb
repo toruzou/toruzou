@@ -15,7 +15,7 @@ module Api
         end
         @activities = @activities.in_organization(params[:organization_id]) if params[:organization_id].present?
         @activities = @activities.in_deal(params[:deal_id]) if params[:deal_id].present?
-        @activities = @activities.match_subject(params[:subject]) if params[:subject].present?
+        @activities = @activities.match_name(params[:name]) if params[:name].present?
         @activities = @activities.in_actions(params[:actions]) if params[:actions].present?
         @activities = @activities.match_deal(params[:deal_name]) if params[:deal_name].present?
         @activities = @activities.with_users(params[:users_ids]) if params[:users_ids].present?
@@ -79,7 +79,7 @@ module Api
         # Only allow a trusted parameter "white list" through.
         def activity_update_params
           params.require(:activity).permit(
-            :subject,
+            :name,
             :action,
             :date,
             :note,

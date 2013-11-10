@@ -5,7 +5,7 @@ class SimpleUserSerializer < ActiveModel::Serializer
 end
 
 class SimpleActivitySerializer < ActiveModel::Serializer
-  attributes :id, :subject, :action, :date, :note, :done
+  attributes :id, :name, :action, :date, :note, :done
   has_many :users, serializer: SimpleUserSerializer
   def users
     User.joins(:participants).select(["users.id", "users.name"]).where(%("participants"."activity_id" = #{self.id})).order("name")

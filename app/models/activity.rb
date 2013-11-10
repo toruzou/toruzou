@@ -8,6 +8,7 @@ class Activity < ActiveRecord::Base
   has_many :users, :through => :participants, :source => :participable, :source_type => 'User'
   has_many :people, :through => :participants, :source => :participable, :source_type => 'Contact'
   has_many :attachments, :as => :attachable
+  has_many :updates, :as => :receivable
   has_many :audits, :as => :auditable
 
   scope :in_organization, -> (organization_id) {
@@ -18,8 +19,8 @@ class Activity < ActiveRecord::Base
     where(deal_id: deal_id)
   }
 
-  scope :match_subject, -> (subject) {
-    where("lower(activities.subject) LIKE ?", "%#{subject.downcase}%")
+  scope :match_name, -> (name) {
+    where("lower(activities.name) LIKE ?", "%#{name.downcase}%")
   }
 
   scope :in_actions, -> (actions) {
@@ -64,7 +65,7 @@ class Activity < ActiveRecord::Base
   }
 
 
-  validates :subject, presence: true
+  validates :name, presence: true
   validates :action, 
     inclusion: [ 'Call', 'Meeting', 'Email', 'Task' ],
     allow_nil: false,
@@ -72,10 +73,10 @@ class Activity < ActiveRecord::Base
 
   validates :date, presence: true
 
-  audit :subject, :action, :date, :note, :done, :organization, :deal, :users, :people
+  audit :name, :action, :date, :note, :done, :organization, :deal, :users, :people
 
   def update_destinations_for(audit)
-    destinations = []
+    destinations = [ self ]
     destinations += self.organization.update_destinations_for(audit) if self.organization.present?
     destinations += self.deal.update_destinations_for(audit) if self.deal.present?
     self.people.each { |person| destinations += person.update_destinations_for(audit) } if self.people.present?

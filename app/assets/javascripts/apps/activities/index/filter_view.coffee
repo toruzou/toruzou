@@ -16,7 +16,7 @@ statuses = [
 class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
 
   defaults:
-    subject: ""
+    name: ""
     actions: undefined
     dealName: ""
     organizationName: ""
@@ -25,7 +25,7 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
     includeDeleted: false
 
   schema:
-    subject:
+    name:
       type: "Text"
       editorAttrs:
         placeholder: "Filter by Subject"
