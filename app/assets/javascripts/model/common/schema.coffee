@@ -41,7 +41,7 @@ Model.Schema =
       create: (input, callback) ->
         return callback() unless input.length
         user = new Toruzou.Model.User()
-        user.save "name", input, success: (user) => callback user.serialize()
+        user.save("name", input).done (user) => callback user.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length
@@ -64,7 +64,7 @@ Model.Schema =
       create: (input, callback) ->
         return callback() unless input.length
         organization = new Toruzou.Model.Organization()
-        organization.save "name", input, success: (organization) => callback organization.serialize()
+        organization.save("name", input).done (organization) => callback organization.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length
@@ -87,7 +87,7 @@ Model.Schema =
       create: (input, callback) ->
         return callback() unless input.length
         deal = new Toruzou.Model.Deal()
-        deal.save "name", input, success: (deal) => callback deal.serialize()
+        deal.save("name", input).done (deal) => callback deal.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length
@@ -110,7 +110,7 @@ Model.Schema =
       create: (input, callback) ->
         return callback() unless input.length
         person = new Toruzou.Model.Person()
-        person.save "name", input, success: (person) => callback person.serialize()
+        person.save("name", input).done (person) => callback person.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length
@@ -134,7 +134,7 @@ Model.Schema =
       create: (input, callback) ->
         return callback() unless input.length
         person = new Model.Person()
-        person.save "name", input, success: (person) => callback person.serialize()
+        person.save("name", input).done (person) => callback person.serialize()
         undefined
       load: (query, callback) ->
         return callback() unless query.length

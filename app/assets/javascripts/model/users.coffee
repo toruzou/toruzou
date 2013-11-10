@@ -134,12 +134,10 @@ API =
     new Model.SignOut().destroy()
   follow: (id) ->
     model = API.createUser id: id
-    model.save url: "#{_.result model, "url"}/following"
+    model.save null, url: "#{_.result model, "url"}/following"
   unfollow: (id) ->
     model = API.createUser id: id
-    model.destro
-
-    # TODO 専用の Followings コレクションを作って state をつくる
+    model.destroy url: "#{_.result model, "url"}/following"
 
 Toruzou.reqres.setHandler "user:credential:new", API.createCredential
 Toruzou.reqres.setHandler "user:registration:new", API.createRegistration

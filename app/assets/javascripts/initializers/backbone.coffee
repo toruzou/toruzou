@@ -35,23 +35,31 @@ Toruzou.addInitializer ->
 
   promisify = (subject, method) ->
     fn = subject::[method]
-    subject::[method] = (attributes, options) ->
-      options = attributes or {} if _.isUndefined options
+    subject::[method] = (key, val, options) ->
       dfd = $.Deferred()
-      options.success = _.wrap options.success, (success, model, response, options) ->
-        if method is "destroy"
-          attributes = model.parse response, options
-          model.set attributes if attributes
-        success model, response, options if success
-        dfd.resolve model, response, options
-      options.error = _.wrap options.error, (error, model, response, options) ->
-        error model, response, options if error
-        dfd.reject model, response, options
-      setTimeout dfd, options
+      opts = key or val or {}
       if method is "save"
-        fn.call @, attributes or null, options
+        if _.isObject key
+          attributes = key
+          opts = val or {}
+        else if _.isString key
+          attributes = {}
+          attributes[key] = val
+          opts = options or {}
+      opts.success = _.wrap opts.success, (success, model, response, opts) ->
+        if method is "destroy"
+          attributes = model.parse response, opts
+          model.set attributes if attributes
+        success model, response, opts if success
+        dfd.resolve model, response, opts
+      opts.error = _.wrap opts.error, (error, model, response, opts) ->
+        error model, response, opts if error
+        dfd.reject model, response, opts
+      setTimeout dfd, opts
+      if method is "save"
+        fn.call @, attributes or null, opts
       else
-        fn.call @, options
+        fn.call @, opts
       dfd.promise()
 
   _.each [

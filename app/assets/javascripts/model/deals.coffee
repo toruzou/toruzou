@@ -156,7 +156,7 @@ API =
     collection.fetch()
   follow: (id) ->
     model = API.createDeal id: id
-    model.save url: "#{_.result model, "url"}/following"
+    model.save null, url: "#{_.result model, "url"}/following"
   unfollow: (id) ->
     model = API.createDeal id: id
     model.destroy url: "#{_.result model, "url"}/following"

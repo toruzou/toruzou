@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
       :case_sensitive => false
     }
 
+  def update_destinations_for(audit)
+    []
+  end
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

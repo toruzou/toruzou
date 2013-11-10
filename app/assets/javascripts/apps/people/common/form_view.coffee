@@ -40,10 +40,9 @@ class Common.FormView extends Toruzou.Common.FormView
 
   save: (e) ->
     e.preventDefault()
-    @commit
-      success: (model, response) =>
-        @close()
-        @triggerMethod "person:saved", model
+    @commit().done (model) =>
+      @close()
+      @triggerMethod "person:saved", model
         
   cancel: (e) ->
     e.preventDefault()
