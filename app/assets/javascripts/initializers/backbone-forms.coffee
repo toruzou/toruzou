@@ -225,6 +225,9 @@ Toruzou.addInitializer ->
       format: "yyyy/mm/dd"
       formatSubmit: "yyyy/mm/dd"
 
+    setValue: (value) ->
+      super Toruzou.Common.Formatters.localDate value
+
     render: ->
       super
       delayed =>
