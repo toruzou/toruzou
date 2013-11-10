@@ -51,6 +51,7 @@ Toruzou::Application.routes.draw do
       end
       resources :activities do
         resources :attachments
+        resources :notes
       end
       resources :careers do
         resources :notes

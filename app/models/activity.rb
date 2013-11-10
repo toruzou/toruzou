@@ -73,7 +73,7 @@ class Activity < ActiveRecord::Base
 
   validates :date, presence: true
 
-  audit :name, :action, :date, :note, :done, :organization, :deal, :users, :people
+  audit :name, :action, :date, :note, :done, :organization, :deal, :users, :people, :deleted_at
 
   def update_destinations_for(audit)
     destinations = [ self ]

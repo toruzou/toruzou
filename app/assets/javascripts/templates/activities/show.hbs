@@ -1,12 +1,84 @@
-<div class="row description-container">
-  <h5>{{title}}</h5>
+<div class="row">
+  <div class="large-12 columns">
+    <!-- FIXME Should be a responsive layout -->
+    <div class="description-container">
+      <h4><i class="icon-calendar icon-inline-prefix"></i>{{name}}</h4>
+      {{#if deletedAt}}
+      <a href="#" id="restore-button" class="small button primary">Restore</a>
+      {{else}}
+      <a href="#" id="delete-button" class="small button alert">Delete</a>
+      {{/if}}
+      <a href="{{route "activities:edit" id}}" id="edit-button" class="small button">Edit</a>
+    </div>
+  </div>
 </div>
-<div class="row form">
-  <div class="large-12 columns no-padding">
+<div class="row collapse properties-container">
+  <div class="large-12 columns">
+    {{#if action}}
+    <div class="property">
+      <span class="label">Status</span>
+      <span class="value">{{action}}</span>
+    </div>
+    {{/if}}
+    {{#if date}}
+    <div class="property">
+      <span class="label">Date</span>
+      <span class="value">{{localDate date}}</span>
+    </div>
+    {{/if}}
+    {{#if organization}}
+    <div class="property">
+      <span class="label">Organization</span>
+      <span class="value">{{{linkTo organization.name "organizations:show" organization.id}}}</span>
+    </div>
+    {{/if}}
+    {{#if deal}}
+    <div class="property">
+      <span class="label">Deal</span>
+      <span class="value">{{{linkTo deal.name "deals:show" deal.id}}}</span>
+    </div>
+    {{/if}}
+    {{#if users}}
+      <div class="property">
+        <span class="label">Users</span>
+        <span class="value">
+        {{#each users}}
+          {{{linkTo name "users:show" id}}}
+        {{/each}}
+        </span>
+      </div>
+    {{/if}}
+    {{#if people}}
+      <div class="property">
+        <span class="label">Contacts</span>
+        <span class="value">
+        {{#each people}}
+          {{{linkTo name "people:show" id}}}
+        {{/each}}
+        </span>
+      </div>
+    {{/if}}
+    {{#if note}}
+    <div class="property">
+      <span class="label">Summary</span>
+      <span class="value">{{note}}</span>
+    </div>
+    {{/if}}
+    {{#if deletedAt}}
+    <div class="property">
+      <span class="label">Deleted Datetime</span>
+      <span class="value">{{localDatetime deletedAt}}</span>
+    </div>
+    {{/if}}
+  </div>
+</div>
+<div class="row activities-panel"></div>
+<div class="row">
+  <div class="large-12 columns">
     <div class="section-container tabs" data-section="tabs">
-      <section id="form" class="active">
+      <section id="updates" class="active">
         <p class="title" data-section-title>
-          <a href="#" data-bypass><i class="icon-edit icon-inline-prefix"></i>Form</a>
+          <a href="#" data-bypass><i class="icon-circle-blank icon-inline-prefix"></i>Updates</a>
         </p>
         <div class="content" data-section-content></div>
       </section>

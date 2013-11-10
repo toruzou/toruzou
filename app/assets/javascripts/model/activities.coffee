@@ -37,6 +37,11 @@ class Model.Activity extends Backbone.Model
   renderAction: (action) ->
     "<i class='icon-#{Activity::icons[action]} icon-inline-prefix'></i>#{_.escape action}"
 
+  createNote: ->
+    note = new Model.Note()
+    note.subject = @
+    note
+    
   schema:
     name:
       type: "Text"

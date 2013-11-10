@@ -1,7 +1,10 @@
 Edit = Toruzou.module "Activities.Edit"
 
-class Edit.View extends Toruzou.Activities.Common.EditFormView
+class Edit.View extends Toruzou.Activities.Common.FormView
 
-  constructor: (options) ->
-    options = _.extend options or= {}, title: "Edit Activity"
+  constructor: (options = {}) ->
+    _.extend options, title: "Edit Activity"
     super options
+
+  cancel: (e) ->
+    window.history.back()

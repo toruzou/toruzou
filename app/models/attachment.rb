@@ -7,6 +7,15 @@ class Attachment < ActiveRecord::Base
   
   after_destroy :destroy_updates
 
+  def attachable
+    # Handle paranoids
+    self.attachable_type.constantize.unscoped.find(self.attachable_id)
+  end
+
+  def filter_update_events_for(audit)
+    audit.action == "create"
+  end
+
   def update_destinations_for(audit)
     self.attachable.update_destinations_for(audit)
   end

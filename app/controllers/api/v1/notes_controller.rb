@@ -10,6 +10,7 @@ module Api
         @note.subject = Person.find params[:person_id] if params[:person_id].present?
         @note.subject = Deal.find params[:deal_id] if params[:deal_id].present?
         @note.subject = User.find params[:user_id] if params[:user_id].present?
+        @note.subject = Activity.find params[:activity_id] if params[:activity_id].present?
         if @note.save
           render json: @note
         else

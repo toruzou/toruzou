@@ -1,8 +1,8 @@
 <span class="subject">
   {{#if id}}
-    <a href="/#" class="link"><i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if subject}} ({{subject}}){{/if}}</a>
+    <a href="/#" class="link"><i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if name}} ({{name}}){{/if}}</a>
   {{else}}
-    <i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if subject}} ({{subject}}){{/if}}
+    <i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if name}} ({{name}}){{/if}}
   {{/if}}
 </span>
 <span class="calendar">{{#if date}}<a href="#" class="status"><i class="icon-check{{#unless done}}-empty{{/unless}} icon-inline-prefix"></i></a>{{localDate date}}{{else}}N/A{{/if}}</span>

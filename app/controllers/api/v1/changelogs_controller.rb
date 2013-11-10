@@ -10,6 +10,7 @@ module Api
         @changelogs = @changelogs.match_receivable("Contact", params[:organization_id]) if params[:organization_id].present?
         @changelogs = @changelogs.match_receivable("Contact", params[:person_id]) if params[:person_id].present?
         @changelogs = @changelogs.match_receivable("Deal", params[:deal_id]) if params[:deal_id].present?
+        @changelogs = @changelogs.match_receivable("Activity", params[:activity_id]) if params[:activity_id].present?
         render json: to_pageable(@changelogs)
       end
 

@@ -35,7 +35,6 @@ class Common.FormView extends Toruzou.Common.FormView
   constructor: (options) ->
     super options
     @title = _.result options, "title"
-    @dialog = options.dialog
 
   serializeData: ->
     data = super
@@ -44,60 +43,4 @@ class Common.FormView extends Toruzou.Common.FormView
 
   save: (e) ->
     e.preventDefault()
-    @commit
-      success: (model, response) =>
-        @close()
-        Toruzou.Activities.trigger "activity:saved", model
-        @triggerMethod "form:closed"
-        
-  cancel: (e) ->
-    e.preventDefault()
-    @triggerMethod "form:closed"
-    @close()
-
-
-class Common.EditFormView extends Marionette.Layout
-
-  template: "activities/show"
-  regions:
-    formRegion: "#form [data-section-content]"
-    filesRegion: "#files [data-section-content]"
-  events:
-    "click [data-section-title]": "sectionChanged"
-
-  constructor: (options) ->
-    super options
-    @options = options
-
-  serializeData: ->
-    data = super
-    data["title"] = @options.title
-    data
-    
-  sectionChanged: (e) ->
-    $section = $(e.target).closest("section")
-    @show $section.attr "id"
-
-  show: (slug) ->
-    return unless slug
-    _.each @$el.find("section"), (section) -> $(section).removeClass "active"
-    @$el.find("##{slug}").addClass "active"
-    switch slug
-      when "form"
-        @showForm()
-      when "files"
-        @showFiles()
-
-  showForm: ->
-    formView = new Common.FormView(_.omit @options, "title")
-    formView.on "form:closed", => @close()
-    @formRegion.show formView
-
-  showFiles: ->
-    view = new Toruzou.Attachments.View
-      fetch: activity_id: @model.get "id"
-      dropzone: url: _.result @model, "attachmentsUrl"
-    @filesRegion.show view
-
-  onShow: ->
-    @show "form"
+    @commit().done (model) -> Toruzou.execute "show:activities:show", model.get "id"

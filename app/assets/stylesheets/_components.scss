@@ -215,6 +215,9 @@ textarea {
         .value {
             display: block;
             margin-bottom: 1em;
+            a {
+                margin-right: 0.25em;
+            }
         }
     }
 }

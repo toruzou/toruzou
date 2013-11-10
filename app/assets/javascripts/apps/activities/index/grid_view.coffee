@@ -29,13 +29,7 @@ class Index.GridView extends Toruzou.Common.GridView
       label: "Subject"
       editable: false
       cell: class extends Backgrid.Extension.LinkCell
-        render: ->
-          super
-          @$el.on "click", (e) =>
-            e.preventDefault()
-            e.stopPropagation()
-            @model.trigger "activity:selected", @model
-          @
+        href: -> Toruzou.request "route:activities:show", @model.get "id"
     }
     {
       name: "date"
