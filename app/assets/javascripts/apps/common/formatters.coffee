@@ -23,4 +23,4 @@ class Common.Formatters
 
   @localDatetime: (value) ->
     return "" unless value
-    moment.utc(value).format(@LOCAL_DATETIME_FORMAT)
+    moment(value).format(@LOCAL_DATETIME_FORMAT)
