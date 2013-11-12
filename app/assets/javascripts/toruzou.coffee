@@ -2,7 +2,7 @@ root = exports ? this
 Toruzou = root.Toruzou = new Marionette.Application()
   
 Toruzou.Configuration =
-  root: "/toruzou"
+  root: ""
   api:
     version: "v1"
   timeout: 5000
@@ -26,7 +26,7 @@ Toruzou.getCurrentRoute = ->
 
 Toruzou.linkTo = (relative = "") ->
   root = Toruzou.Configuration.root 
-  if root is "/" then "#{root}#{relative}" else "#{root}/#{relative}"
+  "#{root}/#{relative}"
 
 Toruzou.location = (relative = "") ->
   window.location = "#{location.protocol}//#{location.host}#{Toruzou.linkTo relative}"
