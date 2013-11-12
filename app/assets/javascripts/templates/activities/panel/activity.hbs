@@ -1,6 +1,6 @@
 <span class="subject">
   {{#if id}}
-    <a href="/#" class="link"><i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if name}} ({{name}}){{/if}}</a>
+    <a href="{{route "activities:show" id}}" class="link"><i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if name}} ({{name}}){{/if}}</a>
   {{else}}
     <i class="icon-calendar icon-inline-prefix"></i>{{title}}{{#if name}} ({{name}}){{/if}}
   {{/if}}
