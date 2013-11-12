@@ -85,11 +85,9 @@ class Bootstrap.Launcher
       base = "#{location.protocol}//#{location.host}#{root}"
       if _.str.startsWith href.prop, base
         e.preventDefault()
-        Backbone.history.navigate href.attr, true
+        Toruzou.navigate href.attr, trigger: true
 
 Toruzou.on "authentication:signedIn", ->
-  route = Toruzou.request "route::index"
-  route = route.slice(1) if _.str.startsWith route, "/"
-  Toruzou.location route
+  Toruzou.location ""
 
 Toruzou.addInitializer -> new Bootstrap.Launcher()

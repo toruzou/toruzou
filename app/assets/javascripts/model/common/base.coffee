@@ -1,3 +1,3 @@
 Model = Toruzou.module "Model"
 
-Model.endpoint = (path) -> "/api/#{Toruzou.Configuration.api.version}/#{path}"
+Model.endpoint = (path) -> "#{Toruzou.Configuration.root}/api/#{Toruzou.Configuration.api.version}/#{path}"

@@ -2,7 +2,7 @@
   <nav class="top-bar">
     <ul class="title-area">
       <li class="name">
-        <h1><a href="{{route ":index"}}">TORUZOU</a></h1>
+        <h1><a href="{{Toruzou.Configuration.root}}">TORUZOU</a></h1>
       </li>
       <li class="toggle-topbar menu-icon">
         <a href="#"><span>Menu</span></a>
@@ -11,15 +11,15 @@
     <section class="top-bar-section">
       <ul class="left">
         <li class="divider"></li>
-        <li><a href="deals"><i class="icon-tasks icon-inline-prefix"></i>Deals</a></li>
+        <li><a href="{{route "deals:list"}}"><i class="icon-tasks icon-inline-prefix"></i>Deals</a></li>
         <li class="divider"></li>
-        <li><a href="activities"><i class="icon-calendar icon-inline-prefix"></i>Activities</a></li>
+        <li><a href="{{route "activities:list"}}"><i class="icon-calendar icon-inline-prefix"></i>Activities</a></li>
         <li class="divider"></li>
-        <li><a href="people"><i class="icon-group icon-inline-prefix"></i>People</a></li>
+        <li><a href="{{route "people:list"}}"><i class="icon-group icon-inline-prefix"></i>People</a></li>
         <li class="divider"></li>
-        <li><a href="organizations"><i class="icon-building icon-inline-prefix"></i>Organizations</a></li>
+        <li><a href="{{route "organizations:list"}}"><i class="icon-building icon-inline-prefix"></i>Organizations</a></li>
         <li class="divider"></li>
-        <li><a href="users"><i class="icon-user-md icon-inline-prefix"></i>Users</a></li>
+        <li><a href="{{route "users:list"}}"><i class="icon-user-md icon-inline-prefix"></i>Users</a></li>
         <li class="divider"></li>
       </ul>
       <ul class="right">
