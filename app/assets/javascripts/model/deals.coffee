@@ -1,7 +1,5 @@
 Model = Toruzou.module "Model"
 
-# TODO Refine validators (character length etc.)
-
 class Model.Deal extends Backbone.Model
 
   urlRoot: Model.endpoint "deals"
@@ -41,7 +39,6 @@ class Model.Deal extends Backbone.Model
     contact: null
     contactId: null
     status: ""
-    amount: null
     accuracy: null
     startDate: ""
     orderDate: ""
@@ -96,9 +93,9 @@ class Model.Deal extends Backbone.Model
           data: status
         }
       options: @::statuses
-    amount:
-      type: "PositiveAmount"
-      formatter: (value) -> Toruzou.Common.Formatters.amount value
+    # amount:
+    #   type: "PositiveAmount"
+    #   formatter: (value) -> Toruzou.Common.Formatters.amount value
     accuracy:
       type: "Selectize"
       restore: (model) ->
@@ -129,6 +126,20 @@ class Model.Deal extends Backbone.Model
     
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
+
+  # parse: (resp, options) ->
+  #   attributes = super resp, options
+  #   if attributes.salesProjections
+  #     attributes.salesProjections = _.map attributes.salesProjections, (projection) -> new Model.SalesProjection projection
+  #     _.each [
+  #       { moment: moment(), property: "this_sales" }
+  #       { moment: moment() + 1, property: "next_sales" }
+  #     ], (def) ->
+  #       projections = _.filter attributes.salesProjections, (projection) -> console.log projection;projection.get("year") is getFiscalYearOf(def.moment)
+  #       if projections
+  #         attributes[def.property] = {}
+  #         _.each projections, (projection) -> attributes[def.property][projection.get("period")] = projection
+  #   attributes
     
 
 class Model.Deals extends Backbone.PageableCollection

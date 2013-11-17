@@ -7,10 +7,13 @@ class Deal < ActiveRecord::Base
   belongs_to :pm, :class_name => "User"
   belongs_to :sales, :class_name => "User"
   belongs_to :contact, :class_name => "Person"
+  has_many :sales_projections
   has_many :activities
   has_many :attachments, :as => :attachable
   has_many :updates, :as => :receivable
   has_many :audits, :as => :auditable
+
+  default_scope { includes(:sales_projections) }
 
   scope :in_organization, -> (organization_id) {
     where(:organization_id => organization_id)
@@ -78,12 +81,8 @@ class Deal < ActiveRecord::Base
     inclusion: [ 0, 25, 50, 75, 90, 100 ],
     allow_nil: true,
     allow_blank: true
-  validates :amount,
-    inclusion: { in: 0..(10 ** 11) },
-    allow_nil:true,
-    allow_blank: true
 
-  audit :name, :organization, :pm, :sales, :contact, :status, :amount, :accuracy, :start_date, :order_date, :accept_date, :deleted_at
+  audit :name, :organization, :pm, :sales, :contact, :status, :accuracy, :start_date, :order_date, :accept_date, :deleted_at
 
   def update_destinations_for(audit)
     [ self, self.organization ]

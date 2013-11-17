@@ -88,6 +88,10 @@ class Index.ChangeItemView extends Marionette.ItemView
         person = auditable.get "person"
         header = Toruzou.request "linkTo:people:show", person.name, person.id
         header + "'s career"
+      when "SalesProjection"
+        deal = auditable.get "deal"
+        header = Toruzou.request "linkTo:deals:show", deal.name, deal.id
+        header + "'s sales projection"
       when "Attachment"
         header = Toruzou.request "linkTo:attachment:download", auditable.get("name"), auditable.get("id")
         header = "an attachment " + header

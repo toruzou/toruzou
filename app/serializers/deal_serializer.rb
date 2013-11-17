@@ -1,5 +1,5 @@
-class DealSerializer < ActivityAwareSerializer
-  attributes :class_name, :id, :name, :category, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :amount, :accuracy, :status, :deleted_at, :following
+class DealSerializer < ActiveModel::Serializer
+  attributes :class_name, :id, :name, :category, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :accuracy, :status, :deleted_at, :following
   def class_name
     object.class.name
   end

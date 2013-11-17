@@ -55,12 +55,6 @@
       <span class="value">{{{linkTo sales.name "users:show" sales.id}}}</span>
     </div>
     {{/if}}
-    {{#if amount}}
-    <div class="property">
-      <span class="label">Amount</span>
-      <span class="value">{{amount amount}}</span>
-    </div>
-    {{/if}}
     {{#if accuracy}}
     <div class="property">
       <span class="label">Accuracy</span>
@@ -106,6 +100,12 @@
       <section id="activities">
         <p class="title" data-section-title>
           <a href="#" data-bypass><i class="icon-calendar icon-inline-prefix"></i>Activities</a>
+        </p>
+        <div class="content" data-section-content></div>
+      </section>
+      <section id="sales">
+        <p class="title" data-section-title>
+          <a href="#" data-bypass><i class="icon-bar-chart icon-inline-prefix"></i>Sales Projections</a>
         </p>
         <div class="content" data-section-content></div>
       </section>

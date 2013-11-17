@@ -16,6 +16,7 @@ Toruzou::Application.routes.draw do
       resources :changelogs
       resources :notifications
       resources :attachments
+      resources :sales_projections, :path => "sales"
       resources :users do
         member do
           get "followings" => "users#followings"
@@ -48,6 +49,7 @@ Toruzou::Application.routes.draw do
         end
         resources :notes
         resources :attachments
+        resources :sales_projections, :path => "sales"
       end
       resources :activities do
         resources :attachments

@@ -91,7 +91,6 @@ module Api
             :start_date,
             :order_date,
             :accept_date,
-            :amount,
             :accuracy,
             :status
           ).merge(:changed_by => current_user)

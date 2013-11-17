@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="large-12 columns">
+    <form>
+      <fieldset{{#unless title}} class="no-margin"{{/unless}}>
+        {{#if title}}<legend><i class="icon-bar-chart icon-inline-prefix"></i>{{title}}</legend>{{/if}}
+        <div class="row">
+          <div class="large-6 columns" data-fields="year"></div>
+          <div class="large-6 columns" data-fields="period"></div>
+        </div>
+        <div class="row">
+          <div class="large-6 columns" data-fields="amount"></div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns" data-fields="remarks"></div>
+        </div>
+      </fieldset>
+      <div class="row form-actions">
+        <div class="large-12 columns">
+          <input type="submit" value="Save" class="button primary" />
+          <input type="button" value="Cancel" class="button cancel" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

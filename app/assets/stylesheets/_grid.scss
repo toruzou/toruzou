@@ -28,6 +28,9 @@
             padding: 0;
         }
     }
+    .integer-cell {
+        width: 10em;
+    }
     .local-date-cell {
         width: 10em;
         text-align: right;
@@ -37,6 +40,10 @@
         text-align: right;
     }
     .activity-action-cell {
+        width: 10em;
+    }
+    .year-cell,
+    .period-cell {
         width: 10em;
     }
     .button-cell {

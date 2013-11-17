@@ -7,6 +7,7 @@ class Show.View extends Marionette.Layout
     updatesRegion: "#updates [data-section-content]"
     activitiesPanelRegion: ".activities-panel"
     activitiesRegion: "#activities [data-section-content]"
+    salesProjectionsRegion: "#sales [data-section-content]"
     filesRegion: "#files [data-section-content]"
   events:
     "click #delete-button": "delete"
@@ -46,6 +47,8 @@ class Show.View extends Marionette.Layout
         @showUpdates()
       when "activities"
         @showActivities()
+      when "sales"
+        @showSalesProjections()
       when "files"
         @showFiles()
 
@@ -60,6 +63,10 @@ class Show.View extends Marionette.Layout
   showActivities: ->
     $.when(Toruzou.request "activities:fetch", deal_id: @model.get "id").done (activities) =>
       @activitiesRegion.show new Toruzou.Activities.Index.ListView collection: activities, deal: @model
+
+  showSalesProjections: ->
+    $.when(Toruzou.request "salesProjections:fetch", deal_id: @model.get("id")).done (salesProjections) =>
+      @salesProjectionsRegion.show new Toruzou.SalesProjections.Index.ListView collection: salesProjections, deal: @model
 
   showFiles: ->
     view = new Toruzou.Attachments.View

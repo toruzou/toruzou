@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110083716) do
+ActiveRecord::Schema.define(version: 20131117090423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(version: 20131110083716) do
     t.date     "start_date"
     t.date     "order_date"
     t.date     "accept_date"
-    t.integer  "amount"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -146,6 +145,16 @@ ActiveRecord::Schema.define(version: 20131110083716) do
 
   add_index "participants", ["activity_id"], name: "index_participants_on_activity_id", using: :btree
   add_index "participants", ["participable_id"], name: "index_participants_on_participable_id", using: :btree
+
+  create_table "sales_projections", force: true do |t|
+    t.integer "deal_id"
+    t.integer "year"
+    t.integer "period"
+    t.integer "amount"
+    t.text    "remarks"
+  end
+
+  add_index "sales_projections", ["deal_id"], name: "index_sales_projections_on_deal_id", using: :btree
 
   create_table "updates", force: true do |t|
     t.integer  "audit_id"
