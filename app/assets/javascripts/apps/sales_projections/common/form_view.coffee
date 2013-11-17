@@ -7,6 +7,9 @@ class Common.FormView extends Toruzou.Common.FormView
     "submit form": "save"
     "click .cancel": "cancel"
   schema:
+    dealId:
+      editorAttrs:
+        placeholder: "Deal"
     year:
       editorAttrs:
         placeholder: "Fiscal Year"

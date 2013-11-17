@@ -11,6 +11,10 @@ module Api
       def index
         @sales_projections = SalesProjection.all
         @sales_projections = @sales_projections.of(params[:deal_id]) if params[:deal_id].present?
+        @sales_projections = @sales_projections.match_deal(params[:deal_name]) if params[:deal_name].present?
+        @sales_projections = @sales_projections.match_organization(params[:organization_name]) if params[:organization_name].present?
+        @sales_projections = @sales_projections.year_from(params[:from]) if params[:from].present?
+        @sales_projections = @sales_projections.year_to(params[:to]) if params[:to].present?
         render json: to_pageable(@sales_projections)
       end
 

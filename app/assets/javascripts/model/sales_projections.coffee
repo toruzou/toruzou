@@ -18,12 +18,21 @@ class Model.SalesProjection extends Backbone.Model
     if period then period.label else ""
 
   defaults:
+    dealId: undefined
+    deal: undefined
     year: undefined
     period: undefined
     amount: undefined
     remarks: ""
 
   schema:
+    dealId: $.extend true, {},
+      Model.Schema.Deal,
+      title: "Deal"
+      key: "deal"
+      validators: [ "required" ]
+    deal:
+      formatter: (value) -> value?.name
     year:
       type: "PositiveInteger"
       validators: [ "required" ]

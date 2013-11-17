@@ -18,7 +18,7 @@ class Index.ListView extends Marionette.Layout
   addSalesProjection: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    salesProjection = Toruzou.request "salesProjection:new", dealId: @deal.get("id")
+    salesProjection = Toruzou.request "salesProjection:new", deal: @deal
     newView = new Toruzou.SalesProjections.New.View model: salesProjection
     newView.on "salesProjection:saved", => @refresh()
     Toruzou.dialogRegion.show newView
