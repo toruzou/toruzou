@@ -33,6 +33,7 @@ class Model.Career extends Backbone.Model
       type: "Text"
     remarks:
       type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
 
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"

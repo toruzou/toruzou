@@ -24,3 +24,6 @@ class Common.Formatters
   @localDatetime: (value) ->
     return "" unless value
     moment(value).format(@LOCAL_DATETIME_FORMAT)
+
+  @truncateText: (value) ->
+    _.str.truncate value, 30

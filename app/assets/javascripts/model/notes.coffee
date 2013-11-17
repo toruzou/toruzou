@@ -17,6 +17,7 @@ class Model.Note extends Backbone.Model
   schema:
     message:
       type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
 
 
 class Model.Notes extends Backbone.PageableCollection

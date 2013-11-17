@@ -26,6 +26,7 @@ Model.Organization = class Organization extends Backbone.Model
       type: "Text"
     remarks:
       type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
     url:
       title: "URL"
       type: "Text"

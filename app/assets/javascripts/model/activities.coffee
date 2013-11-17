@@ -91,6 +91,7 @@ class Model.Activity extends Backbone.Model
     note:
       title: "Summary"
       type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
     done:
       title: "Complete"
       type: "Checkbox"

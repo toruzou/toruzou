@@ -39,6 +39,7 @@ class Model.Person extends Backbone.Model
       type: "Text"
     remarks:
       type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
     ownerId: $.extend true, {},
       Model.Schema.User,
       title: "Owner"
