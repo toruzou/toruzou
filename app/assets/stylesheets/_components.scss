@@ -126,7 +126,7 @@ textarea {
         border-radius: 0;
         border-color: #ddd;
         box-shadow: none;
-        padding: 0.25em 0.5em;
+        padding: 0.1em 0.5em;
         > input {
             display: inline-block;
             @include placeholder(rgba($input-font-color, 0.5));
