@@ -224,6 +224,8 @@ Toruzou.addInitializer ->
     pickadate:
       format: "yyyy/mm/dd"
       formatSubmit: "yyyy/mm/dd"
+      selectYears: 20
+      selectMonths: true
 
     setValue: (value) ->
       super Toruzou.Common.Formatters.localDate value

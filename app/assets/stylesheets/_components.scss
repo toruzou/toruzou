@@ -504,3 +504,12 @@ div.checkbox-editor {
     }
     border: 1px solid $alert-color;
 }
+
+
+.picker__header {
+    margin-top: 1em;
+}
+.picker__button--today,
+.picker__button--clear {
+    color: $body-font-color;
+}
