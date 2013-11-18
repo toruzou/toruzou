@@ -54,6 +54,13 @@ class Model.SalesProjection extends Backbone.Model
       type: "TextArea"
       formatter: (value) -> Toruzou.Common.Formatters.truncateText value
 
+  parse: (resp, options) ->
+    attributes = super resp, options
+    attributes.organization = attributes.deal?.organization
+    attributes.category = attributes.deal?.category
+    attributes.status = attributes.deal?.status
+    attributes
+
 
 class Model.SalesProjections extends Backbone.PageableCollection
 

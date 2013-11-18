@@ -35,6 +35,18 @@ class Index.GridView extends Toruzou.Common.GridView
         href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:deals:show", rawValue["id"] else null
     }
     {
+      name: "category"
+      label: "Category"
+      editable: false
+      cell: "string"
+    }
+    {
+      name: "status"
+      label: "Status"
+      editable: false
+      cell: "string"
+    }
+    {
       name: "organization"
       label: "Organization"
       editable: false

@@ -2,12 +2,18 @@ class SalesProjection < ActiveRecord::Base
 
   belongs_to :deal
   
-  default_scope { order(:year, :period) }
+  default_scope { joins(:deal).order(:year, :period) }
   scope :of, -> (deal_id) {
     where(:deal_id => deal_id)
   }
   scope :match_deal, -> (deal_name) {
     joins(:deal).where("lower(deals.name) LIKE ?", "%#{deal_name.downcase}%")
+  }
+  scope :match_categories, -> (categories) {
+    joins(:deal).where("deals.category in (?)", categories)
+  }
+  scope :match_statuses, -> (statuses) {
+    joins(:deal).where("deals.status in (?)", statuses)
   }
   scope :match_organization, -> (organization_name) {
     joins(:deal => :organization).where("lower(contacts.name) LIKE ?", "%#{organization_name.downcase}%")
@@ -23,8 +29,6 @@ class SalesProjection < ActiveRecord::Base
 
   after_destroy :destroy_updates
 
-
-
   def update_destinations_for(audit)
     self.deal.update_destinations_for(audit)
   end
@@ -33,7 +37,7 @@ class SalesProjection < ActiveRecord::Base
     Update.match_auditable("SalesProjection", self.id).readonly(false).delete_all
   end
 
-  validates :period, :uniqueness => { :scope => :year }
+  validates :period, :uniqueness => { :scope => [ :deal_id, :year ] }
   validates :amount,
     inclusion: { in: 0..(10 ** 11) },
     allow_nil: true,
