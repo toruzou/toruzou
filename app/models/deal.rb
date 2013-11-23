@@ -13,6 +13,8 @@ class Deal < ActiveRecord::Base
   has_many :updates, :as => :receivable
   has_many :audits, :as => :auditable
 
+  default_scope { includes(:sales_projections) }
+
   scope :in_organization, -> (organization_id) {
     where(:organization_id => organization_id)
   }
@@ -84,6 +86,10 @@ class Deal < ActiveRecord::Base
 
   def update_destinations_for(audit)
     [ self, self.organization ]
+  end
+
+  def total_amount
+    sales_projections.inject(0) { |amount, projection| amount += projection.amount }
   end
 
 end

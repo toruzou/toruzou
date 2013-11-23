@@ -55,6 +55,12 @@ class Index.GridView extends Toruzou.Common.GridView
       cell: "string"
     }
     {
+      name: "totalAmount"
+      label: "Total Amount"
+      editable: false
+      cell: "integer"
+    }
+    {
       name: "accuracy"
       label: "Accuracy"
       editable: false
