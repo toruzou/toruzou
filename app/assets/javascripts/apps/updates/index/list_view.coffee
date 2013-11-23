@@ -107,7 +107,7 @@ class Index.ChangeItemView extends Marionette.ItemView
         organization = auditable.get "organization"
         header += " #{if deal then "of" else "to"} " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
         people = auditable.get "people"
-        header += " with " + (_.map people, (person) -> Toruzou.request "linkTo:people:show", person.name, person.id).join ", " if people
+        header += " with " + (_.map people, (person) -> Toruzou.request "linkTo:people:show", person.name, person.id).join ", " if people and people.length > 0
         header 
       else
         throw new Error "Unexpected auditable"
