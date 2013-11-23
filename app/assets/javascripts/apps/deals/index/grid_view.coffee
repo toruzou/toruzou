@@ -98,6 +98,12 @@ class Index.GridView extends Toruzou.Common.GridView
       cell: "localDate"
     }
     {
+      name: "updatedAt"
+      label: "Updated Datetime"
+      editable: false
+      cell: "localDatetime"
+    }
+    {
       name: "deletedAt"
       label: "Deleted Datetime"
       editable: false

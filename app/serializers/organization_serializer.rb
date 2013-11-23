@@ -1,5 +1,5 @@
 class OrganizationSerializer < ActivityAwareSerializer
-  attributes :class_name, :id, :name, :abbreviation, :address, :remarks, :url, :owner, :owner_id, :deleted_at, :following
+  attributes :class_name, :id, :name, :abbreviation, :address, :remarks, :url, :owner, :owner_id, :updated_at, :deleted_at, :following
   def class_name
     object.class.name
   end

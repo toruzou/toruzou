@@ -5,7 +5,8 @@ module Api
 
       include Pageable
 
-      before_action :set_sales_projection, only: [ :show, :edit, :update, :destroy ]
+      before_action :set_sales_projection, only: [ :show ]
+      before_action :set_sales_projection_for_update, only: [ :edit, :update, :destroy ]
 
       # GET /sales_projections
       def index
@@ -73,6 +74,10 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_sales_projection
           @sales_projection = SalesProjection.find(params[:id])
+        end
+
+        def set_sales_projection_for_update
+          @sales_projection = SalesProjection.unscoped.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

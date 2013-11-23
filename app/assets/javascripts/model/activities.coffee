@@ -117,7 +117,7 @@ class Model.Activities extends Backbone.PageableCollection
   model: Model.Activity
 
   state:
-    sortKey: "date"
+    sortKey: "updated_at"
     order: 1
     
 

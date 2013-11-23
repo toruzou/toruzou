@@ -72,6 +72,12 @@ class Index.GridView extends Toruzou.Common.GridView
         href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:users:show", rawValue["id"] else null
     }
     {
+      name: "updatedAt"
+      label: "Updated Datetime"
+      editable: false
+      cell: "localDatetime"
+    }
+    {
       name: "deletedAt"
       label: "Deleted Datetime"
       editable: false
