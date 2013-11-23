@@ -1,11 +1,13 @@
 root = exports ? this
+
 Toruzou = root.Toruzou = new Marionette.Application()
-  
+
 Toruzou.Configuration =
   root: ""
   api:
     version: "v1"
   timeout: 5000
+  settings: ___TORUZOU_SETTINGS___
   # TODO commands
   routes:
     "User": "users"

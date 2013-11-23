@@ -4,21 +4,9 @@ class Model.Deal extends Backbone.Model
 
   urlRoot: Model.endpoint "deals"
   modelName: "deal"
-  categories: [
-    "Maintenance"
-    "Enhancement"
-    "Chance"
-    "Must"
-    "Challenge"
-  ]
-  statuses: [
-    "Plan"
-    "Quotation submitted"
-    "Waiting order form"
-    "Order form received"
-    "Waiting inspection document"
-    "Inspection document received"
-  ]
+  projectTypes: _.map Toruzou.Configuration.settings.options.project_types, (value, key) -> { val: key, label: value }
+  categories: _.map Toruzou.Configuration.settings.options.deal_categories, (value, key) -> { val: key, label: value }
+  statuses: _.map Toruzou.Configuration.settings.options.deal_statuses, (value, key) -> { val: key, label: value }
   accuracies: _.map [
     "0"
     "25"
@@ -30,6 +18,8 @@ class Model.Deal extends Backbone.Model
 
   defaults:
     name: ""
+    projectType: ""
+    category: ""
     organization: null
     organizationId: null
     pm: null
@@ -48,6 +38,16 @@ class Model.Deal extends Backbone.Model
     name:
       type: "Text"
       validators: [ "required" ]
+    projectType:
+      type: "Selectize"
+      restore: (model) ->
+        type = model.get "projectType"
+        {
+          value: type
+          data: type
+        }
+      options: @::projectTypes
+      formatter: (value) -> Toruzou.Common.Formatters.option "project_types", value
     category:
       type: "Selectize"
       restore: (model) ->
@@ -57,6 +57,7 @@ class Model.Deal extends Backbone.Model
           data: category
         }
       options: @::categories
+      formatter: (value) -> Toruzou.Common.Formatters.option "deal_categories", value
     organizationId: $.extend true, {},
       Model.Schema.Organization,
       title: "Organization"
@@ -93,9 +94,7 @@ class Model.Deal extends Backbone.Model
           data: status
         }
       options: @::statuses
-    # amount:
-    #   type: "PositiveAmount"
-    #   formatter: (value) -> Toruzou.Common.Formatters.amount value
+      formatter: (value) -> Toruzou.Common.Formatters.option "deal_statuses", value
     accuracy:
       type: "Selectize"
       restore: (model) ->
@@ -127,20 +126,6 @@ class Model.Deal extends Backbone.Model
   attachmentsUrl: ->
     _.result(@, "url") + "/attachments"
 
-  # parse: (resp, options) ->
-  #   attributes = super resp, options
-  #   if attributes.salesProjections
-  #     attributes.salesProjections = _.map attributes.salesProjections, (projection) -> new Model.SalesProjection projection
-  #     _.each [
-  #       { moment: moment(), property: "this_sales" }
-  #       { moment: moment() + 1, property: "next_sales" }
-  #     ], (def) ->
-  #       projections = _.filter attributes.salesProjections, (projection) -> console.log projection;projection.get("year") is getFiscalYearOf(def.moment)
-  #       if projections
-  #         attributes[def.property] = {}
-  #         _.each projections, (projection) -> attributes[def.property][projection.get("period")] = projection
-  #   attributes
-    
 
 class Model.Deals extends Backbone.PageableCollection
 

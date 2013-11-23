@@ -5,6 +5,9 @@ class Common.Formatters
   @LOCAL_DATE_FORMAT = "YYYY/MM/DD"
   @LOCAL_DATETIME_FORMAT = "YYYY/MM/DD HH:mm:ss"
 
+  @option: (type, value) ->
+    Toruzou.Configuration.settings.options?[type]?[value]
+
   @amount: (value) ->
     return "" unless value
     values = value.toString().split "."

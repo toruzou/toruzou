@@ -23,6 +23,10 @@ class Deal < ActiveRecord::Base
     where("lower(deals.name) LIKE ?", "%#{q.downcase}%")
   }
 
+  scope :match_project_type, -> (q) {
+    where(project_type: q)
+  }
+
   scope :match_category, -> (q) {
     where(category: q)
   }
@@ -56,25 +60,16 @@ class Deal < ActiveRecord::Base
   validates :name, presence: true
 
   # TODO decide valid combination of status and accuracy.
+  validates :project_type,
+    inclusion: Settings.with_defaults[:options][:project_types].keys,
+    allow_nil: true,
+    allow_blank: true
   validates :category,
-    inclusion: [
-      "Maintenance",
-      "Enhancement",
-      "Chance",
-      "Must",
-      "Challenge"
-    ],
+    inclusion: Settings.with_defaults[:options][:deal_categories].keys,
     allow_nil: true,
     allow_blank: true
   validates :status,
-    inclusion: [
-      "Plan",
-      "Quotation submitted",
-      "Waiting order form",
-      "Order form received",
-      "Waiting inspection document",
-      "Inspection document received"
-    ],
+    inclusion: Settings.with_defaults[:options][:deal_statuses].keys,
     allow_nil: true,
     allow_blank: true
   validates :accuracy,
@@ -82,7 +77,7 @@ class Deal < ActiveRecord::Base
     allow_nil: true,
     allow_blank: true
 
-  audit :name, :organization, :pm, :sales, :contact, :status, :accuracy, :start_date, :order_date, :accept_date, :deleted_at
+  audit :name, :project_type, :category, :organization, :pm, :sales, :contact, :status, :accuracy, :start_date, :order_date, :accept_date, :deleted_at
 
   def update_destinations_for(audit)
     [ self, self.organization ]

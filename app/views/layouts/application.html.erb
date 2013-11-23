@@ -20,6 +20,9 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <div id="loading-region"></div>
+    <script type="text/javascript">
+      var ___TORUZOU_SETTINGS___ = <%= @settings.to_json.html_safe %>
+    </script>
     <%= javascript_include_tag "application" %>
     <script type="text/javascript">
       Toruzou.start();

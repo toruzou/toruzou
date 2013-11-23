@@ -10,6 +10,9 @@ class Common.FormView extends Toruzou.Common.FormView
     name:
       editorAttrs:
         placeholder: "Name"
+    projectType:
+      editorAttrs:
+        placeholder: "Project Type"
     category:
       editorAttrs:
         placeholder: "Category"

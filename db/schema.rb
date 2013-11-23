@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131117090423) do
+ActiveRecord::Schema.define(version: 20131123125419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20131117090423) do
     t.integer  "contact_id"
     t.datetime "deleted_at"
     t.string   "category"
+    t.string   "project_type"
   end
 
   add_index "deals", ["contact_id"], name: "index_deals_on_contact_id", using: :btree
@@ -155,6 +156,17 @@ ActiveRecord::Schema.define(version: 20131117090423) do
   end
 
   add_index "sales_projections", ["deal_id"], name: "index_sales_projections_on_deal_id", using: :btree
+
+  create_table "settings", force: true do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "updates", force: true do |t|
     t.integer  "audit_id"

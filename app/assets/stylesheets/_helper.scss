@@ -17,6 +17,7 @@
   @include fadeIn(1s);
   color: $color;
   border: none;
+  margin-top: 0.5em;
   padding: 1em;
   h1, h2, h3, h4, h5, h6 {
     color: $color;

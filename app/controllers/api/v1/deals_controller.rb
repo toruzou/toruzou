@@ -15,6 +15,7 @@ module Api
           @deals = Deal.all
         end
         @deals = @deals.match_user(params[:user_id]) if params[:user_id].present?
+        @deals = @deals.match_project_type(params[:project_types]) if params[:project_types].present?
         @deals = @deals.match_category(params[:categories]) if params[:categories].present?
         @deals = @deals.in_organization(params[:organization_id]) if params[:organization_id].present?
         @deals = @deals.where(:contact_id => params[:person_id]) if params[:person_id].present?
@@ -83,6 +84,7 @@ module Api
         def deal_update_params
           params.require(:deal).permit(
             :name,
+            :project_type,
             :category,
             :organization_id,
             :contact_id,

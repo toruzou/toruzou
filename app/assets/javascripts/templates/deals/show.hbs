@@ -19,16 +19,22 @@
 </div>
 <div class="row collapse properties-container">
   <div class="large-12 columns">
+    {{#if projectType}}
+    <div class="property">
+      <span class="label">Project Type</span>
+      <span class="value">{{option "project_types" projectType}}</span>
+    </div>
+    {{/if}}
     {{#if category}}
     <div class="property">
       <span class="label">Category</span>
-      <span class="value">{{category}}</span>
+      <span class="value">{{option "deal_categories" category}}</span>
     </div>
     {{/if}}
     {{#if status}}
     <div class="property">
       <span class="label">Status</span>
-      <span class="value">{{status}}</span>
+      <span class="value">{{option "deal_statuses" status}}</span>
     </div>
     {{/if}}
     {{#if organization}}

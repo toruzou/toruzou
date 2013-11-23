@@ -1,5 +1,8 @@
 Toruzou.addInitializer ->
 
+  Handlebars.registerHelper "option", (type, value) ->
+    Toruzou.Common.Formatters.option type, value
+
   Handlebars.registerHelper "match", (v1, operator, v2, options) ->
     switch operator
       when "eq"

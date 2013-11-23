@@ -11,10 +11,18 @@ class Index.GridView extends Toruzou.Common.GridView
         href: -> Toruzou.request "route:deals:show", @model.get "id"
     }
     {
+      name: "projectType"
+      label: "Project Type"
+      editable: false
+      cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "project_types", rawValue
+    }
+    {
       name: "category"
       label: "Category"
       editable: false
       cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "deal_categories", rawValue
     }
     {
       name: "organization"
@@ -53,6 +61,7 @@ class Index.GridView extends Toruzou.Common.GridView
       label: "Status"
       editable: false
       cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "deal_statuses", rawValue
     }
     {
       name: "totalAmount"
