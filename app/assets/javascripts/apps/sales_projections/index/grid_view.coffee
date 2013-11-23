@@ -27,34 +27,6 @@ class Index.GridView extends Toruzou.Common.GridView
 
   columns: [
     {
-      name: "deal"
-      label: "Deal"
-      editable: false
-      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
-      cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:deals:show", rawValue["id"] else null
-    }
-    {
-      name: "category"
-      label: "Category"
-      editable: false
-      cell: "string"
-    }
-    {
-      name: "status"
-      label: "Status"
-      editable: false
-      cell: "string"
-    }
-    {
-      name: "organization"
-      label: "Organization"
-      editable: false
-      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
-      cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:organizations:show", rawValue["id"] else null
-    }
-    {
       name: "year"
       label: "Fiscal Year"
       cell: YearCell
@@ -70,6 +42,43 @@ class Index.GridView extends Toruzou.Common.GridView
       label: "Amount"
       editable: false
       cell: "integer"
+    }
+    {
+      name: "deal"
+      label: "Deal"
+      editable: false
+      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+      cell: class extends Backgrid.Extension.LinkCell
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:deals:show", rawValue["id"] else null
+    }
+    {
+      name: "projectType"
+      label: "Project Type"
+      editable: false
+      cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "project_types", rawValue
+    }
+    {
+      name: "category"
+      label: "Category"
+      editable: false
+      cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "deal_categories", rawValue
+    }
+    {
+      name: "status"
+      label: "Status"
+      editable: false
+      cell: "string"
+      formatter: fromRaw: (rawValue) -> Toruzou.Common.Formatters.option "deal_statuses", rawValue
+    }
+    {
+      name: "organization"
+      label: "Organization"
+      editable: false
+      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+      cell: class extends Backgrid.Extension.LinkCell
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:organizations:show", rawValue["id"] else null
     }
     {
       name: "remarks"

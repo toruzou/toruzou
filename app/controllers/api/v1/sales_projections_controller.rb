@@ -12,6 +12,7 @@ module Api
         @sales_projections = SalesProjection.all
         @sales_projections = @sales_projections.of(params[:deal_id]) if params[:deal_id].present?
         @sales_projections = @sales_projections.match_deal(params[:deal_name]) if params[:deal_name].present?
+        @sales_projections = @sales_projections.match_project_types(params[:project_types]) if params[:project_types].present?
         @sales_projections = @sales_projections.match_categories(params[:categories]) if params[:categories].present?
         @sales_projections = @sales_projections.match_statuses(params[:statuses]) if params[:statuses].present?
         @sales_projections = @sales_projections.match_organization(params[:organization_name]) if params[:organization_name].present?

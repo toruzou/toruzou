@@ -22,7 +22,7 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
       selectize:
         maxItems: Toruzou.Model.Deal::projectTypes.length
       editorAttrs:
-        placeholder: "Filter by Project Types"
+        placeholder: "Filter by Project types"
     categories:
       type: "Selectize"
       options: Toruzou.Model.Deal::categories

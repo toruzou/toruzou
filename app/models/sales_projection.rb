@@ -9,6 +9,9 @@ class SalesProjection < ActiveRecord::Base
   scope :match_deal, -> (deal_name) {
     joins(:deal).where("lower(deals.name) LIKE ?", "%#{deal_name.downcase}%")
   }
+  scope :match_project_types, -> (proejct_types) {
+    joins(:deal).where("deals.project_type in (?)", proejct_types)
+  }
   scope :match_categories, -> (categories) {
     joins(:deal).where("deals.category in (?)", categories)
   }

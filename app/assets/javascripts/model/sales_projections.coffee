@@ -57,6 +57,7 @@ class Model.SalesProjection extends Backbone.Model
   parse: (resp, options) ->
     attributes = super resp, options
     attributes.organization = attributes.deal?.organization
+    attributes.projectType = attributes.deal?.project_type
     attributes.category = attributes.deal?.category
     attributes.status = attributes.deal?.status
     attributes
