@@ -10,10 +10,10 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
 
   schema:
     organizationName:
-      title: "Organization"
+      title: "Client Organization"
       type: "Text"
       editorAttrs:
-        placeholder: "Filter by Organization"
+        placeholder: "Filter by Client Organization"
     dealName:
       title: "Deal"
       type: "Text"

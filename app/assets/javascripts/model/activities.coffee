@@ -66,9 +66,10 @@ class Model.Activity extends Backbone.Model
       formatter: (value) -> Toruzou.Common.Formatters.localDate value
     organizationId: $.extend true, {},
       Model.Schema.Organization,
-      title: "Organization"
+      title: "Client Organization"
       key: "organization"
     organization:
+      title: "Client Organization"
       formatter: (value) -> value?.name
     dealId: $.extend true, {},
       Model.Schema.Deal,
@@ -76,17 +77,19 @@ class Model.Activity extends Backbone.Model
       key: "deal"
     deal:
       formatter: (value) -> value?.name
-    usersIds: $.extend true, {},
-      Model.Schema.Users,
-      title: "Users"
-      key: "users"
-    users:
-      formatter: (value) -> (_.pluck value, "name").join ", "
     peopleIds: $.extend true, {},
       Model.Schema.People,
-      title: "Contacts"
+      title: "Client Members"
       key: "people"
     people:
+      title: "Client Members"
+      formatter: (value) -> (_.pluck value, "name").join ", "
+    usersIds: $.extend true, {},
+      Model.Schema.Users,
+      title: "Our Members"
+      key: "users"
+    users:
+      title: "Our Members"
       formatter: (value) -> (_.pluck value, "name").join ", "
     note:
       title: "Summary"

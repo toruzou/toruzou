@@ -47,29 +47,29 @@ class Index.GridView extends Toruzou.Common.GridView
     }
     {
       name: "organization"
-      label: "Organization"
+      label: "Client Organization"
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
         href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:organizations:show", rawValue["id"] else null
     }
     {
-      name: "users"
-      label: "Users"
-      sortable: false
-      editable: false
-      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
-      cell: class extends Backgrid.Extension.LinkCell
-        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:users:show", rawValue["id"] else null
-    }
-    {
       name: "people"
-      label: "Contacts"
+      label: "Client Members"
       sortable: false
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
         href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:people:show", rawValue["id"] else null
+    }
+    {
+      name: "users"
+      label: "Our Members"
+      sortable: false
+      editable: false
+      formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
+      cell: class extends Backgrid.Extension.LinkCell
+        href: (rawValue) -> if rawValue?["id"] then Toruzou.request "route:users:show", rawValue["id"] else null
     }
     {
       name: "deletedAt"

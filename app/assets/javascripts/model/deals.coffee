@@ -60,9 +60,10 @@ class Model.Deal extends Backbone.Model
       formatter: (value) -> Toruzou.Common.Formatters.option "deal_categories", value
     organizationId: $.extend true, {},
       Model.Schema.Organization,
-      title: "Organization"
+      title: "Client Organization"
       key: "organization"
     organization:
+      title: "Client Organization"
       formatter: (value) -> value?.name
     pmId: $.extend true, {},
       Model.Schema.User,
@@ -80,10 +81,10 @@ class Model.Deal extends Backbone.Model
       formatter: (value) -> value?.name
     contactId: $.extend true, {},
       Model.Schema.Person,
-      title: "Contact Person"
+      title: "Client Person"
       key: "contact"
     contact:
-      title: "Contact Person"
+      title: "Client Person"
       formatter: (value) -> value?.name
     status:
       type: "Selectize"

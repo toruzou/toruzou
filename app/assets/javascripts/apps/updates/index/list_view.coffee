@@ -77,10 +77,10 @@ class Index.ChangeItemView extends Marionette.ItemView
         header = Toruzou.request "linkTo:people:show", auditable.get("name"), auditable.get("id")
         organization = auditable.get "organization"
         header += " of " + Toruzou.request "linkTo:organizations:show", organization.name, organization.id if organization
-        "a person " + header
+        "a client member " + header
       when "Organization"
         header = Toruzou.request "linkTo:organizations:show", auditable.get("name"), auditable.get("id")
-        "an organization " + header
+        "a client organization " + header
       when "User"
         header = Toruzou.request "linkTo:users:show", auditable.get("name"), auditable.get("id")
         "a user " + header

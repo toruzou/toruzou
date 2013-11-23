@@ -26,7 +26,7 @@ class Index.GridView extends Toruzou.Common.GridView
     }
     {
       name: "organization"
-      label: "Organization"
+      label: "Client Organization"
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell
@@ -34,7 +34,7 @@ class Index.GridView extends Toruzou.Common.GridView
     }
     {
       name: "contact"
-      label: "Contact Person"
+      label: "Client Person"
       editable: false
       formatter: fromRaw: (rawValue) -> if rawValue then rawValue["name"] else ""
       cell: class extends Backgrid.Extension.LinkCell

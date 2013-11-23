@@ -43,10 +43,10 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
       editorAttrs:
         placeholder: "Filter by Deal"
     organizationName:
-      title: "Organization"
+      title: "Client Organization"
       type: "Text"
       editorAttrs:
-        placeholder: "Filter by Organization"
+        placeholder: "Filter by Client Organization"
     term:
       type: "Selectize"
       options: terms

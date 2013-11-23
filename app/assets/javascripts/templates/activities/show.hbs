@@ -22,7 +22,7 @@
     {{/if}}
     {{#if organization}}
     <div class="property">
-      <span class="label">Organization</span>
+      <span class="label">Client Organization</span>
       <span class="value">{{{linkTo organization.name "organizations:show" organization.id}}}</span>
     </div>
     {{/if}}
@@ -32,22 +32,22 @@
       <span class="value">{{{linkTo deal.name "deals:show" deal.id}}}</span>
     </div>
     {{/if}}
-    {{#if users}}
+    {{#if people}}
       <div class="property">
-        <span class="label">Users</span>
+        <span class="label">Client Members</span>
         <span class="value">
-        {{#each users}}
-          {{{linkTo name "users:show" id}}}
+        {{#each people}}
+          {{{linkTo name "people:show" id}}}
         {{/each}}
         </span>
       </div>
     {{/if}}
-    {{#if people}}
+    {{#if users}}
       <div class="property">
-        <span class="label">Contacts</span>
+        <span class="label">Our Members</span>
         <span class="value">
-        {{#each people}}
-          {{{linkTo name "people:show" id}}}
+        {{#each users}}
+          {{{linkTo name "users:show" id}}}
         {{/each}}
         </span>
       </div>

@@ -31,15 +31,15 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
       editorAttrs:
         placeholder: "Filter by Categories"
     organizationName:
-      title: "Organization"
+      title: "Client Organization"
       type: "Text"
       editorAttrs:
-        placeholder: "Filter by Organization"
+        placeholder: "Filter by Client Organization"
     contactName:
-      title: "Contact Person"
+      title: "Client Person"
       type: "Text"
       editorAttrs:
-        placeholder: "Filter by Contact Person"
+        placeholder: "Filter by Client Person"
     pmName:
       title: "Project Manager"
       type: "Text"

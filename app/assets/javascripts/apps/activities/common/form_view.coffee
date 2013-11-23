@@ -21,13 +21,13 @@ class Common.FormView extends Toruzou.Common.FormView
         placeholder: "Deal"
     organizationId:
       editorAttrs:
-        placeholder: "Organization"
-    usersIds:
-      editorAttrs:
-        placeholder: "Users"
+        placeholder: "Client Organization"
     peopleIds:
       editorAttrs:
-        placeholder: "Contacts"
+        placeholder: "Client Members"
+    usersIds:
+      editorAttrs:
+        placeholder: "Our Memberes"
     note:
       editorAttrs:
         placeholder: "Note"
