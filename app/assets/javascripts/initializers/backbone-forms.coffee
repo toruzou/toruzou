@@ -1,5 +1,7 @@
 Toruzou.addInitializer ->
 
+  delayed = (fn) -> setTimeout fn, 0
+
   # formatters
   Backbone.Model::displayNameOf = (propertyName) ->
     if @schema
@@ -13,13 +15,25 @@ Toruzou.addInitializer ->
       return property.formatter value if property and property.formatter
     value
 
+  class Backbone.Form extends Backbone.Form
+
+    constructor: (options) ->
+      super options
+      delayed => @validate()
+
   wrapEditor = (Editor) ->
 
     class FeedbackEditor extends Editor
 
       constructor: (options) ->
         super options
-        @on "blur", => @form.fields[@key].validate()
+        _.bindAll @, "validateField"
+        @on "change", @validateField
+        @on "blur", @validateField
+
+      validateField: ->
+        @form.fields[@key].validate()
+
 
   _.map Backbone.Form.editors, (Editor, key) -> Backbone.Form.editors[key] = wrapEditor Editor
 
@@ -28,8 +42,6 @@ Toruzou.addInitializer ->
   setError = Backbone.Form.Field::setError
   Backbone.Form.Field::setError = (message) ->
     setError.call @, "<i class=\"icon-warning-sign icon-inline-prefix\"></i>#{message}"
-
-  delayed = (fn) -> setTimeout fn, 0
 
   class NumberEditor extends Backbone.Form.editors.Text
 
