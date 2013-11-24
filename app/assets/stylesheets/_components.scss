@@ -118,7 +118,6 @@ textarea {
 
 .selectize-control {
     width: 100%;
-    margin-bottom: 1em;
     .selectize-input {
         font-family: $input-font-family;
         font-size: $input-font-size;
@@ -127,6 +126,7 @@ textarea {
         border-color: #ddd;
         box-shadow: none;
         padding: 0.1em 0.5em;
+        margin-bottom: 1em;
         > input {
             display: inline-block;
             @include placeholder(rgba($input-font-color, 0.5));
@@ -146,6 +146,13 @@ textarea {
         &.has-items {
             padding: 0.5em;
         }
+    }
+}
+
+.error {
+    .selectize-input {
+        @include form-error-color;
+        margin-bottom: 0;
     }
 }
 
