@@ -15,7 +15,9 @@ class SignIn.FormView extends Toruzou.Common.FormView
         placeholder: "Your password"
 
   constructor: (options = {}) ->
-    options.model = Toruzou.request "user:credential:new"
+    options =
+      model: Toruzou.request "user:credential:new"
+      validate: false
     super options
 
   signIn: (e) ->

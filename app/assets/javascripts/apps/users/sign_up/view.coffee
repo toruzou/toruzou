@@ -20,8 +20,10 @@ class SignUp.FormView extends Toruzou.Common.FormView
         placeholder: "Re-enter your password"
 
   constructor: ->
-    model = Toruzou.request "user:registration:new"
-    super model: model
+    options = 
+      model: Toruzou.request "user:registration:new"
+      validate: false
+    super options
 
   signUp: (e) ->
     e.preventDefault()

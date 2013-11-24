@@ -12,7 +12,10 @@ class RetrievePassword.FormView extends Toruzou.Common.FormView
 
   constructor: ->
     model = Toruzou.request "user:recovery:new"
-    super model: model
+    options =
+      model: model
+      validate: false
+    super options
 
   retrievePassword: (e) ->
     e.preventDefault()

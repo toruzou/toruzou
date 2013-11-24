@@ -17,9 +17,10 @@ Toruzou.addInitializer ->
 
   class Backbone.Form extends Backbone.Form
 
-    constructor: (options) ->
+    constructor: (options = {}) ->
+      options.validate = true if _.isUndefined options.validate
       super options
-      delayed => @validate()
+      delayed => @validate() if options.validate is true
 
   wrapEditor = (Editor) ->
 
