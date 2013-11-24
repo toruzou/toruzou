@@ -11,7 +11,7 @@ class Common.GridView extends Marionette.ItemView
       collection: @collection
     @paginator = new Backgrid.Extension.Paginator
       collection: @collection
-    @collection.on "backgrid:refresh", @updateAttributes, @
+    @collection.on "backgrid:refresh", @onRefresh, @
 
   render: ->
     @isClosed = false
@@ -22,8 +22,18 @@ class Common.GridView extends Marionette.ItemView
     @triggerMethod "render", @
     @
 
-  updateAttributes: ->
+  onShow: ->
+    @adjustScrollbar()
+
+  onRefresh: ->
+    @updateRowAttributes()
+    @adjustScrollbar "update"
+
+  updateRowAttributes: ->
     _.each @grid.body.rows, (row) -> row.$el.addClass "deleted" if row.model and row.model.get("deletedAt")
+
+  adjustScrollbar: (options) ->
+    @$el.perfectScrollbar options
 
   close: ->
     return if @isClosed

@@ -12,6 +12,7 @@
 //
 //= require jquery/jquery
 //= require jquery-autosize/jquery.autosize
+//= require perfect-scrollbar/src/perfect-scrollbar
 //= require momentjs/moment
 //= require foundation
 //= require handlebars/handlebars.runtime

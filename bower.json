@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~2.0.3",
     "jquery-autosize": "~1.18.0",
+    "perfect-scrollbar": "~0.4.5",
     "underscore": "~1.5.2",
     "underscore.string": "~2.3.3",
     "backbone": "~1.1.0",
