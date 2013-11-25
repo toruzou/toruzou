@@ -11,6 +11,7 @@
  *= require_self
  *= require font-awesome
  *= require foundation_and_overrides
+ *= require perfect-scrollbar/src/perfect-scrollbar
  *= require backgrid/lib/backgrid
  *= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
  *= require backgrid/lib/extensions/paginator/backgrid-paginator
