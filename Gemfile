@@ -5,13 +5,13 @@ gem "therubyracer", :platforms => :ruby
 gem "rails", "4.0.0"
 gem "pg"
 
-gem "sass-rails", "~> 4.0.0"
-gem "uglifier", ">= 1.3.0"
-gem "coffee-rails", "~> 4.0.0"
-gem "handlebars_assets", ">= 0.14.1"
-gem "compass-rails", ">= 2.0.alpha.0"
-gem "zurb-foundation", ">= 4.3.1"
-gem "font-awesome-rails", github: "bokmann/font-awesome-rails", branch: "master"
+gem 'sass-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'handlebars_assets', '>= 0.14.1'
+gem 'compass-rails', '>= 2.0.0'
+gem 'zurb-foundation', '>= 4.3.1'
+gem 'font-awesome-rails', github: "bokmann/font-awesome-rails", branch: "master"
 
 gem "devise", "~> 3.0.3"
 gem "kaminari", "~> 0.14.1"
@@ -28,12 +28,12 @@ group :doc do
 end
 
 group :development, :test do
-  gem "spring"
-  gem "pry"
-  gem "pry-nav"
-  gem "pry-debugger"
-  gem "pry-coolline"
-  gem "pry-rails"
+  gem 'spring'
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'pry-byebug'
+  gem 'pry-coolline'
+  gem 'pry-rails'
 end
 
 # Local Testing Tools
