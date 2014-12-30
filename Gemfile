@@ -12,6 +12,7 @@ gem 'handlebars_assets', '>= 0.14.1'
 gem 'compass-rails', '>= 2.0.0'
 gem 'zurb-foundation', '>= 4.3.1'
 gem 'font-awesome-rails', github: "bokmann/font-awesome-rails", branch: "master"
+gem 'sprockets', '2.11.0'
 
 gem "devise", "~> 3.0.3"
 gem "kaminari", "~> 0.14.1"
