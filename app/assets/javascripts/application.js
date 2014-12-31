@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery/jquery
+//= require jquery-mousewheel/jquery.mousewheel
 //= require jquery-autosize/jquery.autosize
 //= require perfect-scrollbar/src/perfect-scrollbar
 //= require momentjs/moment
