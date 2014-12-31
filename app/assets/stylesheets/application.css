@@ -13,9 +13,9 @@
  *= require foundation_and_overrides
  *= require perfect-scrollbar/src/perfect-scrollbar
  *= require backgrid/lib/backgrid
- *= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
- *= require backgrid/lib/extensions/paginator/backgrid-paginator
- *= require backgrid/lib/extensions/select-all/backgrid-select-all
+ *= require backgrid-moment-cell/backgrid-moment-cell
+ *= require backgrid-paginator/backgrid-paginator
+ *= require backgrid-select-all/backgrid-select-all
  *= require selectize/dist/css/selectize
  *= require pickadate/lib/themes/classic
  *= require pickadate/lib/themes/classic.date

@@ -82,6 +82,10 @@ class Bootstrap.Launcher
       href =
         prop: $(@).prop "href"
         attr: $(@).attr "href"
+
+      # Prevent from moving to Timeline when paginate works.
+      return if href.attr is "#"
+
       base = "#{location.protocol}//#{location.host}#{root}"
       if _.str.startsWith href.prop, base
         e.preventDefault()

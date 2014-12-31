@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery/jquery
+//= require jquery-mousewheel/jquery.mousewheel
 //= require jquery-autosize/jquery.autosize
 //= require perfect-scrollbar/src/perfect-scrollbar
 //= require momentjs/moment
@@ -23,9 +24,9 @@
 //= require backbone-forms/distribution/backbone-forms
 //= require backbone-pageable/lib/backbone-pageable
 //= require backgrid/lib/backgrid
-//= require backgrid/lib/extensions/moment-cell/backgrid-moment-cell
-//= require backgrid/lib/extensions/paginator/backgrid-paginator
-//= require backgrid/lib/extensions/select-all/backgrid-select-all
+//= require backgrid-moment-cell/backgrid-moment-cell
+//= require backgrid-paginator/backgrid-paginator
+//= require backgrid-select-all/backgrid-select-all
 //= require selectize/dist/js/standalone/selectize
 //= require pickadate/lib/picker
 //= require pickadate/lib/picker.date
