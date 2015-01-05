@@ -30,7 +30,7 @@ class Person < Contact
               format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/ }, 
               allow_nil: true, allow_blank: true 
   validates :email, length: { maximum: 200 },  
-              format: { with: /\A[A-Za-z0-9.-_+]+@[A-Za-z0-9.-_+]+\.[A-Za-z0-9.-_+]+\z/ }, 
+              format: { with: /\A[\w.\-+]+@[A-Za-z0-9.-_+]+\.[a-z]+\z/i }, 
               allow_nil: true, allow_blank: true
 
   audit :name, :owner, :address, :remarks, :phone, :email, :organization, :deleted_at
