@@ -22,7 +22,7 @@
 //= require backbone/backbone
 //= require backbone.marionette/lib/backbone.marionette
 //= require backbone-forms/distribution/backbone-forms
-//= require backbone-pageable/lib/backbone-pageable
+//= require backbone.paginator/lib/backbone.paginator
 //= require backgrid/lib/backgrid
 //= require backgrid-moment-cell/backgrid-moment-cell
 //= require backgrid-paginator/backgrid-paginator
