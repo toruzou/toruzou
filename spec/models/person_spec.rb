@@ -114,6 +114,10 @@ describe Person do
         assert_mailto("sample@examplecom", false)
         assert_mailto("sample@example.", false)
       end
+
+      it "allows name with '-'" do
+        assert_mailto("gackt-camui@example.com", true)
+      end
     end
   end
 end
@@ -122,5 +126,6 @@ private
   def assert_mailto(email, is_success_case)
     person = FactoryGirl.build(:person, email: email)
     assert is_success_case ? person.valid? : person.invalid?
-    assert person.errors[:email].any?
+    assert person.errors[:email].any? if !is_success_case
+    assert person.errors[:email].empty? if is_success_case
   end
