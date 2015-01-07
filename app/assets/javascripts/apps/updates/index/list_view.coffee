@@ -159,7 +159,7 @@ class Index.CollectionView extends Marionette.CollectionView
     bottomOfViewport = $window.scrollTop() + $window.height()
     bottomOfCollectionView = @$el.offset().top + @$el.height() - buffer
     if not @isLoading and bottomOfViewport > bottomOfCollectionView
-      if @collection.hasNext()
+      if @collection.hasNextPage()
         @isLoading = true
         @collection.getNextPage
           fetch: true

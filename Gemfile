@@ -11,7 +11,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'handlebars_assets', '>= 0.14.1'
 gem 'compass-rails', '>= 2.0.0'
 gem 'zurb-foundation', '>= 4.3.1'
-gem 'font-awesome-rails', github: "bokmann/font-awesome-rails", branch: "master"
+gem 'font-awesome-rails', '~> 3.2.1.3'
 gem 'sprockets', '2.11.0'
 
 gem "devise", "~> 3.0.3"
