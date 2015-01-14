@@ -31,7 +31,6 @@ end
 group :development, :test do
   gem 'spring'
   gem 'pry'
-  gem 'pry-nav'
   gem 'pry-byebug'
   gem 'pry-coolline'
   gem 'pry-rails'
