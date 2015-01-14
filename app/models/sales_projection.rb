@@ -45,5 +45,9 @@ class SalesProjection < ActiveRecord::Base
     inclusion: { in: 0..(10 ** 11) },
     allow_nil: true,
     allow_blank: true
+  validates :start_date,
+    presence: true
+  validates :end_date,
+    presence: true
 
 end

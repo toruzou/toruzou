@@ -54,12 +54,9 @@ class Backgrid.Extension.LocalDateCell extends Backgrid.Extension.MomentCell
 
   className: "local-date-cell"
 
-  formatter: class extends Backgrid.Extension.MomentFormatter
-    modelInUtc: false
-    displayInUtc: false
-    displayFormat: Toruzou.Common.Formatters.LOCAL_DATE_FORMAT
-    fromRaw: (rawData) ->
-      super if _.str.isBlank(rawData) then null else rawData # workaround
+  modelInUTC: true
+  displayInUTC: false
+  displayFormat: Toruzou.Common.Formatters.LOCAL_DATE_FORMAT
 
 class Backgrid.Extension.LocalDatetimeCell extends Backgrid.Extension.MomentCell
 
