@@ -82,7 +82,18 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def sales_projection_update_params
-          params.require(:sales_projection).permit(:year, :period, :amount, :remarks, :deal_id).merge(:changed_by => current_user)
+          params.require(:sales_projection).permit(
+            :year,
+            :period,
+            :amount,
+            :remarks,
+            :deal_id,
+            :profit_amount,
+            :profit_rate,
+            :start_date,
+            :end_date,
+            :order_date,
+            :obic_no).merge(:changed_by => current_user)
         end
 
     end

@@ -23,6 +23,12 @@ class Model.SalesProjection extends Backbone.Model
     year: undefined
     period: undefined
     amount: undefined
+    startDate: ""
+    endDate: ""
+    orderDate: ""
+    profitAmount: undefined
+    profitRate: undefined
+    obicNo: undefined
     remarks: ""
 
   schema:
@@ -50,6 +56,27 @@ class Model.SalesProjection extends Backbone.Model
     amount:
       type: "PositiveAmount"
       formatter: (value) -> Toruzou.Common.Formatters.amount value
+      validators: [ "required" ]
+    startDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+      validators: [ "required" ]
+    endDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+      validators: [ "required" ]
+    orderDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+    profitAmount:
+      type: "PositiveAmount"
+      formatter: (value) -> Toruzou.Common.Formatters.amount value
+    profitRate:
+      type: "PositiveAmount"
+      formatter: (value) -> Toruzou.Common.Formatters.percent value
+    obicNo:
+      type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
     remarks:
       type: "TextArea"
       formatter: (value) -> Toruzou.Common.Formatters.truncateText value
