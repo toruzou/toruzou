@@ -6,15 +6,6 @@ class Model.Deal extends Backbone.Model
   modelName: "deal"
   projectTypes: _.map Toruzou.Configuration.settings.options.project_types, (value, key) -> { val: key, label: value }
   categories: _.map Toruzou.Configuration.settings.options.deal_categories, (value, key) -> { val: key, label: value }
-  statuses: _.map Toruzou.Configuration.settings.options.deal_statuses, (value, key) -> { val: key, label: value }
-  accuracies: _.map [
-    "0"
-    "25"
-    "50"
-    "75"
-    "90"
-    "100"
-  ], (accuracy) -> { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
 
   defaults:
     name: ""
@@ -28,10 +19,7 @@ class Model.Deal extends Backbone.Model
     salesId: null
     contact: null
     contactId: null
-    status: ""
-    accuracy: null
     startDate: ""
-    orderDate: ""
     acceptDate: ""
     
   schema:
@@ -86,30 +74,7 @@ class Model.Deal extends Backbone.Model
     contact:
       title: "Client Person"
       formatter: (value) -> value?.name
-    status:
-      type: "Selectize"
-      restore: (model) ->
-        status = model.get "status"
-        {
-          value: status
-          data: status
-        }
-      options: @::statuses
-      formatter: (value) -> Toruzou.Common.Formatters.option "deal_statuses", value
-    accuracy:
-      type: "Selectize"
-      restore: (model) ->
-        accuracy = model.get "accuracy"
-        {
-          value: accuracy
-          data: { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
-        }
-      options: @::accuracies
-      formatter: (value) -> Toruzou.Common.Formatters.percent value
     startDate:
-      type: "Datepicker"
-      formatter: (value) -> Toruzou.Common.Formatters.localDate value
-    orderDate:
       type: "Datepicker"
       formatter: (value) -> Toruzou.Common.Formatters.localDate value
     acceptDate:

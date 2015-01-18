@@ -4,6 +4,8 @@ class SalesProjectionSerializer < ActiveModel::Serializer
     :year,
     :period,
     :amount,
+    :accuracy,
+    :status,
     :start_date,
     :end_date,
     :order_date,

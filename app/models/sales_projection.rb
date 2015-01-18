@@ -49,5 +49,13 @@ class SalesProjection < ActiveRecord::Base
     presence: true
   validates :end_date,
     presence: true
+  validates :status,
+    inclusion: Settings.with_defaults[:options][:deal_statuses].keys,
+    allow_nil: true,
+    allow_blank: true
+  validates :accuracy,
+    inclusion: [ 0, 25, 50, 75, 90, 100 ],
+    allow_nil: true,
+    allow_blank: true
 
 end
