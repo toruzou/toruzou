@@ -24,7 +24,6 @@ module Api
         @deals = @deals.match_contact(params[:contact_name]) if params[:contact_name].present?
         @deals = @deals.match_pm(params[:pm_name]) if params[:pm_name].present?
         @deals = @deals.match_sales(params[:sales_name]) if params[:sales_name].present?
-        @deals = @deals.match_status(params[:statuses]) if params[:statuses].present?
         render json: to_pageable(@deals)
       end
 
@@ -91,10 +90,7 @@ module Api
             :pm_id,
             :sales_id,
             :start_date,
-            :order_date,
             :accept_date,
-            :accuracy,
-            :status
           ).merge(:changed_by => current_user)
         end
     end

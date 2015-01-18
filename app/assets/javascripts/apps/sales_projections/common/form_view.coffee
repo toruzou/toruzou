@@ -19,6 +19,12 @@ class Common.FormView extends Toruzou.Common.FormView
     amount:
       editorAttrs:
         placeholder: "Amount"
+    status:
+      editorAttrs:
+        placeholder: "Status"
+    accuracy:
+      editorAttrs:
+        placeholder: "Accuracy"
     startDate:
       editorAttrs:
         placeholder: "Start Date"

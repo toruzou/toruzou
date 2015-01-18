@@ -93,6 +93,8 @@ module Api
             :start_date,
             :end_date,
             :order_date,
+            :accuracy,
+            :status,
             :obic_no).merge(:changed_by => current_user)
         end
 

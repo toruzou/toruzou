@@ -35,9 +35,9 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
         placeholder: "Filter by Deal categories"
     statuses:
       type: "Selectize"
-      options: Toruzou.Model.Deal::statuses
+      options: Toruzou.Model.SalesProjection::statuses
       selectize:
-        maxItems: Toruzou.Model.Deal::statuses.length
+        maxItems: Toruzou.Model.SalesProjection::statuses.length
       editorAttrs:
         placeholder: "Filter by Deal statuses"
     from:
