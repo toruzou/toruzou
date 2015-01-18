@@ -19,6 +19,24 @@ class Common.FormView extends Toruzou.Common.FormView
     amount:
       editorAttrs:
         placeholder: "Amount"
+    startDate:
+      editorAttrs:
+        placeholder: "Start Date"
+    endDate:
+      editorAttrs:
+        placeholder: "End Date"
+    orderDate:
+      editorAttrs:
+        placeholder: "Order Date"
+    profitAmount:
+      editorAttrs:
+        placeholder: "Profit"
+    profitRate:
+      editorAttrs:
+        placeholder: "Profit Rate"
+    obicNo:
+      editorAttrs:
+        placeholder: "OBIC No."
     remarks:
       editorAttrs:
         placeholder: "Remarks"

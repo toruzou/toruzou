@@ -58,6 +58,7 @@ class Deal < ActiveRecord::Base
   }
   
   validates :name, presence: true
+  # validates :amount, presence: true
 
   # TODO decide valid combination of status and accuracy.
   validates :project_type,
