@@ -20,5 +20,6 @@
  *= require pickadate/lib/themes/classic
  *= require pickadate/lib/themes/classic.date
  *= require dropzone/downloads/css/basic
+ *= require override_backgrid
  *= require main
  */
