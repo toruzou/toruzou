@@ -104,7 +104,7 @@ class Model.SalesProjection extends Backbone.Model
       type: "PositiveAmount"
       formatter: (value) -> Toruzou.Common.Formatters.amount value
     profitRate:
-      type: "PositiveAmount"
+      type: "PositivePercentFloat"
       formatter: (value) -> Toruzou.Common.Formatters.percent value
     obicNo:
       type: "TextArea"

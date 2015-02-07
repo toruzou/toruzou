@@ -40,7 +40,7 @@ class Common.FormView extends Marionette.ItemView
   onRequestError: (response) ->
     result = Toruzou.Common.Helpers.parseJSON response
     if response.status is 422
-      @onValidationError result 
+      @onValidationError result
     else
       @$el.find("form").prepend Toruzou.Common.Helpers.Notification.error { message: result.error }
 
@@ -89,7 +89,7 @@ class Common.FilterView extends Common.FormView
 
   constructor: (options) ->
     super options
-    events = 
+    events =
       "click .accordion [data-section-title]": "toggleSection"
       # "click .filter-item": "toggleFilter" # TODO workaround for checkbox, this code is not used for now.
     events = $.extend true, events, @events if @events
