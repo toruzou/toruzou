@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123152228) do
+ActiveRecord::Schema.define(version: 20150118112113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,14 +99,11 @@ ActiveRecord::Schema.define(version: 20131123152228) do
 
   create_table "deals", force: true do |t|
     t.date     "start_date"
-    t.date     "order_date"
     t.date     "accept_date"
-    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
     t.string   "name"
-    t.integer  "accuracy"
     t.integer  "pm_id"
     t.integer  "sales_id"
     t.integer  "contact_id"
@@ -132,10 +129,9 @@ ActiveRecord::Schema.define(version: 20131123152228) do
   add_index "followings", ["user_id"], name: "index_followings_on_user_id", using: :btree
 
   create_table "notes", force: true do |t|
-    t.integer  "subject_id"
-    t.string   "subject_type"
-    t.text     "message"
-    t.datetime "deleted_at"
+    t.integer "subject_id"
+    t.string  "subject_type"
+    t.text    "message"
   end
 
   create_table "participants", force: true do |t|
@@ -155,6 +151,14 @@ ActiveRecord::Schema.define(version: 20131123152228) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "profit_amount"
+    t.float    "profit_rate"
+    t.string   "obic_no"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "order_date"
+    t.string   "status"
+    t.integer  "accuracy"
   end
 
   add_index "sales_projections", ["deal_id"], name: "index_sales_projections_on_deal_id", using: :btree

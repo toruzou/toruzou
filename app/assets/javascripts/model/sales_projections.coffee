@@ -8,6 +8,16 @@ class Model.SalesProjection extends Backbone.Model
   urlRoot: -> Model.endpoint "sales"
   modelName: "sales_projection"
 
+  statuses: _.map Toruzou.Configuration.settings.options.deal_statuses, (value, key) -> { val: key, label: value }
+  accuracies: _.map [
+    "0"
+    "25"
+    "50"
+    "75"
+    "90"
+    "100"
+  ], (accuracy) -> { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
+
   periods: [
     { val: 1, label: "1st half" }
     { val: 2, label: "2nd half" }
@@ -23,6 +33,14 @@ class Model.SalesProjection extends Backbone.Model
     year: undefined
     period: undefined
     amount: undefined
+    status: ""
+    accuracy: null
+    startDate: ""
+    endDate: ""
+    orderDate: ""
+    profitAmount: undefined
+    profitRate: undefined
+    obicNo: undefined
     remarks: ""
 
   schema:
@@ -50,6 +68,47 @@ class Model.SalesProjection extends Backbone.Model
     amount:
       type: "PositiveAmount"
       formatter: (value) -> Toruzou.Common.Formatters.amount value
+      validators: [ "required" ]
+    status:
+      type: "Selectize"
+      restore: (model) ->
+        status = model.get "status"
+        {
+          value: status
+          data: status
+        }
+      options: @::statuses
+      formatter: (value) -> Toruzou.Common.Formatters.option "deal_statuses", value
+    accuracy:
+      type: "Selectize"
+      restore: (model) ->
+        accuracy = model.get "accuracy"
+        {
+          value: accuracy
+          data: { val: accuracy, label: Toruzou.Common.Formatters.percent accuracy }
+        }
+      options: @::accuracies
+      formatter: (value) -> Toruzou.Common.Formatters.percent value
+    startDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+      validators: [ "required" ]
+    endDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+      validators: [ "required" ]
+    orderDate:
+      type: "Datepicker"
+      formatter: (value) -> Toruzou.Common.Formatters.localDate value
+    profitAmount:
+      type: "PositiveAmount"
+      formatter: (value) -> Toruzou.Common.Formatters.amount value
+    profitRate:
+      type: "PositivePercentFloat"
+      formatter: (value) -> Toruzou.Common.Formatters.percent value
+    obicNo:
+      type: "TextArea"
+      formatter: (value) -> Toruzou.Common.Formatters.truncateText value
     remarks:
       type: "TextArea"
       formatter: (value) -> Toruzou.Common.Formatters.truncateText value
@@ -59,7 +118,6 @@ class Model.SalesProjection extends Backbone.Model
     attributes.organization = attributes.deal?.organization
     attributes.projectType = attributes.deal?.project_type
     attributes.category = attributes.deal?.category
-    attributes.status = attributes.deal?.status
     attributes
 
 

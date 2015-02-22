@@ -28,21 +28,12 @@ class Common.FormView extends Toruzou.Common.FormView
     salesId:
       editorAttrs:
         placeholder: "Sales Person"
-    status:
-      editorAttrs:
-        placeholder: "Status"
     amount:
       editorAttrs:
         placeholder: "Amount"
-    accuracy:
-      editorAttrs:
-        placeholder: "Accuracy"
     startDate:
       editorAttrs:
         placeholder: "Start Date"
-    orderDate:
-      editorAttrs:
-        placeholder: "Order Date"
     acceptDate:
       editorAttrs:
         placeholder: "Accept Date"

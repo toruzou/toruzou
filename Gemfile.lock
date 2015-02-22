@@ -159,8 +159,6 @@ GEM
       pry (~> 0.10)
     pry-coolline (0.2.5)
       coolline (~> 0.5)
-    pry-nav (0.2.4)
-      pry (>= 0.9.10, < 0.11.0)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
@@ -277,7 +275,6 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-coolline
-  pry-nav
   pry-rails
   rails (= 4.0.0)
   rails-settings-cached (= 0.3.1)

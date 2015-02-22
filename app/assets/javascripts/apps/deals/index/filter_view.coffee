@@ -50,13 +50,6 @@ class Index.FilteringCondition extends Toruzou.Common.FilteringCondition
       type: "Text"
       editorAttrs:
         placeholder: "Filter by Sales Person"
-    statuses:
-      type: "Selectize"
-      options: Toruzou.Model.Deal::statuses
-      selectize:
-        maxItems: Toruzou.Model.Deal::statuses.length
-      editorAttrs:
-        placeholder: "Filter by Statuses"
     includeDeleted:
       type: "Checkbox"
       editorAttrs:

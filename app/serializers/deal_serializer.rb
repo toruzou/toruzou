@@ -1,5 +1,23 @@
 class DealSerializer < ActiveModel::Serializer
-  attributes :class_name, :id, :name, :project_type, :category, :organization, :organization_id, :contact, :contact_id, :pm, :pm_id, :sales, :sales_id, :start_date, :order_date, :accept_date, :accuracy, :status, :following, :total_amount, :updated_at, :deleted_at
+  attributes :class_name,
+    :id,
+    :name,
+    :project_type,
+    :category,
+    :organization,
+    :organization_id,
+    :contact,
+    :contact_id,
+    :pm,
+    :pm_id,
+    :sales,
+    :sales_id,
+    :start_date,
+    :accept_date,
+    :following,
+    :total_amount,
+    :updated_at,
+    :deleted_at
   def class_name
     object.class.name
   end
